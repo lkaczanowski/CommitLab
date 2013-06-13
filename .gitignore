@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/KRD.RepoBrowser.Data/bin/Debug
+/KRD.RepoBrowser.Data/obj/Debug
+/KRD.RepoBrowser.Data.Tests/bin/Debug
+/KRD.RepoBrowser.Data.Tests/obj/Debug
+/KRD.RepoBrowser.Web/obj/Debug
