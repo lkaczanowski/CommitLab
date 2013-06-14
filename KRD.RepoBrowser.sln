@@ -19,19 +19,33 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		KRD_Debug|Any CPU = KRD_Debug|Any CPU
+		KRD_Release|Any CPU = KRD_Release|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.KRD_Debug|Any CPU.ActiveCfg = KRD_Debug|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.KRD_Debug|Any CPU.Build.0 = KRD_Debug|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.KRD_Release|Any CPU.ActiveCfg = KRD_Release|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.KRD_Release|Any CPU.Build.0 = KRD_Release|Any CPU
 		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.KRD_Debug|Any CPU.ActiveCfg = KRD_Debug|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.KRD_Debug|Any CPU.Build.0 = KRD_Debug|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.KRD_Release|Any CPU.ActiveCfg = KRD_Release|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.KRD_Release|Any CPU.Build.0 = KRD_Release|Any CPU
 		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.KRD_Debug|Any CPU.ActiveCfg = KRD_Debug|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.KRD_Debug|Any CPU.Build.0 = KRD_Debug|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.KRD_Release|Any CPU.ActiveCfg = KRD_Release|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.KRD_Release|Any CPU.Build.0 = KRD_Release|Any CPU
 		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
