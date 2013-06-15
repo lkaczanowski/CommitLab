@@ -8,5 +8,11 @@ namespace KRD.RepoBrowser.Data.Query.Interfaces
   public interface IChangesetQuery
   {
     IEnumerable<Changeset> Get(ChangesetFilter filter);
+
+    IEnumerable<string> GetUsernames();
+
+    IEnumerable<string> GetRepositoryNames();
+
+    IEnumerable<string> GetBranchNames();
   }
 }

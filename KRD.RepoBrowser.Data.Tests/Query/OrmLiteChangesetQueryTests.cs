@@ -134,6 +134,36 @@ namespace KRD.RepoBrowser.Data.Tests.Query
       Assert.AreEqual(1, changesets.Count());
     }
 
+    [Test]
+    public void GetUsernames_should_get_list_of_unique_usernames()
+    {
+      IEnumerable<string> usernames = _changesetQuery.GetUsernames();
+
+      Assert.NotNull(usernames);
+
+      Assert.AreEqual(2, usernames.Count());
+    }
+    
+    [Test]
+    public void GetBranchNames_should_get_list_of_unique_usernames()
+    {
+      IEnumerable<string> branchNames = _changesetQuery.GetBranchNames();
+
+      Assert.NotNull(branchNames);
+
+      Assert.AreEqual(2, branchNames.Count());
+    }
+    
+    [Test]
+    public void GetRepositoryName_should_get_list_of_unique_usernames()
+    {
+      IEnumerable<string> repositoryNames = _changesetQuery.GetRepositoryNames();
+
+      Assert.NotNull(repositoryNames);
+
+      Assert.AreEqual(2, repositoryNames.Count());
+    }
+
     private void PrepareTestData()
     {
       using (var db = _connectionFactory.OpenDbConnection())

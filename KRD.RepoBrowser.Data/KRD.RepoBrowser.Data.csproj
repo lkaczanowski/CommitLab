@@ -74,6 +74,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ReflectionHelper.cs" />
     <Compile Include="Models\Changeset.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Query\ChangesetPredicateComposer.cs" />
