@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\Services\Changeset\ChangeSetService.cs" />
+    <Compile Include="Api\Services\Changeset\Dto\ChangeSetColumnRequest.cs" />
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetRequest.cs" />
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetResponse.cs" />
     <Compile Include="App_Start\AppHost.cs" />

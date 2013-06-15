@@ -5,6 +5,8 @@ using KRD.RepoBrowser.Data.Query;
 using KRD.RepoBrowser.Data.Query.Interfaces;
 using KRD.RepoBrowser.Web.Api.Services.Changeset;
 
+using ServiceStack.CacheAccess;
+using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Mvc;
 using ServiceStack.OrmLite;
 using ServiceStack.Text;
@@ -45,6 +47,8 @@ namespace KRD.RepoBrowser.Web.App_Start
                                                new OrmLiteConnectionFactory(connectionString, SqlServerDialect.Provider));
 
       container.RegisterAs<OrmLiteChangesetQuery, IChangesetQuery>();
+
+      container.Register<ICacheClient>(new MemoryCacheClient());
     }
   }
 }

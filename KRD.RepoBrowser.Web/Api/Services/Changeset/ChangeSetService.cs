@@ -7,6 +7,7 @@ using KRD.RepoBrowser.Data.Query.Interfaces;
 using KRD.RepoBrowser.Web.Api.Services.Changeset.Dto;
 
 using ServiceStack.Common;
+using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 
 namespace KRD.RepoBrowser.Web.Api.Services.Changeset
@@ -14,6 +15,8 @@ namespace KRD.RepoBrowser.Web.Api.Services.Changeset
   public class ChangesetService : Service
   {
     private readonly IChangesetQuery _changesetQuery;
+
+    private Dictionary<string, Func<object>> _repoRunner;
 
     public ChangesetService(IChangesetQuery changesetQuery)
     {
@@ -23,6 +26,8 @@ namespace KRD.RepoBrowser.Web.Api.Services.Changeset
       }
 
       _changesetQuery = changesetQuery;
+
+      InitializeRepoRunner();
     }
 
     public object Post(ChangesetRequest request)
@@ -36,9 +41,40 @@ namespace KRD.RepoBrowser.Web.Api.Services.Changeset
 
       IEnumerable<Data.Models.Changeset> changesets = _changesetQuery.Get(changesetFilter);
 
-      List<ChangesetResponse> responses = changesets.Select(changeset => changeset.TranslateTo<ChangesetResponse>()).ToList();
+      List<ChangesetResponse> responses =
+        changesets.Select(changeset => changeset.TranslateTo<ChangesetResponse>()).ToList();
 
       return responses;
+    }
+
+    public object Get(ChangeSetColumnRequest request)
+    {
+      if (request == null || string.IsNullOrWhiteSpace(request.ColumnName))
+      {
+        throw new ArgumentNullException("request");
+      }
+
+      string columnName = request.ColumnName.ToLower();
+
+      if (_repoRunner.ContainsKey(columnName))
+      {
+        return RequestContext.ToOptimizedResultUsingCache(base.Cache, columnName, () => _repoRunner[columnName]());
+      }
+
+      return null;
+    }
+
+    private void InitializeRepoRunner()
+    {
+      _repoRunner = new Dictionary<string, Func<object>>
+                      {
+                        { "username", () => _changesetQuery.GetUsernames() }, 
+                        { "branchnames", () => _changesetQuery.GetBranchNames() }, 
+                        {
+                          "repositorynames", 
+                          () => _changesetQuery.GetRepositoryNames()
+                        }
+                      };
     }
   }
 }
