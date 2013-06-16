@@ -4,6 +4,7 @@ using System.Linq;
 
 using KRD.RepoBrowser.Data.Query.Filters;
 using KRD.RepoBrowser.Data.Query.Interfaces;
+using KRD.RepoBrowser.Web.Api.Helpers;
 using KRD.RepoBrowser.Web.Api.Services.Changeset.Dto;
 
 using ServiceStack.Common;
@@ -16,7 +17,7 @@ namespace KRD.RepoBrowser.Web.Api.Services.Changeset
   {
     private readonly IChangesetQuery _changesetQuery;
 
-    private Dictionary<string, Func<object>> _repoRunner;
+    private Dictionary<string, Func<object>> _columnSwitch;
 
     public ChangesetService(IChangesetQuery changesetQuery)
     {
@@ -26,14 +27,18 @@ namespace KRD.RepoBrowser.Web.Api.Services.Changeset
       }
 
       _changesetQuery = changesetQuery;
-
-      InitializeRepoRunner();
     }
 
     public object Post(ChangesetRequest request)
     {
       if (request == null)
       {
+        throw new ArgumentNullException("request");
+      }
+
+      if (request.ArePropertiesNull())
+      {
+        // TODO: change this to more appriopriate exception
         throw new ArgumentNullException("request");
       }
 
@@ -54,19 +59,21 @@ namespace KRD.RepoBrowser.Web.Api.Services.Changeset
         throw new ArgumentNullException("request");
       }
 
+      InitializeColumnSwitch();
+
       string columnName = request.ColumnName.ToLower();
 
-      if (_repoRunner.ContainsKey(columnName))
+      if (_columnSwitch.ContainsKey(columnName))
       {
-        return RequestContext.ToOptimizedResultUsingCache(base.Cache, columnName, () => _repoRunner[columnName]());
+        return RequestContext.ToOptimizedResultUsingCache(base.Cache, columnName, new TimeSpan(24, 0, 0), () => _columnSwitch[columnName]());
       }
 
       return null;
     }
 
-    private void InitializeRepoRunner()
+    private void InitializeColumnSwitch()
     {
-      _repoRunner = new Dictionary<string, Func<object>>
+      _columnSwitch = new Dictionary<string, Func<object>>
                       {
                         { "username", () => _changesetQuery.GetUsernames() }, 
                         { "branchnames", () => _changesetQuery.GetBranchNames() }, 

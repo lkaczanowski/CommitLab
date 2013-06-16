@@ -140,6 +140,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\Helpers\ValidationExtensions.cs" />
     <Compile Include="Api\Services\Changeset\ChangeSetService.cs" />
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetColumnRequest.cs" />
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetRequest.cs" />
