@@ -1,8 +1,7 @@
 using System.Web.Optimization;
 
 [assembly:
-  WebActivatorEx.PostApplicationStartMethod(typeof(KRD.RepoBrowser.Web.App_Start.BundleConfig), 
-    "RegisterBundles")]
+  WebActivatorEx.PostApplicationStartMethod(typeof(KRD.RepoBrowser.Web.App_Start.BundleConfig), "RegisterBundles")]
 
 namespace KRD.RepoBrowser.Web.App_Start
 {
@@ -11,12 +10,20 @@ namespace KRD.RepoBrowser.Web.App_Start
     public static void RegisterBundles()
     {
       // scripts
-      BundleTable.Bundles.Add(new ScriptBundle("~/scripts/base").Include("~/Scripts/jquery-{version}.js", "~/Scripts/bootstrap*"));
-      BundleTable.Bundles.Add(new ScriptBundle("~/scripts/modernizr-respond").Include("~/Scripts/modernizr-{version}.js", "~/Scripts/respond.js"));
+      BundleTable.Bundles.Add(
+        new ScriptBundle("~/scripts/base").Include(
+          "~/Scripts/jquery-{version}.js", 
+          "~/Scripts/bootstrap*", 
+          "~/Scripts/knockout-{version}.js", 
+          "~/Scripts/knockout-bootstrap.js"));
+      BundleTable.Bundles.Add(
+        new ScriptBundle("~/scripts/modernizr-respond").Include(
+          "~/Scripts/modernizr-{version}.js", "~/Scripts/respond.js"));
 
       // css
       BundleTable.Bundles.Add(
-        new StyleBundle("~/content/base").Include("~/Content/bootstrap.css", "~/Content/bootstrap-responsive.css", "~/Content/main.css"));
+        new StyleBundle("~/content/base").Include(
+          "~/Content/bootstrap.css", "~/Content/bootstrap-responsive.css", "~/Content/main.css"));
     }
   }
 }
