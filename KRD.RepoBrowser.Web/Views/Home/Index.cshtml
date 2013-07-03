@@ -4,10 +4,32 @@
 }
 
 <div class="container">
-
   <div class="hero-unit">
     <h1>KRD SourceMiner</h1>
     <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
+    <div class="row">
+      <form class="form-horizontal">
+        <div class="span6">
+          <div class="control-group">
+            <label class="control-label" for="dateFrom">Data od</label>
+            <div class="controls">
+              <input type="text" id="dateFrom" value=""/>
+              <button class="btn-danger">X</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="dateTo">Data od</label>
+            <div class="controls">
+              <input type="text" id="dateTo" value=""/>
+              <button class="btn-danger">X</button>
+            </div>
+          </div>
+        </div>
+        <div class="span6">
+          
+        </div>
+      </form>
+    </div>
     <p><a class="btn btn-primary btn-large">Szukaj &raquo;</a></p>
   </div>
 
@@ -29,11 +51,9 @@
       <p><a class="btn" href="#">View details &raquo;</a></p>
     </div>
   </div>
-
-  <hr>
-
-  <footer>
-    <p>&copy; Company 2012</p>
-  </footer>
-
 </div> <!-- /container -->
+
+@section scripts
+{
+  <script type="text/javascript" src="@Url.Content("~/Scripts/main.js")"></script>
+}

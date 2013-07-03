@@ -15,7 +15,8 @@ namespace KRD.RepoBrowser.Web.App_Start
           "~/Scripts/jquery-{version}.js", 
           "~/Scripts/bootstrap*", 
           "~/Scripts/knockout-{version}.js", 
-          "~/Scripts/knockout-bootstrap.js"));
+          "~/Scripts/knockout-bootstrap.js", 
+          "~/Scripts/datepicker.js"));
       BundleTable.Bundles.Add(
         new ScriptBundle("~/scripts/modernizr-respond").Include(
           "~/Scripts/modernizr-{version}.js", "~/Scripts/respond.js"));
@@ -23,7 +24,10 @@ namespace KRD.RepoBrowser.Web.App_Start
       // css
       BundleTable.Bundles.Add(
         new StyleBundle("~/content/base").Include(
-          "~/Content/bootstrap.css", "~/Content/bootstrap-responsive.css", "~/Content/main.css"));
+          "~/Content/bootstrap.css", 
+          "~/Content/bootstrap-responsive.css", 
+          "~/Content/datepicker.css", 
+          "~/Content/main.css"));
     }
   }
 }
