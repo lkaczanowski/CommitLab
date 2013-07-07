@@ -32,7 +32,7 @@ namespace KRD.RepoBrowser.Web.App_Start
     public override void Configure(Funq.Container container)
     {
       JsConfig.EmitCamelCaseNames = true;
-      // JsConfig.DateHandler = JsonDateHandler.ISO8601;
+      JsConfig.DateHandler = JsonDateHandler.ISO8601;
 
       RegisterIoC(container);
 

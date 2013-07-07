@@ -42,7 +42,7 @@ namespace KRD.RepoBrowser.Web.Api.Services.Changeset
         throw new ArgumentNullException("request");
       }
 
-      var changesetFilter = request.TranslateTo<ChangesetFilter>();
+      var changesetFilter = request.ToChangesetFilter();
 
       IEnumerable<Data.Models.Changeset> changesets = _changesetQuery.Get(changesetFilter);
 
