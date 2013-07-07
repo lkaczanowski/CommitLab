@@ -63,8 +63,9 @@
       </fieldset>
     </form>
   </div>
-  <p><a class="btn btn-primary btn-large">Szukaj &raquo;</a></p>
+  <p><a class="btn btn-primary btn-large" id="submitData">Szukaj &raquo;</a></p>
 </div>
+  <div id="returnedData"></div>
 
 @section scripts
 {
@@ -97,6 +98,21 @@
     ko.applyBindings(userNameViewModel, document.getElementById('userNameViewModel'));
     ko.applyBindings(branchNameViewModel, document.getElementById('branchNameViewModel'));
     ko.applyBindings(repositoryNameViewModel, document.getElementById('repositoryNameViewModel'));
+
+    $('#submitData').click(function(ev) {
+      ev.preventDefault();
+
+      var model = ko.toJSON(changesetFilter);
+      $.ajax({
+        type: 'POST',
+        contentType: 'application/json',
+        url: '/api/changeset',
+        data: model
+      });
+//      $.post('/api/changeset', model, function(returnedData) {
+//        $('#returnedData').innerHTML(returnedData);
+//      });
+    });
 
   </script>
 }
