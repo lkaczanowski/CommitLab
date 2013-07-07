@@ -16,6 +16,7 @@ namespace KRD.RepoBrowser.Web.App_Start
           "~/Scripts/bootstrap*", 
           "~/Scripts/knockout-{version}.js", 
           "~/Scripts/knockout-bootstrap.js", 
+          "~/Scripts/knockout-postbox.js",
           "~/Scripts/datepicker.js"));
       BundleTable.Bundles.Add(
         new ScriptBundle("~/scripts/modernizr-respond").Include(

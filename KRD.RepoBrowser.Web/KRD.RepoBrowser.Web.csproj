@@ -190,11 +190,16 @@
     <Content Include="Scripts\knockout-2.2.1.debug.js" />
     <Content Include="Scripts\knockout-2.2.1.js" />
     <Content Include="Scripts\knockout-bootstrap.js" />
+    <Content Include="Scripts\knockout-postbox.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\ViewModels\ChangesetViewModel.js" />
+    <Content Include="Scripts\ViewModels\BranchNameViewModel.js" />
+    <Content Include="Scripts\ViewModels\ChangesetFilter.js" />
+    <Content Include="Scripts\ViewModels\DatesViewModel.js" />
+    <Content Include="Scripts\ViewModels\RepositoryNameViewModel.js" />
+    <Content Include="Scripts\ViewModels\UserNameViewModel.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
