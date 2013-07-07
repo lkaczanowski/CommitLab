@@ -4,56 +4,60 @@
 }
 
 <div class="container">
-  <div class="hero-unit">
-    <h1>KRD SourceMiner</h1>
-    <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
-    <div class="row">
-      <form class="form-horizontal">
-        <div class="span6">
-          <div class="control-group">
-            <label class="control-label" for="dateFrom">Data od</label>
-            <div class="controls">
-              <input type="text" id="dateFrom" value=""/>
-              <button class="btn-danger">X</button>
-            </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="dateTo">Data od</label>
-            <div class="controls">
-              <input type="text" id="dateTo" value=""/>
-              <button class="btn-danger">X</button>
-            </div>
-          </div>
-        </div>
-        <div class="span6">
-          
-        </div>
-      </form>
-    </div>
-    <p><a class="btn btn-primary btn-large">Szukaj &raquo;</a></p>
-  </div>
-
-  <!-- Example row of columns -->
+<div class="hero-unit">
+  <h1>KRD SourceMiner</h1>
+  <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
   <div class="row">
-    <div class="span4">
-      <h2>Heading</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn" href="#">View details &raquo;</a></p>
-    </div>
-    <div class="span4">
-      <h2>Heading</h2>
-      <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-      <p><a class="btn" href="#">View details &raquo;</a></p>
-    </div>
-    <div class="span4">
-      <h2>Heading</h2>
-      <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-      <p><a class="btn" href="#">View details &raquo;</a></p>
-    </div>
+    <form id="dateInput">
+      <fieldset>
+        <legend>Zakres dat wyszukania</legend>
+        <label>Data od</label>
+        <div class="input-append">
+          <input class="span2" id="dateFrom" type="text"/>
+          <button type="button" class="btn">X</button>
+        </div>
+        <label>Data do</label>
+        <div class="input-append">
+          <input class="span2" id="dateTo" type="text"/>
+          <button type="button" class="btn">X</button>
+        </div>
+      </fieldset>
+    </form>
+    <form id="userNameInput">
+      <fieldset>
+        <legend>Użytkownicy do wyszukania</legend>
+        <div class="input-append">
+          <input type="text" class="span2" id="userNameToAdd" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
+          <button type="button" class="btn" data-bind="click: addUserName, enable: UserNameToAdd().length > 0">Dodaj</button>
+        </div>
+        <select multiple="multiple" height="5" data-bind="options: ChangesetFilter.UserNames, selectedOptions: UserNameSelected"> </select>
+        <button data-bind="click: removeUserName, enable: UserNameSelected().length > 0">Usuń usera</button>
+      </fieldset>
+    </form>
   </div>
-</div> <!-- /container -->
+  <p><a class="btn btn-primary btn-large">Szukaj &raquo;</a></p>
+</div>
 
 @section scripts
 {
-  <script type="text/javascript" src="@Url.Content("~/Scripts/main.js")"></script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/main.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/ChangesetViewModel.js")"> </script>
+  <script type="text/javascript">
+    var viewModel = new ChangesetViewModel();
+
+    $.getJSON('/api/changeset/usernames', function(data, status) {
+      viewModel.loadUserNameList(data);
+    });
+
+    $.getJSON('/api/changeset/branchnames', function(data, status) {
+      viewModel.loadBranchNameList(data);
+    });
+
+    $.getJSON('/api/changeset/repositorynames', function(data, status) {
+      viewModel.loadRepositoryNameList(data);
+    });
+
+    ko.applyBindings(viewModel);
+
+  </script>
 }

@@ -75,7 +75,7 @@ namespace KRD.RepoBrowser.Web.Api.Services.Changeset
     {
       _columnSwitch = new Dictionary<string, Func<object>>
                       {
-                        { "username", () => _changesetQuery.GetUsernames() }, 
+                        { "usernames", () => _changesetQuery.GetUsernames() }, 
                         { "branchnames", () => _changesetQuery.GetBranchNames() }, 
                         {
                           "repositorynames", 
