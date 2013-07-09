@@ -4,69 +4,75 @@
 }
 
 <div class="container">
-<div class="hero-unit">
-  <h1>KRD SourceMiner</h1>
-  <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
-  <div class="row" id="datesViewModel">
-    <form >
-      <fieldset>
-        <legend>Zakres dat wyszukania</legend>
-        <label>Data od</label>
-        <div class="input-append">
-          <input class="span2" autocomplete="off" id="dateFrom" readonly="" type="text" data-bind="datepicker: DateFrom"/>
-          <button type="button" class="btn" data-bind="click: clearDateFrom">X</button>
-        </div>
-        <label>Data do</label>
-        <div class="input-append">
-          <input class="span2" autocomplete="off" id="dateTo" readonly="" type="text" data-bind="datepicker: DateTo"/>
-          <button type="button" class="btn" data-bind="click: clearDateTo">X</button>
-        </div>
-      </fieldset>
-    </form>
+  <div class="hero-unit2 row">
+    <h1>KRD SourceMiner</h1>
+    <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
   </div>
-  <div class="row" id="userNameViewModel">
-    <form>
-      <fieldset>
-        <legend>Użytkownicy do wyszukania</legend>
-        <div class="input-append">
-          <input type="text" class="span2" id="userNameToAdd" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
-          <button type="button" class="btn" data-bind="click: addUserName, enable: UserNameToAdd().length > 0">Dodaj</button>
-        </div>
-        <select multiple="multiple" height="5" data-bind="options: UserNames, selectedOptions: UserNameSelected"> </select>
-        <button data-bind="click: removeUserName, enable: UserNameSelected().length > 0">Usuń usera</button>
-      </fieldset>
-    </form>
+  <div class="row">
+    <div class="span3 span3-no-margin" id="datesViewModel">
+      <form >
+        <fieldset>
+          <legend>Daty</legend>
+          <label>Data od</label>
+          <div class="input-append">
+            <input class="span2" autocomplete="off" id="dateFrom" readonly="" type="text" data-bind="datepicker: DateFrom"/>
+            <button type="button" class="btn btn-danger" data-bind="click: clearDateFrom">x</button>
+          </div>
+          <label>Data do</label>
+          <div class="input-append">
+            <input class="span2" autocomplete="off" id="dateTo" readonly="" type="text" data-bind="datepicker: DateTo"/>
+            <button type="button" class="btn btn-danger" data-bind="click: clearDateTo">x</button>
+          </div>
+        </fieldset>
+      </form>
+    </div>
+    <div class="span3 span3-no-margin" id="userNameViewModel">
+      <form>
+        <fieldset>
+          <legend>Użytkownicy</legend>
+          <div class="input-append">
+            <input type="text" class="span2" id="userNameToAdd" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
+            <button type="button" class="btn btn-success" data-bind="click: addUserName, enable: UserNameToAdd().length > 0">+</button>
+            <button type="button" class="btn btn-danger" data-bind="click: removeUserName, enable: UserNameSelected().length > 0">-</button>
+          </div>
+          <br />
+          <select multiple="multiple" class="span2" height="5" data-bind="options: UserNames, selectedOptions: UserNameSelected"> </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="span3 span3-no-margin" id="branchNameViewModel">
+      <form >
+        <fieldset>
+          <legend>Gałęzie</legend>
+          <div class="input-append">
+            <input type="text" class="span2" id="branchNameToAdd" data-bind='typeahead: BranchNameList, value: BranchNameToAdd, valueUpdate: "afterkeydown"' />
+            <button type="button" class="btn btn-success" data-bind="click: addBranchName, enable: BranchNameToAdd().length > 0">+</button>
+            <button type="button" class="btn btn-danger" data-bind="click: removeBranchName, enable: BranchNameSelected().length > 0">-</button>
+          </div>
+          <br />
+          <select multiple="multiple" class="span2" height="5" data-bind="options: BranchNames, selectedOptions: BranchNameSelected"> </select>
+        </fieldset>
+      </form>
+    </div>
+    <div class="span3 span3-no-margin" id="repositoryNameViewModel">
+      <form>
+        <fieldset>
+          <legend>Repozytoria</legend>
+          <div class="input-append">
+            <input type="text" class="span2" id="repositoryNameToAdd" data-bind='typeahead: RepositoryNameList, value: RepositoryNameToAdd, valueUpdate: "afterkeydown"' />
+            <button type="button" class="btn btn-success" data-bind="click: addRepositoryName, enable: RepositoryNameToAdd().length > 0">+</button>
+            <button type="button" class="btn btn-danger" data-bind="click: removeRepositoryName, enable: RepositoryNameSelected().length > 0">-</button>
+          </div>
+          <br />
+          <select class="span2" multiple="multiple" height="5" data-bind="options: RepositoryNames, selectedOptions: RepositoryNameSelected"> </select>
+        </fieldset>
+      </form>
+    </div>
   </div>
-  <div class="row" id="branchNameViewModel">
-    <form >
-      <fieldset>
-        <legend>Gałęzie do wyszukania</legend>
-        <div class="input-append">
-          <input type="text" class="span2" id="branchNameToAdd" data-bind='typeahead: BranchNameList, value: BranchNameToAdd, valueUpdate: "afterkeydown"' />
-          <button type="button" class="btn" data-bind="click: addBranchName, enable: BranchNameToAdd().length > 0">Dodaj</button>
-        </div>
-        <select multiple="multiple" height="5" data-bind="options: BranchNames, selectedOptions: BranchNameSelected"> </select>
-        <button data-bind="click: removeBranchName, enable: BranchNameSelected().length > 0">Usuń usera</button>
-      </fieldset>
-    </form>
+  <div class="row">
+    <p><a class="btn btn-primary btn-large" id="submitData">Szukaj &raquo;</a></p>
   </div>
-  <div class="row" id="repositoryNameViewModel">
-    <form>
-      <fieldset>
-        <legend>Repozytoria do wyszukania</legend>
-        <div class="input-append">
-          <input type="text" class="span2" id="repositoryNameToAdd" data-bind='typeahead: RepositoryNameList, value: RepositoryNameToAdd, valueUpdate: "afterkeydown"' />
-          <button type="button" class="btn" data-bind="click: addRepositoryName, enable: RepositoryNameToAdd().length > 0">Dodaj</button>
-        </div>
-        <select multiple="multiple" height="5" data-bind="options: RepositoryNames, selectedOptions: RepositoryNameSelected"> </select>
-        <button data-bind="click: removeRepositoryName, enable: RepositoryNameSelected().length > 0">Usuń usera</button>
-      </fieldset>
-    </form>
-  </div>
-  <p><a class="btn btn-primary btn-large" id="submitData">Szukaj &raquo;</a></p>
 </div>
-  <div id="returnedData"></div>
-
 @section scripts
 {
   <script type="text/javascript" src="@Url.Content("~/Scripts/main.js")"> </script>
