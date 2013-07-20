@@ -63,6 +63,7 @@ namespace KRD.RepoBrowser.Data.Query
 
         usernamePredicate = usernamePredicate.Or(p => p.Username == usernameTemp);
       }
+
       return usernamePredicate;
     }
 

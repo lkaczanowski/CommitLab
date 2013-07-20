@@ -17,7 +17,7 @@ namespace KRD.RepoBrowser.Data.Query
 
     private readonly IDbConnectionFactory _dbConnectionFactory;
 
-    private readonly IPredicateComposer<Changeset, ChangesetFilter> _predicateComposer; 
+    private readonly IPredicateComposer<Changeset, ChangesetFilter> _predicateComposer;
 
     public OrmLiteChangesetQuery(IDbConnectionFactory dbConnectionFactory)
     {
@@ -42,7 +42,11 @@ namespace KRD.RepoBrowser.Data.Query
       {
         var predicate = _predicateComposer.Compose(filter);
 
-        IEnumerable<Changeset> changesets = db.Select<Changeset>(predicate);
+        bool hasNoFilter = predicate.Body.ToString().Equals("True");
+
+        IEnumerable<Changeset> changesets = hasNoFilter
+                                              ? db.Select<Changeset>()
+                                              : db.Select<Changeset>(predicate);
 
         return changesets;
       }
