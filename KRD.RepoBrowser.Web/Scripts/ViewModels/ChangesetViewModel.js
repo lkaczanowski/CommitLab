@@ -7,7 +7,11 @@
 
     this.gridOptions = {
       data: _this.Changesets,
-      showGroupPanel: true
+      showGroupPanel: true,
+      columnDefs: [{ field: 'timestamp', displayName: 'Data' },
+        { field: 'username', displayName: 'Użytkownik' },
+        { field: 'branchName', displayName: 'Gałęź' },
+        { field: 'repositoryName', displayName: 'Repozytorium' }]
     };
 
     this.getChangesets = function() {
