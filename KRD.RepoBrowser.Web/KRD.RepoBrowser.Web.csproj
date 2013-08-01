@@ -190,6 +190,7 @@
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="Content\js\ss-validation.js" />
+    <Content Include="Content\KoGrid.css" />
     <Content Include="Content\main.css" />
     <Content Include="default.htm" />
     <Content Include="Global.asax" />
@@ -205,13 +206,17 @@
     <Content Include="Scripts\knockout-2.2.1.js" />
     <Content Include="Scripts\knockout-bootstrap.js" />
     <Content Include="Scripts\knockout-postbox.js" />
+    <Content Include="Scripts\koGrid-2.1.1.debug.js" />
+    <Content Include="Scripts\koGrid-2.1.1.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ViewModels\BranchNameViewModel.js" />
     <Content Include="Scripts\ViewModels\ChangesetFilter.js" />
+    <Content Include="Scripts\ViewModels\ChangesetViewModel.js" />
     <Content Include="Scripts\ViewModels\DatesViewModel.js" />
+    <Content Include="Scripts\ViewModels\init.js" />
     <Content Include="Scripts\ViewModels\RepositoryNameViewModel.js" />
     <Content Include="Scripts\ViewModels\UserNameViewModel.js" />
     <Content Include="Web.config" />
