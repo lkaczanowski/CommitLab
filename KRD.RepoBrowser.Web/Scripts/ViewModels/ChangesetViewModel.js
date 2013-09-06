@@ -10,7 +10,7 @@
       showGroupPanel: true,
       columnDefs: [{ field: 'timestamp', displayName: 'Data' },
         { field: 'username', displayName: 'Użytkownik' },
-        { field: 'branchName', displayName: 'Gałęź' },
+        { field: 'branchName', displayName: 'Gałąź' },
         { field: 'repositoryName', displayName: 'Repozytorium' }]
     };
 

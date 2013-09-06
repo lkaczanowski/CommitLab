@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using KRD.RepoBrowser.Data.Query.Filters;
 using KRD.RepoBrowser.Data.Query.Interfaces;
 using KRD.RepoBrowser.Web.Api.Helpers;
 using KRD.RepoBrowser.Web.Api.Services.Changeset.Dto;

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 
 using KRD.RepoBrowser.Data.Models;
-
-using ServiceStack.OrmLite;
 
 namespace KRD.RepoBrowser.Data.Tests.Utils
 {
@@ -14,10 +11,10 @@ namespace KRD.RepoBrowser.Data.Tests.Utils
     {
       return new Changeset
                {
-                 BranchName = branchName, 
-                 ChangeId = Guid.NewGuid().ToString(), 
-                 RepositoryName = repositoryName, 
-                 Username = userName, 
+                 BranchName = branchName,
+                 ChangeId = Guid.NewGuid().ToString(),
+                 RepositoryName = repositoryName,
+                 Username = userName,
                  Timestamp = timestamp
                };
     }

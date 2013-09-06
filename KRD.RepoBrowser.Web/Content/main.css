@@ -11,11 +11,19 @@
   background-color: #3C454F;
 }
 
+#forms {
+  min-height: 210px; 
+  height: auto !important; 
+  height: 210px;
+}
+
 .span3-no-margin {
   margin: 0;
   padding: 30px 0 30px 30px;
-  height: 200px;
+  height: 100%;
+  min-height: 220px;
 }
+
 
 #datesViewModel { background-color: #1abc9c; }
 

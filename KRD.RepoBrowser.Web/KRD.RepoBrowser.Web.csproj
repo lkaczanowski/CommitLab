@@ -198,6 +198,7 @@
     <Content Include="README.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\KRD.pubxml" />
     <None Include="Scripts\jquery-2.0.2.intellisense.js" />
     <Content Include="Scripts\datepicker.js" />
     <Content Include="Scripts\jquery-2.0.2.js" />
@@ -219,7 +220,9 @@
     <Content Include="Scripts\ViewModels\init.js" />
     <Content Include="Scripts\ViewModels\RepositoryNameViewModel.js" />
     <Content Include="Scripts\ViewModels\UserNameViewModel.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
