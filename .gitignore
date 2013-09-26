@@ -1,4 +1,4 @@
-﻿#BEGIN GIT IGNORES
+#BEGIN GIT IGNORES
 #Ignore thumbnails created by windows
 Thumbs.db
 
@@ -70,3 +70,4 @@ _vti_pvt/
 
 #Ignore private folder
 /Private/
+*.DotSettings
