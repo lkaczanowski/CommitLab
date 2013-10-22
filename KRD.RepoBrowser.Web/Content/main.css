@@ -1,8 +1,13 @@
-﻿h1, h2, h3, h4, h5, h6, legend, label, p { color: #FFFFFF; }
+﻿h1, h2, h3, h4, h5, h6, legend, label, p {
+  color: #FFFFFF;
+}
 
-.input-append-block { display: block; }
+.input-append-block {
+  display: block;
+}
 
 .hero-unit2 {
+  margin-top: 51px;
   padding: 30px 60px;
   font-size: 18px;
   font-weight: 200;
@@ -12,8 +17,8 @@
 }
 
 #forms {
-  min-height: 210px; 
-  height: auto !important; 
+  min-height: 210px;
+  height: auto !important;
   height: 210px;
 }
 
@@ -25,15 +30,25 @@
 }
 
 
-#datesViewModel { background-color: #1abc9c; }
+#datesViewModel {
+  background-color: #1abc9c;
+}
 
-#userNameViewModel { background-color: #e67e22; }
+#userNameViewModel {
+  background-color: #e67e22;
+}
 
-#branchNameViewModel { background-color: #9b59b6; }
+#branchNameViewModel {
+  background-color: #9b59b6;
+}
 
-#repositoryNameViewModel { background-color: #e74c3c; }
+#repositoryNameViewModel {
+  background-color: #e74c3c;
+}
 
-#submitData { display: block; }
+#submitData {
+  display: block;
+}
 
 .gridStyle {
   border: 1px solid rgb(212, 212, 212);
