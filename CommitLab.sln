@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommitLab.Web", "CommitLab.Web\CommitLab.Web.csproj", "{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommitLab.Data", "CommitLab.Data\CommitLab.Data.csproj", "{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A4148E41-D58F-4C57-B56D-CD6A1A5FA879}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommitLab.Data.Tests", "CommitLab.Data.Tests\CommitLab.Data.Tests.csproj", "{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{0461185E-7293-461E-AA04-C6F2A2050E0C}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		KRD_Debug|Any CPU = KRD_Debug|Any CPU
+		KRD_Release|Any CPU = KRD_Release|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.KRD_Debug|Any CPU.ActiveCfg = KRD_Debug|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.KRD_Debug|Any CPU.Build.0 = KRD_Debug|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.KRD_Release|Any CPU.ActiveCfg = KRD_Release|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.KRD_Release|Any CPU.Build.0 = KRD_Release|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58FA679B-0837-4DCE-901D-F6D8B0FCC4B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.KRD_Debug|Any CPU.ActiveCfg = KRD_Debug|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.KRD_Debug|Any CPU.Build.0 = KRD_Debug|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.KRD_Release|Any CPU.ActiveCfg = KRD_Release|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.KRD_Release|Any CPU.Build.0 = KRD_Release|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A41D785-B6CE-4002-B91F-11C35DBEE5D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.KRD_Debug|Any CPU.ActiveCfg = KRD_Debug|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.KRD_Debug|Any CPU.Build.0 = KRD_Debug|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.KRD_Release|Any CPU.ActiveCfg = KRD_Release|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.KRD_Release|Any CPU.Build.0 = KRD_Release|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DE1E5198-2E1A-40BD-B74A-9FAC95CCF6F3} = {A4148E41-D58F-4C57-B56D-CD6A1A5FA879}
+	EndGlobalSection
+EndGlobal

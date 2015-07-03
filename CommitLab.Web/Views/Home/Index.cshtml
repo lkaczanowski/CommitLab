@@ -1,0 +1,93 @@
+﻿@{
+  ViewBag.Title = "KRD SourceMiner Browser";
+  Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+  <div class="span12">
+    <div class="hero-unit2 row">
+      <h1>KRD SourceMiner</h1>
+      <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
+    </div>
+    <div id="forms" class="row">
+      <div class="span3 span3-no-margin" id="datesViewModel">
+        <form >
+          <fieldset>
+            <legend>Daty</legend>
+            <label>Data od</label>
+            <div class="input-append">
+              <input class="span2" autocomplete="off" id="dateFrom" readonly="" type="text" data-bind="datepicker: DateFrom"/>
+              <button type="button" class="btn btn-danger" data-bind="click: clearDateFrom">x</button>
+            </div>
+            <label>Data do</label>
+            <div class="input-append">
+              <input class="span2" autocomplete="off" id="dateTo" readonly="" type="text" data-bind="datepicker: DateTo"/>
+              <button type="button" class="btn btn-danger" data-bind="click: clearDateTo">x</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      <div class="span3 span3-no-margin" id="userNameViewModel">
+        <form>
+          <fieldset>
+            <legend>Użytkownicy</legend>
+            <div class="input-append">
+              <input type="text" class="span2" id="userNameToAdd" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
+              <button type="button" class="btn btn-success" data-bind="click: addUserName, enable: UserNameToAdd().length > 0">+</button>
+              <button type="button" class="btn btn-danger" data-bind="click: removeUserName, enable: UserNameSelected().length > 0">-</button>
+            </div>
+            <br />
+            <select multiple="multiple" class="span2" height="5" data-bind="options: UserNames, selectedOptions: UserNameSelected"> </select>
+          </fieldset>
+        </form>
+      </div>
+      <div class="span3 span3-no-margin" id="branchNameViewModel">
+        <form >
+          <fieldset>
+            <legend>Gałęzie</legend>
+            <div class="input-append">
+              <input type="text" class="span2" id="branchNameToAdd" data-bind='typeahead: BranchNameList, value: BranchNameToAdd, valueUpdate: "afterkeydown"' />
+              <button type="button" class="btn btn-success" data-bind="click: addBranchName, enable: BranchNameToAdd().length > 0">+</button>
+              <button type="button" class="btn btn-danger" data-bind="click: removeBranchName, enable: BranchNameSelected().length > 0">-</button>
+            </div>
+            <br />
+            <select multiple="multiple" class="span2" height="5" data-bind="options: BranchNames, selectedOptions: BranchNameSelected"> </select>
+          </fieldset>
+        </form>
+      </div>
+      <div class="span3 span3-no-margin" id="repositoryNameViewModel">
+        <form>
+          <fieldset>
+            <legend>Repozytoria</legend>
+            <div class="input-append">
+              <input type="text" class="span2" id="repositoryNameToAdd" data-bind='typeahead: RepositoryNameList, value: RepositoryNameToAdd, valueUpdate: "afterkeydown"' />
+              <button type="button" class="btn btn-success" data-bind="click: addRepositoryName, enable: RepositoryNameToAdd().length > 0">+</button>
+              <button type="button" class="btn btn-danger" data-bind="click: removeRepositoryName, enable: RepositoryNameSelected().length > 0">-</button>
+            </div>
+            <br />
+            <select class="span2" multiple="multiple" height="5" data-bind="options: RepositoryNames, selectedOptions: RepositoryNameSelected"> </select>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <div id="changesetViewModel">
+      <div class="row">
+        <p><a class="btn btn-primary btn-large" id="submitData" data-bind="click: getChangesets">Szukaj &raquo;</a></p>
+      </div>
+      <div class="row">
+        <div class="gridStyle" data-bind="koGrid: gridOptions"></div>
+      </div>      
+    </div>
+  </div>
+</div>
+@section scripts
+{
+  <script type="text/javascript" src="@Url.Content("~/Scripts/main.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/UserNameViewModel.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/BranchNameViewModel.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/RepositoryNameViewModel.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/DatesViewModel.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/ChangesetFilter.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/ChangesetViewModel.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/init.js")"> </script>
+}
