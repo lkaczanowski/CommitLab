@@ -214,6 +214,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ViewModels\BranchNameViewModel.js" />
+    <Content Include="Scripts\ViewModels\CalendarViewModel.js" />
     <Content Include="Scripts\ViewModels\ChangesetFilter.js" />
     <Content Include="Scripts\ViewModels\ChangesetViewModel.js" />
     <Content Include="Scripts\ViewModels\DatesViewModel.js" />
@@ -224,7 +225,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -247,7 +248,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\Index2.cshtml" />
     <Content Include="Scripts\jquery-2.0.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
