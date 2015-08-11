@@ -9,37 +9,46 @@
             <h3 id="currectUser">Zalogowany jako: @HttpContext.Current.User.Identity.Name</h3>
             <h1>KRD SourceMiner</h1>
             <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
+        </div>
+        <div class="hero-unit2 row">
+            <div style="text-align:center">
+                <h3>Kaledarz przedstawiający ilość commitów w poszczególne dni z ostatniego roku</h3>
             </div>
-
-            <svg id="svgOne" xmlns="http://www.w3.org/2000/svg" width="1000" height="200">
-            </svg>
-
+            <div id="cal-heatmap"></div>
             <script type="text/javascript">
-                var c = new CalendarViewModel();
-                c.CalendarViewModel();
+                var cal = new CalHeatMap();
+                var curr = new Date();
+                cal.init({
+                    start: new Date(curr.getFullYear() - 1, curr.getMonth() + 1),
+                    range: 12,
+                    domain: "month",
+                    subDomain: "day",
+                    tooltip: true,
+                    legend: [2, 4, 6, 8],
+                });
             </script>
-
-                               		
-        <div id="changesetViewModel">
-            <div class="row">
-                <p><a class="btn btn-primary btn-large" id="submitData" data-bind="click: getChangesets">Szukaj &raquo;</a></p>
-            </div>
-            <div class="row">
-                <div class="gridStyle" data-bind="koGrid: gridOptions"></div>
-            </div>
         </div>
-        </div>
+   </div>
 </div>
 @section scripts
 {
-    <script type="text/javascript" src="@Url.Content("~/Scripts/main.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/UserNameViewModel.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/BranchNameViewModel.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/RepositoryNameViewModel.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/DatesViewModel.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/ChangesetFilter.js")"> </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/ChangesetViewModel.js")"> </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/init.js")"> </script>
-    <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/UserName.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/CalendarViewModel.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/initHome.js")"> </script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/UserName.js")"> </script>
+    <script type="text/javascript">
+        userNameViewModel.UserNames.push("l.kaczanowski");
+        calendarViewModel.getChangesets();
+    function show()
+    {
+        var json = JSON.stringify(display);
+        var dataObj = JSON.parse(json);
+        cal.update(dataObj);
+        cal.options.data = dataObj; 
+    }
+    </script>
 }
