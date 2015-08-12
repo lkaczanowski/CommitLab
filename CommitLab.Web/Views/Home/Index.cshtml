@@ -6,28 +6,68 @@
 <div class="container">
     <div class="span12">
         <div class="hero-unit2 row">
-            <h3 id="currectUser">Zalogowany jako: @HttpContext.Current.User.Identity.Name</h3>
+            <h3 id="currectUser">Zalogowany jako: @System.Environment.UserName</h3>
             <h1>KRD SourceMiner</h1>
             <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
         </div>
-        <div class="hero-unit2 row">
-            <div style="text-align:center">
-                <h3>Kaledarz przedstawiający ilość commitów w poszczególne dni z ostatniego roku</h3>
-            </div>
-            <div id="cal-heatmap"></div>
-            <script type="text/javascript">
-                var cal = new CalHeatMap();
-                var curr = new Date();
-                cal.init({
-                    start: new Date(curr.getFullYear() - 1, curr.getMonth() + 1),
-                    range: 12,
-                    domain: "month",
-                    subDomain: "day",
-                    tooltip: true,
-                    legend: [2, 4, 6, 8],
-                });
-            </script>
-        </div>
+            <center>
+                <h3>Contributions</h3>
+                <div id="cal-heatmap"></div>
+                <script type="text/javascript">
+                    var cal = new CalHeatMap();
+                    var curr = new Date();
+                    cal.init({
+                        start: new Date(curr.getFullYear() - 1, curr.getMonth()),
+                        range: 13,
+                        domain: "month",
+                        subDomain: "day",
+                        tooltip: true,
+                        legend: [2, 4, 6, 8],
+                        onClick: function (date) {
+                            alert(date);
+                        }
+                    });
+                </script>
+
+
+
+
+                <div class="hero-unit2 row">
+                    <div id="calendarViewModel">
+                        <table border="1">
+                            <tr>
+                                <td>
+                                    <p>Contributions in the last year:</p>
+                                    <p data-bind="text: commitsLastYear"></p>
+                                    <p data-bind="text: periodLastYear"></p>
+                                </td>
+                                <td>
+                                    <p>Longest streak: </p>
+                                    <p data-bind="text: longestStreak"></p>
+                                    <p data-bind="text: longestStreakPeriod"></p>
+                                </td>
+                                <td>
+                                    <p>Current streak: </p>
+                                    <p data-bind="text: currentStreak"></p>
+                                    <p data-bind="text: currentStreakPeriod"></p>
+                                </td>
+                            </tr>
+                        </table>
+                        <p>Contribution activity</p>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                Period <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a id = "1" href="#">1 day</a></li>
+                                <li><a id = "2" href="#">3 days</a></li>
+                                <li><a id = "3" href="#">1 week</a></li>
+                                <li><a id = "4" href="#">1 month</a></li>
+                            </ul>
+                        </div>
+                    </div>
+               </div>
+        </center>
    </div>
 </div>
 @section scripts
@@ -41,14 +81,37 @@
     <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/initHome.js")"> </script>
     <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/UserName.js")"> </script>
     <script type="text/javascript">
+        //userNameViewModel.UserNames.push('@System.Environment.UserName');
         userNameViewModel.UserNames.push("l.kaczanowski");
+        var date = new Date();
+        date.setFullYear(date.getFullYear() - 1);
+        date.setDate(date.getDate() - 1);
+        datesViewModel.DateFrom(date);
         calendarViewModel.getChangesets();
     function show()
     {
         var json = JSON.stringify(display);
         var dataObj = JSON.parse(json);
         cal.update(dataObj);
-        cal.options.data = dataObj; 
+        cal.options.data = dataObj;
+        
     }
+    $('#1').click(function (e) {
+        e.preventDefault();
+        alert('1');
+    });
+    $('#2').click(function (e) {
+        e.preventDefault();
+        alert('2');
+    });
+    $('#3').click(function (e) {
+        e.preventDefault();
+        alert('3');
+    });
+    $('#4').click(function (e) {
+        e.preventDefault();
+        alert('4');
+    });
     </script>
+
 }

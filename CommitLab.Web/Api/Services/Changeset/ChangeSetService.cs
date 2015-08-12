@@ -48,7 +48,7 @@ namespace CommitLab.Web.Api.Services.Changeset
       List<ChangesetResponse> responses =
         changesets.Select(changeset => changeset.TranslateTo<ChangesetResponse>()).ToList();
 
-          return responses;
+      return responses;
     }
 
     public object Get(ChangeSetColumnRequest request)

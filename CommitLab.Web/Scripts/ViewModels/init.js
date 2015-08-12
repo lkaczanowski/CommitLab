@@ -22,4 +22,3 @@ ko.applyBindings(branchNameViewModel, document.getElementById('branchNameViewMod
 ko.applyBindings(repositoryNameViewModel, document.getElementById('repositoryNameViewModel'));
 ko.applyBindings(changesetViewModel, document.getElementById('changesetViewModel'));
 
-
