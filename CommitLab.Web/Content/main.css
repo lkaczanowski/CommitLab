@@ -2,6 +2,7 @@
   color: #FFFFFF;
 }
 
+
 .input-append-block {
   display: block;
 }
@@ -53,4 +54,24 @@
   border: 1px solid rgb(212, 212, 212);
   width: 100%;
   height: 400px;
+}
+
+p.black { 
+    color: black;
+    font-size: 12px
+}
+
+p.info { 
+    color: black;
+    font-size: 18px
+}
+
+.container .jumbotron {
+    padding: 3px;
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+
+.span2-no-margin {
+    background-color:red
 }

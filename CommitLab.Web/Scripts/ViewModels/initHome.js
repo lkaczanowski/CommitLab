@@ -3,6 +3,7 @@ var userNameViewModel = new UserNameViewModel();
 var branchNameViewModel = new BranchNameViewModel();
 var repositoryNameViewModel = new RepositoryNameViewModel();
 var calendarViewModel = new CalendarViewModel(new ChangesetFilter());
+var commitsViewModel = new CommitsViewModel();
 
 $.getJSON('/api/changeset/usernames', function (data, status) {
     userNameViewModel.loadUserNameList(data);
@@ -17,3 +18,4 @@ $.getJSON('/api/changeset/repositorynames', function (data, status) {
 });
 
 ko.applyBindings(calendarViewModel, document.getElementById('calendarViewModel'));
+ko.applyBindings(commitsViewModel, document.getElementById('commitsViewModel'));

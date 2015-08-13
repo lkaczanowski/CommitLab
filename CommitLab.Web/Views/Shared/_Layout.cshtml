@@ -17,33 +17,17 @@
       <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
       <script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+
   
     @Styles.Render("~/content/base")
     @Scripts.Render("~/scripts/modernizr-respond")
   </head>
   <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="">
-                <a class="" href="#">Source Miner</a>
-              </li>
-              <li class="">
-                <a class="" href="#">Package Browser</a>
-              </li>
-              <li class="">
-                <a href="#">Dependency Graph</a>
-              </li>
-              <li class="active">
-                <a href="#">Dacpac Download</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+
+      
+
+
     @RenderBody()
     @Scripts.Render("~/scripts/base")
     @RenderSection("scripts", false)
