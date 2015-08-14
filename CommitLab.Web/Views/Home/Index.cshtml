@@ -5,7 +5,7 @@
 
 <div class="container">
   <center>
-    <h3><font color="black">Contributions</font></h3>
+    <h3><font color="black">Contributions for @System.Environment.UserName <span data-bind="text: currentUser"></span></font></h3>
     <div id="cal-heatmap"></div>
     <script type="text/javascript">
       var cal = new CalHeatMap();
@@ -23,6 +23,7 @@
       });
     </script>
   </center>
+
 
   <div id="calendarViewModel">
     <div class="row-fluid">
@@ -84,8 +85,11 @@
         <div class="jumbotron">
           <center>
             <p class="black" data-bind="text: noActivity"></p>
-            <div data-bind="foreach: information">
-              <p class="blackleft" data-bind="text: info"></p>
+            <div data-bind="foreach: reposArray">
+              <p class="info" data-bind="text:$data.name"></p>
+              <div data-bind="foreach: $data.repos">
+                <p class="blackleft" data-bind="text: $data.rep"></p>
+              </div>
             </div>
           </center>
         </div>
@@ -106,13 +110,23 @@
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/UserName.js")"> </script>
   <script type="text/javascript">
     //userNameViewModel.UserNames.push('@System.Environment.UserName');
-    userNameViewModel.UserNames.push("l.kaczanowski");
-    commitsViewModel.setUsername("l.kaczanowski");
+    //commitsViewModel.setUsername('@System.Environment.UserName');
+    user = "l.kaczanowski";
+    userNameViewModel.UserNames.push(user);
+    commitsViewModel.setUsername(user);
+
     var date = new Date();
+    var day = date.getDate();
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
     date.setFullYear(date.getFullYear() - 1);
     date.setDate(date.getDate() - 1);
     datesViewModel.DateFrom(date);
     calendarViewModel.getChangesets();
+
     function show() {
       var json = JSON.stringify(display);
       var dataObj = JSON.parse(json);
