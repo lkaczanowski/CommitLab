@@ -1,7 +1,6 @@
 ﻿//date format: RRRR-MM-DD"T"HH-MM
 display = {}  //json format data unixtime : 1
 var _data; //all data, commits, dates, branches, repositories ... not need probably ()
-var dates = [] //sorted dates
 var uniqueDates = []
 var unixtimestamp = [] //sorted dates unix time format
 
@@ -93,18 +92,15 @@ var CalendarViewModel = (function () {
         }
         updateCommits();
         unixtimestamp.sort();
-        //to delete
-        for (var i = 0 ; i < unixtimestamp.length; i++) {
-          dates.push(new Date(unixtimestamp[i] * 1000));
-        }
-        uniqueDates.push(dates[0]);
-        for (var i = 1; i < dates.length; i++) {
-          if (dates[i - 1].getFullYear() === dates[i].getFullYear()
-            && dates[i - 1].getMonth() === dates[i].getMonth()
-            && dates[i - 1].getDate() === dates[i].getDate()) {
+
+        uniqueDates.push(repoDateMap[0].time);
+        for (var i = 1; i < repoDateMap.length; i++) {
+          if (repoDateMap[i - 1].time.getFullYear() === repoDateMap[i].time.getFullYear()
+            && repoDateMap[i - 1].time.getMonth() === repoDateMap[i].time.getMonth()
+            && repoDateMap[i - 1].time.getDate() === repoDateMap[i].time.getDate()) {
             continue;
           } else {
-            uniqueDates.push(dates[i]);
+            uniqueDates.push(repoDateMap[i].time);
           }
         }
         var now = new Date();
