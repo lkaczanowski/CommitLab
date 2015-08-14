@@ -7,6 +7,25 @@ var unixtimestamp = [] //sorted dates unix time format
 
 var repoDateMap = [];
 
+function getDate(value)  //FORMAT: MONTH DD, YYYY
+{
+  var months = [];
+  months.push("January");
+  months.push("February");
+  months.push("March");
+  months.push("April");
+  months.push("May");
+  months.push("June");
+  months.push("July");
+  months.push("August");
+  months.push("September");
+  months.push("October");
+  months.push("November");
+  months.push("December");
+  var string = months[value.getMonth()] + " " + value.getDate() + ", " + value.getFullYear()
+  return string;;
+}
+
 var CalendarViewModel = (function () {
   function CalendarViewModel(changesetFilter) {
     var _this = this;
@@ -34,20 +53,7 @@ var CalendarViewModel = (function () {
     }
 
     function getPeriodString(date1, date2) {
-      var months = [];
-      months.push("January");
-      months.push("February");
-      months.push("March");
-      months.push("April");
-      months.push("May");
-      months.push("June");
-      months.push("July");
-      months.push("August");
-      months.push("September");
-      months.push("October");
-      months.push("November");
-      months.push("December");
-      var string = months[date1.getMonth()] + " " + date1.getDate() + ", " + date1.getFullYear() + " - " + months[date2.getMonth()] + " " + date2.getDate() + ", " + date2.getFullYear();
+      var string = getDate(date1) + " - " + getDate(date2);
       return string;
     }
 
@@ -58,8 +64,6 @@ var CalendarViewModel = (function () {
         return 1;
       return 0;
     }
-
-
 
     this.getChangesets = function () {
       var model = ko.toJSON(_this.Filter);
@@ -81,13 +85,12 @@ var CalendarViewModel = (function () {
 
         for (var i = 0; i < data.length; i++) {
           var d = getUnixTimestamp(data[i]);
-          repoDateMap.push({repo: data[i].repositoryName, time: d});
+          repoDateMap.push({ repo: data[i].repositoryName, time: d });
         }
         repoDateMap.sort(compare);
         for (var i = 0; i < repoDateMap.length; i++) {
           repoDateMap[i].time = new Date(repoDateMap[i].time * 1000);
         }
-        
         updateCommits();
         unixtimestamp.sort();
         //to delete
@@ -96,7 +99,9 @@ var CalendarViewModel = (function () {
         }
         uniqueDates.push(dates[0]);
         for (var i = 1; i < dates.length; i++) {
-          if (dates[i - 1].getFullYear() === dates[i].getFullYear() && dates[i - 1].getMonth() === dates[i].getMonth() && dates[i - 1].getDate() === dates[i].getDate()) {
+          if (dates[i - 1].getFullYear() === dates[i].getFullYear()
+            && dates[i - 1].getMonth() === dates[i].getMonth()
+            && dates[i - 1].getDate() === dates[i].getDate()) {
             continue;
           } else {
             uniqueDates.push(dates[i]);
@@ -113,14 +118,16 @@ var CalendarViewModel = (function () {
         var dat = new Date();
         dat.setDate(dat.getDate() - 1);
         var from = new Date();
-        from.setDate(from.getDate() - 1);
+        //from.setDate(from.getDate() - 1);
         var to = new Date();
         to.setDate(to.getDate() - 1);
         var streak = 0;
 
 
         for (var i = uniqueDates.length - 1; i >= 0; i--) {
-          if (dat.getFullYear() == uniqueDates[i].getFullYear() && dat.getMonth() == uniqueDates[i].getMonth() && dat.getDay() == uniqueDates[i].getDay()) {
+          if (dat.getFullYear() == uniqueDates[i].getFullYear()
+            && dat.getMonth() == uniqueDates[i].getMonth()
+            && dat.getDay() == uniqueDates[i].getDay()) {
             streak++;
             dat.setDate(dat.getDate() - 1);
             from.setDate(from.getDate() - 1);
@@ -157,7 +164,9 @@ var CalendarViewModel = (function () {
         var isToSet = 0;
 
         for (var i = uniqueDates.length - 1; i >= 0; i--) {
-          if (dat.getFullYear() == uniqueDates[i].getFullYear() && dat.getMonth() == uniqueDates[i].getMonth() && dat.getDay() == uniqueDates[i].getDay()) {
+          if (dat.getFullYear() == uniqueDates[i].getFullYear()
+            && dat.getMonth() == uniqueDates[i].getMonth()
+            && dat.getDay() == uniqueDates[i].getDay()) {
             streak++;
             if (isToSet === 0) {
               to.setDate(dat.getDate());

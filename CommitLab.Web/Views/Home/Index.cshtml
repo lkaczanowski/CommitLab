@@ -54,17 +54,21 @@
         </div>
       </div>
     </div>
+  </div>
+  <div id="commitsViewModel">
     <div class="row-fluid">
       <div class="span2 offset3">
         <p class="info">Contribution activity</p>
       </div>
-      <div class="span2 offset2">
+      <div class="span3 offset1">
         <div align="right">
           <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Period
-               <span class="caret"></span>
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+              <span data-bind="text: periodInfo"></span>               
+              <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
+              <li class="dropdown-header">Filter activity</li>
               <li><a id="1" href="#">1 day</a></li>
               <li><a id="2" href="#">3 days</a></li>
               <li><a id="3" href="#">1 week</a></li>
@@ -75,15 +79,13 @@
         </div>
       </div>
     </div>
-  </div>
-  <div id="commitsViewModel">
     <div class="row-fluid">
       <div class="span6 offset3">
         <div class="jumbotron">
           <center>
             <p class="black" data-bind="text: noActivity"></p>
-            <div data-bind="foreach: commitsPeriodTable">
-              <p class="black" data-bind="text: name"></p>
+            <div data-bind="foreach: information">
+              <p class="blackleft" data-bind="text: info"></p>
             </div>
           </center>
         </div>
