@@ -58,17 +58,18 @@
 
 p.black { 
     color: black;
-    font-size: 12px;
+    font-size: 20px;
 }
 p.blackleft {
     color: black;
-    font-size: 12px;
+    font-size: 16px;
     text-align: left;
 }
 
 p.info { 
     color: black;
-    font-size: 18px
+    font-size: 28px;
+    font-weight: bold
 }
 
 .container .jumbotron {
