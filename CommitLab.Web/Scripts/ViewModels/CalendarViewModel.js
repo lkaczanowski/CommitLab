@@ -1,6 +1,6 @@
 ﻿//date format: RRRR-MM-DD"T"HH-MM
 display = {}  //json format data unixtime : 1
-var _data; //all data, commits, dates, branches, repositories ... not need probably ()
+var _data = {}; //all data, commits, dates, branches, repositories ... not need probably ()
 var uniqueDates = []
 var unixtimestamp = [] //sorted dates unix time format
 
@@ -67,26 +67,48 @@ var CalendarViewModel = (function () {
     }
 
     this.getChangesets = function () {
-      var model = ko.toJSON(_this.Filter);
-      $.ajax({
-        type: 'POST',
-        contentType: 'application/json',
-        url: '/api/changeset',
-        data: model
-      }).done(function (data) {
-        _this.Changesets(data);
-        _data = data;
+      var isLoad = 0;
+      if (typeof (Storage) != "undefined") {
+        if (localStorage.getItem("dat") !== null) {
+          var timeStorage = localStorage["StorageTime"];
+          if (timeStorage == new Date().getDate()) {
+            var stored = JSON.parse(localStorage["dat"]);
+            _data = stored;
+            isLoad = 1;
+          } else {
+            localStorage.removeItem("dat");
+            localStorage.removeItem("StorageTime");
+          }
+        }
+      } 
+      if (!isLoad) {
+        alert("loaded");
+        var model = ko.toJSON(_this.Filter);
+        $.ajax({
+          type: 'POST',
+          contentType: 'application/json',
+          url: '/api/changeset',
+          async: false,
+          data: model
+        }).done(function (data) {
+          _this.Changesets(data);
+          _data = data;
+          localStorage["dat"] = JSON.stringify(data);
+          var d = new Date();
+          localStorage["StorageTime"] = d.getDate();
+        });
+      }
 
-        for (var i = 0; i < data.length; i++) {
-          var d = getUnixTimestamp(data[i]);
+      for (var i = 0; i < _data.length; i++) {
+        var d = getUnixTimestamp(_data[i]);
           unixtimestamp.push(d);
           display[d] = 1;
         }
         show();
 
-        for (var i = 0; i < data.length; i++) {
-          var d = getUnixTimestamp(data[i]);
-          repoDateMap.push({ repo: data[i].repositoryName, time: d, branch: data[i].branchName });
+        for (var i = 0; i < _data.length; i++) {
+          var d = getUnixTimestamp(_data[i]);
+          repoDateMap.push({ repo: _data[i].repositoryName, time: d, branch: _data[i].branchName });
         }
         repoDateMap.sort(compare);
         for (var i = 0; i < repoDateMap.length; i++) {
@@ -114,9 +136,9 @@ var CalendarViewModel = (function () {
         yearAgo.setFullYear(now.getFullYear() - 1);
         yearAgo.setDate(now.getDate());
         _this.periodLastYear(getPeriodString(yearAgo, now));
-        _this.commitsLastYear(data.length + " total");
+        _this.commitsLastYear(_data.length + " total");
 
-        if (data.length > 0) {
+        if (_data.length > 0) {
           var dat = new Date();
           dat.setDate(dat.getDate() - 1);
           var from = new Date();
@@ -206,7 +228,6 @@ var CalendarViewModel = (function () {
           _this.longestStreak("0 days");
           _this.longestStreakPeriod("No recent contributions");
         }
-      });
     };
   }
 
