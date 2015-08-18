@@ -66,9 +66,9 @@
         for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
           var shortDate = getShortDate(_this.commitsPeriodTable()[i].date);
           if (_this.commitsPeriodTable()[i].number === 1) {
-            var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commit to " + _this.commitsPeriodTable()[i].repositoryName + "/" + _this.commitsPeriodTable()[i].branchName + ", " + shortDate;
+            var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commit to " + _this.commitsPeriodTable()[i].branchName + ", " + shortDate;
           } else {
-            var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commits to " + _this.commitsPeriodTable()[i].repositoryName + "/" + _this.commitsPeriodTable()[i].branchName + ", " + shortDate;
+            var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commits to " + _this.commitsPeriodTable()[i].branchName + ", " + shortDate;
           }
           _this.commitsPeriodTable()[i].information = string;
         }

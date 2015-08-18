@@ -167,7 +167,11 @@ var CalendarViewModel = (function () {
             _this.currentStreak("0 days");
             _this.currentStreakPeriod("Last contributed " + diff + " days ago");
           } else {
-            _this.currentStreak(streak + " days");
+            if (streak === 1) {
+              _this.currentStreak(streak + " day");
+            } else {
+              _this.currentStreak(streak + " days");
+            }
             _this.currentStreakPeriod(getPeriodString(from, to));
           }
 
@@ -220,7 +224,11 @@ var CalendarViewModel = (function () {
               dat.setDate(dat.getDate() - 1);
             }
           }
-          _this.longestStreak(bestStreak + " days");
+          if (bestStreak === 1) {
+            _this.longestStreak(bestStreak + " day");
+          } else {
+            _this.longestStreak(bestStreak + " days");
+          }
           _this.longestStreakPeriod(getPeriodString(fromBest, toBest));
         } else {
           _this.currentStreak("0 days");
