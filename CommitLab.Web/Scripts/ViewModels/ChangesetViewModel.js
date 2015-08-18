@@ -15,7 +15,6 @@
         };
 
         this.getChangesets = function () {
-            alert("oldddd");
             var model = ko.toJSON(_this.Filter);
             $.ajax({
                 type: 'POST',

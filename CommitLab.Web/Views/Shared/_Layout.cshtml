@@ -24,19 +24,22 @@
     @Scripts.Render("~/scripts/modernizr-respond")
   </head>
   <body>
-    <nav class="navbar navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">KRD Tools</a>
-        </div>
-        <div>
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="/Home/Index">Home</a></li>
-            <li><a href="/Home/Index2">Search</a></li>
-          </ul>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="">
+                <a class="" href="/Home/Index">Home</a>
+              </li>
+              <li class="">
+                <a class="" href="/Home/Index2">Search</a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-    </nav>
+    </div>
       
     @RenderBody()
     @Scripts.Render("~/scripts/base")
