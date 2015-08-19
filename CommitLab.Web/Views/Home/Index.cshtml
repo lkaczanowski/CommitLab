@@ -5,7 +5,9 @@
 
 <div class="container">
   <center>
-    <h3><font color="black">Contributions for @System.Environment.UserName <span data-bind="text: currentUser"></span></font></h3>
+    <div class="hero-unit">
+      <h3><b><font color="black">Contributions for @System.Environment.UserName <span data-bind="text: currentUser"></span></font></b></h3>
+    </div>
     <div id="cal-heatmap"></div>
     <script type="text/javascript">
       var cal = new CalHeatMap();
@@ -78,8 +80,9 @@
               <li><a id="1" href="#">1 day</a></li>
               <li><a id="2" href="#">3 days</a></li>
               <li><a id="3" href="#">1 week</a></li>
-              <li><a id="4" href="#">30 days</a></li>
-              <li><a id="5" href="#">60 days</a></li>
+              <li><a id="4" href="#">3 weeks</a></li>
+              <li><a id="5" href="#">30 days</a></li>
+              <li><a id="6" href="#">60 days</a></li>
             </ul>
           </div>
       </div>
@@ -142,31 +145,31 @@
     }
     $('#1').click(function (e) {
       e.preventDefault();
-      //alert('1');
       commitsViewModel.setPeriod(2);
       commitsViewModel.getCommits();
     });
     $('#2').click(function (e) {
       e.preventDefault();
-      //alert('2');
       commitsViewModel.setPeriod(4);
       commitsViewModel.getCommits();
     });
     $('#3').click(function (e) {
       e.preventDefault();
-      //alert('3');
       commitsViewModel.setPeriod(8);
       commitsViewModel.getCommits();
     });
     $('#4').click(function (e) {
       e.preventDefault();
-      //alert('4');
-      commitsViewModel.setPeriod(31);
+      commitsViewModel.setPeriod(22);
       commitsViewModel.getCommits();
     });
     $('#5').click(function (e) {
       e.preventDefault();
-      //alert('5');
+      commitsViewModel.setPeriod(31);
+      commitsViewModel.getCommits();
+    });
+    $('#6').click(function (e) {
+      e.preventDefault();
       commitsViewModel.setPeriod(61);
       commitsViewModel.getCommits();
     });

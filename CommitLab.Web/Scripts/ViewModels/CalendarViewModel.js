@@ -82,7 +82,6 @@ var CalendarViewModel = (function () {
         }
       } 
       if (!isLoad) {
-        alert("loaded");
         var model = ko.toJSON(_this.Filter);
         $.ajax({
           type: 'POST',

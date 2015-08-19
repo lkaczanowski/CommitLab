@@ -17,6 +17,8 @@
         _this.periodInfo("Period: 3 days")
       } else if (value === 8) {
         _this.periodInfo("Period: 1 week")
+      } else if (value === 22) {
+        _this.periodInfo("Period: 3 weeks")
       } else if (value === 31) {
         _this.periodInfo("Period: 30 days")
       } else if (value === 61) {
