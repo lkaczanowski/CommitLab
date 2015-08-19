@@ -28,7 +28,30 @@
       });
     </script>
     <br />
-      <canvas id="repos"></canvas>
+    <canvas id="repos"></canvas>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span>Filter</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">Filter</li>
+        <li><a id="t1" href="#">All</a></li>
+        <li class="divider"></li>
+        <li><a id="t2" href="#">top 5</a></li>
+        <li><a id="t3" href="#">top 10</a></li>
+        <li><a id="t4" href="#">top 15</a></li>
+        <li class="divider"></li>
+        <li><a id="t5" href="#">Over 10 commits</a></li>
+        <li><a id="t6" href="#">Over 30 commits</a></li>
+        <li><a id="t7" href="#">Over 60 commits</a></li>
+        <li class="divider"></li>
+        <li><a id="t8" href="#">From last week</a></li>
+        <li><a id="t9" href="#">From last 3 weeks</a></li>
+        <li><a id="t10" href="#">From last month</a></li>
+        <li><a id="t11" href="#">From last 2 months</a></li>
+      </ul>
+    </div>
   </center>
   <br />
   <br />
@@ -72,23 +95,6 @@
       <div class="span4">
         <p class="info">Contribution activity</p>
       </div>
-      <div class="pull-right">
-        <div class="btn-group">
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-            <span data-bind="text: periodInfo"></span>
-            <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li class="dropdown-header">Filter activity</li>
-            <li><a id="1" href="#">1 day</a></li>
-            <li><a id="2" href="#">3 days</a></li>
-            <li><a id="3" href="#">1 week</a></li>
-            <li><a id="4" href="#">3 weeks</a></li>
-            <li><a id="5" href="#">30 days</a></li>
-            <li><a id="6" href="#">60 days</a></li>
-          </ul>
-        </div>
-      </div>
     </div>
     <div class="btn-group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -101,21 +107,36 @@
         <li><a id="s2" href="#">Sort by dates</a></li>
       </ul>
     </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span data-bind="text: periodInfo"></span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">Filter activity</li>
+        <li><a id="1" href="#">1 day</a></li>
+        <li><a id="2" href="#">3 days</a></li>
+        <li><a id="3" href="#">1 week</a></li>
+        <li><a id="4" href="#">3 weeks</a></li>
+        <li><a id="5" href="#">30 days</a></li>
+        <li><a id="6" href="#">60 days</a></li>
+      </ul>
+    </div>
     <div class="row">
       <div class="span12">
         <div class="jumbotron">
           <center>
-            <p class="black" data-bind="text: noActivity"></p>
+            <p class="black" data-bind="html: noActivity"></p>
             <div data-bind="foreach: reposArray">
-              <p class="info" data-bind="text:$data.name"></p>
-              <h4 class="title"><span data-bind="text:numberOfCommits"></span></h4>
+              <p class="info" data-bind="html:$data.name"></p>
+              <h4 class="title"><span data-bind="html:numberOfCommits"></span></h4>
               <div data-bind="foreach: $data.repos">
-                <p class="blackleft" data-bind="text: $data.rep"></p>
+                <p class="blackleft" data-bind="html: $data.rep"></p>
               </div>
               <hr />
             </div>
             <div data-bind="foreach: commitsArraySortedBydate">
-              <p class="blackleft" data-bind="text:$data.name"></p>
+              <p class="blackleft" data-bind="html:$data.name"></p>
             </div>
           </center>
         </div>
@@ -204,45 +225,153 @@
       commitsViewModel.setSortOption(0);
       commitsViewModel.getComm();
     });
+    $('#t1').click(function (e) {
+      e.preventDefault();
+      createChart(0);
+    });
+    $('#t2').click(function (e) {
+      e.preventDefault();
+      createChart(1);
+    });
+    $('#t3').click(function (e) {
+      e.preventDefault();
+      createChart(2);
+    });
+    $('#t4').click(function (e) {
+      e.preventDefault();
+      createChart(3);
+    });
+    $('#t5').click(function (e) {
+      e.preventDefault();
+      createChart(4);
+    });
+    $('#t6').click(function (e) {
+      e.preventDefault();
+      createChart(5);
+    });
+    $('#t7').click(function (e) {
+      e.preventDefault();
+      createChart(6);
+    });
   </script>
 
   <script type="text/javascript">
-    var lab = [];
-    var dat = [];
-    for (var i = 0; i < _data.length; i++) {
-      var exists = 0;
-      for (var j = 0; j < lab.length; j++) {
-        if (lab[j] === _data[i].repositoryName) {
-          dat[j]++;
-          exists = 1;
-          break;
-        }
+    var chart;
+    function compare(val1, val2) {
+      if (val1.dat > val2.dat) {
+        return -1;
       }
-      if (exists === 0) {
-        lab.push(_data[i].repositoryName);
-        dat.push(1);
+      if (val1.dat < val2.dat) {
+        return 1;
       }
+      return 0; 
     }
 
-    var data = {
-      labels: lab,
-      datasets: [
-          {
-            label: 'Commits #',
-            fillColor: '#7BC225',
-            data: dat
+    function createChart(filter) { //0 - all, 1 - top5, 2 - top10, 3 - top15, 4 - 10 com, 30 com, 60 com
+      var lab = [];
+      var dat = [];
+      var labdat = [];
+      for (var i = 0; i < _data.length; i++) {
+        var exists = 0;
+        for (var j = 0; j < lab.length; j++) {
+          if (lab[j] === _data[i].repositoryName) {
+            dat[j]++;
+            exists = 1;
+            break;
           }
-      ]
-    };
-    var max = 0;
-    for (var i = 0; i < dat.length; i++) {
-      if (dat[i] > max) {
-        max = dat[i];
+        }
+        if (exists === 0) {
+          lab.push(_data[i].repositoryName);
+          dat.push(1);
+        }
+      }
+
+
+      for (var i = 0; i < lab.length; i++) {
+        labdat.push({ dat: dat[i], lab: lab[i] });
+      }
+      labdat.sort(compare);
+      //filtring
+      var labels = [];
+      var data = [];
+
+      if (filter === 0 || filter === -1) {
+        for (var i = 0; i < labdat.length; i++) {
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 1) {
+        for (var i = 0; i < 5; i++) {
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 2) {
+        for (var i = 0; i < 10; i++) {
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 3) {
+        for (var i = 0; i < 15; i++) {
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 4) {
+        for (var i = 0; i < labdat.length; i++) {
+          if (labdat[i].dat <= 10)
+            break;
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 5) {
+        for (var i = 0; i < labdat.length; i++) {
+          if (labdat[i].dat <= 30)
+            break;
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 6) {
+        for (var i = 0; i < labdat.length; i++) {
+          if (labdat[i].dat <= 60)
+            break;
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+
+
+      var data = {
+        labels: labels,
+        datasets: [
+            {
+              label: 'Commits #',
+              fillColor: '#7BC225',
+              data: data
+            }
+        ]
+      };
+      var max = 0;
+      for (var i = 0; i < dat.length; i++) {
+        if (dat[i] > max) {
+          max = dat[i];
+        }
+      }
+      var context = document.getElementById('repos').getContext('2d');
+      if (filter === -1) {
+        //create new instance
+        context.canvas.width = window.innerWidth * 0.92;
+        context.canvas.height = max * 5;
+        chart = new Chart(context).Bar(data);
+      } else {
+        chart.destroy();
+        chart = new Chart(context).Bar(data);
       }
     }
-    var context = document.getElementById('repos').getContext('2d');
-    context.canvas.width = window.innerWidth*0.92;
-    context.canvas.height = max*5;
-    new Chart(context).Bar(data);
+    createChart(-1);
   </script>
 }
