@@ -237,6 +237,5 @@ var CalendarViewModel = (function () {
         }
     };
   }
-
   return CalendarViewModel;
 })();

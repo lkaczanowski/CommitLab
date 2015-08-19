@@ -56,28 +56,48 @@
   height: 400px;
 }
 
-p.black { 
-    color: black;
-    font-size: 20px;
-}
-p.blackleft {
-    color: black;
-    font-size: 16px;
-    text-align: left;
+p.black {
+  color: black;
+  font-size: 20px;
 }
 
-p.info { 
-    color: black;
-    font-size: 28px;
-    font-weight: bold
+p.blackleft {
+  color: black;
+  font-size: 16px;
+  text-align: left;
+}
+
+p.info {
+  color: black;
+  font-size: 28px;
+  font-weight: bold;
 }
 
 .container .jumbotron {
-    padding: 3px;
-    padding-top: 10px;
-    padding-bottom: 10px
+  padding: 3px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 .span2-no-margin {
-    background-color:red
+  background-color: red;
+}
+
+
+.hero-unit {
+  padding-top: 46px;
+  padding-bottom: 6px;
+}
+
+h4.title { 
+    width:100%;
+    text-align:center; 
+    border-bottom: 1px solid #000; 
+    line-height:0.0em; 
+    margin:10px 0 20px;
+     color: #000000;
+} 
+h4 span { 
+    background: #eee; 
+    padding:0 10px; 
 }

@@ -22,10 +22,13 @@
         tooltip: true,
         legend: [2, 4, 6, 8],
         onClick: function (date) {
-          commitsViewModel.getCommitsOneDay(date);
+          commitsViewModel.setDateValue(date);
+          commitsViewModel.getCommitsOneDay();
         }
       });
     </script>
+    <br />
+      <canvas id="repos"></canvas>
   </center>
   <br />
   <br />
@@ -55,7 +58,7 @@
       <div class="span4">
         <div class="jumbotron">
           <center>
-            <i class="fa fa-refresh fa-spin fa-5x"></i>
+            <i class="fa fa-refresh fa-5x"></i>
             <p class="black">Current streak: </p>
             <p class="info" data-bind="text: currentStreak"></p>
             <p class="black" data-bind="text: currentStreakPeriod"></p>
@@ -70,22 +73,33 @@
         <p class="info">Contribution activity</p>
       </div>
       <div class="pull-right">
-          <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-              <span data-bind="text: periodInfo"></span>               
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li class="dropdown-header">Filter activity</li>
-              <li><a id="1" href="#">1 day</a></li>
-              <li><a id="2" href="#">3 days</a></li>
-              <li><a id="3" href="#">1 week</a></li>
-              <li><a id="4" href="#">3 weeks</a></li>
-              <li><a id="5" href="#">30 days</a></li>
-              <li><a id="6" href="#">60 days</a></li>
-            </ul>
-          </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+            <span data-bind="text: periodInfo"></span>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li class="dropdown-header">Filter activity</li>
+            <li><a id="1" href="#">1 day</a></li>
+            <li><a id="2" href="#">3 days</a></li>
+            <li><a id="3" href="#">1 week</a></li>
+            <li><a id="4" href="#">3 weeks</a></li>
+            <li><a id="5" href="#">30 days</a></li>
+            <li><a id="6" href="#">60 days</a></li>
+          </ul>
+        </div>
       </div>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span data-bind="text: sortInfo"></span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">Sort type</li>
+        <li><a id="s1" href="#">Sort by repostory names</a></li>
+        <li><a id="s2" href="#">Sort by dates</a></li>
+      </ul>
     </div>
     <div class="row">
       <div class="span12">
@@ -94,9 +108,14 @@
             <p class="black" data-bind="text: noActivity"></p>
             <div data-bind="foreach: reposArray">
               <p class="info" data-bind="text:$data.name"></p>
+              <h4 class="title"><span data-bind="text:numberOfCommits"></span></h4>
               <div data-bind="foreach: $data.repos">
                 <p class="blackleft" data-bind="text: $data.rep"></p>
               </div>
+              <hr />
+            </div>
+            <div data-bind="foreach: commitsArraySortedBydate">
+              <p class="blackleft" data-bind="text:$data.name"></p>
             </div>
           </center>
         </div>
@@ -115,6 +134,8 @@
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/CommitsViewModel.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/initHome.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/UserName.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.min.js")"> </script>
   <script type="text/javascript">
     //userNameViewModel.UserNames.push('@System.Environment.UserName');
     //commitsViewModel.setUsername('@System.Environment.UserName');
@@ -173,5 +194,55 @@
       commitsViewModel.setPeriod(61);
       commitsViewModel.getCommits();
     });
+    $('#s1').click(function (e) {
+      e.preventDefault();
+      commitsViewModel.setSortOption(1);
+      commitsViewModel.getCommits();
+    });
+    $('#s2').click(function (e) {
+      e.preventDefault();
+      commitsViewModel.setSortOption(0);
+      commitsViewModel.getCommits();
+    });
+  </script>
+
+  <script type="text/javascript">
+    var lab = [];
+    var dat = [];
+    for (var i = 0; i < _data.length; i++) {
+      var exists = 0;
+      for (var j = 0; j < lab.length; j++) {
+        if (lab[j] === _data[i].repositoryName) {
+          dat[j]++;
+          exists = 1;
+          break;
+        }
+      }
+      if (exists === 0) {
+        lab.push(_data[i].repositoryName);
+        dat.push(1);
+      }
+    }
+
+    var data = {
+      labels: lab,
+      datasets: [
+          {
+            label: 'Commits #',
+            fillColor: '#7BC225',
+            data: dat
+          }
+      ]
+    };
+    var max = 0;
+    for (var i = 0; i < dat.length; i++) {
+      if (dat[i] > max) {
+        max = dat[i];
+      }
+    }
+    var context = document.getElementById('repos').getContext('2d');
+    context.canvas.width = window.innerWidth*0.92;
+    context.canvas.height = max*5;
+    new Chart(context).Bar(data);
   </script>
 }

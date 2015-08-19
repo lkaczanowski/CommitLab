@@ -1,16 +1,23 @@
 ﻿var CommitsViewModel = (function () {
   function CommitsViewModel() {
     var _this = this;
-    var period = 8; //only for options last week, last month etc
+    var period = 8;
+    var _value;
+    var option = 1; //1 - by repos, 0 - by dates
+    var username;
+    var type = 1; //1 - getCommits, 0 - getCommitsOneDay
     this.noActivity = ko.observable('');
     this.periodInfo = ko.observable("Period: 1 week");
+    this.sortInfo = ko.observable("Sort: by repos");
     this.commitsPeriodTable = ko.observableArray([]);
     this.groupArray = ko.observableArray([]);
     this.reposArray = ko.observableArray([]);
-    var username;
+    this.commitsArraySortedBydate = ko.observableArray([]);
+
 
     this.setPeriod = function (value) {
       period = value;
+      type = 1;
       if (value === 2) {
         _this.periodInfo("Period: 1 day")
       } else if (value === 4) {
@@ -28,7 +35,32 @@
     this.setUsername = function (value) {
       username = value;
     }
-
+    this.clearArrays = function () {
+      while (_this.commitsPeriodTable().length > 0) {
+        _this.commitsPeriodTable.pop();
+      }
+      while (_this.groupArray().length > 0) {
+        _this.groupArray.pop();
+      }
+      while (_this.reposArray().length > 0) {
+        _this.reposArray.pop();
+      }
+      while (_this.commitsArraySortedBydate().length > 0) {
+        _this.commitsArraySortedBydate.pop();
+      }
+    }
+    this.setSortOption = function (value) {
+      option = value;
+      if (option === 1) {
+        _this.sortInfo("Sort: by repos");
+      } else {
+        _this.sortInfo("Sort: by dates");
+      }
+    }
+    this.setDateValue = function (value) {
+      _value = value;
+      type = 0;
+    }
     function getShortMonth(value) {
       if (value === 0) {
         return "Jan";
@@ -93,73 +125,98 @@
       }
     }
 
+    function compareCommitsBydate(val1, val2) {
+      if (val1.date > val2.date) {
+        return -1;
+      } else if (val1.date < val2.date) {
+        return 1;
+      }
+      return 0;
+    }
+
     function fillGroupArray() {
-      while (_this.groupArray().length > 0) {
-        _this.groupArray.pop();
-      }
-      while (_this.reposArray().length > 0) {
-        _this.reposArray.pop();
-      }
       for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
         var exists = 0;
         for (var j = 0; j < _this.groupArray().length; j++) {
           if (_this.commitsPeriodTable()[i].repositoryName === _this.groupArray()[j].name) {
             _this.groupArray()[j].repos.push({ rep: _this.commitsPeriodTable()[i].information });
+            _this.groupArray()[j].numberOfCommits += _this.commitsPeriodTable()[i].number;
             exists = 1;
           }
         }
         if (exists === 0) {
-          _this.groupArray.push({ name: _this.commitsPeriodTable()[i].repositoryName, repos: [] });
-          _this.groupArray()[_this.groupArray().length - 1].repos.push({rep: _this.commitsPeriodTable()[i].information});
+          _this.groupArray.push({ name: _this.commitsPeriodTable()[i].repositoryName, repos: [], numberOfCommits: _this.commitsPeriodTable()[i].number });
+          _this.groupArray()[_this.groupArray().length - 1].repos.push({ rep: _this.commitsPeriodTable()[i].information });
         }
       }
       for (var i = 0; i < _this.groupArray().length; i++) {
-        _this.reposArray.push({ name: _this.groupArray()[i].name, repos: _this.groupArray()[i].repos });
+        var numer = _this.groupArray()[i].numberOfCommits;
+        if (numer == 1) {
+          numer += " Commit";
+        } else {
+          numer += " Commits";
+        }
+        _this.reposArray.push({ name: _this.groupArray()[i].name, repos: _this.groupArray()[i].repos, numberOfCommits: numer });
       }
     }
 
     this.getCommits = function () {
-      var date = new Date();
-      date.setDate(date.getDate() - period);
+        var date = new Date();
+        date.setDate(date.getDate() - period);
 
-      while (_this.commitsPeriodTable().length > 0) {
-        _this.commitsPeriodTable.pop();
-      }
-      
-      
-      var index = repoDateMap.length - 1;
-      if (index >= 0) {
-        while (repoDateMap[index].time.getFullYear() > date.getFullYear() || repoDateMap[index].time.getMonth() > date.getMonth() || repoDateMap[index].time.getDate() > date.getDate()) {
-          var exists = 0;
-          for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
-            if (repoDateMap[index].repo === _this.commitsPeriodTable()[i].repositoryName
-              && repoDateMap[index].branch === _this.commitsPeriodTable()[i].branchName
-              && repoDateMap[index].time.getFullYear() === _this.commitsPeriodTable()[i].date.getFullYear()
-              && repoDateMap[index].time.getMonth() === _this.commitsPeriodTable()[i].date.getMonth()
-              && repoDateMap[index].time.getDate() === _this.commitsPeriodTable()[i].date.getDate()) {
-              _this.commitsPeriodTable()[i].number++;
-              exists = 1;
+        _this.clearArrays();
+
+        var index = repoDateMap.length - 1;
+        if (index >= 0) {
+          while (repoDateMap[index].time.getFullYear() > date.getFullYear() || repoDateMap[index].time.getMonth() > date.getMonth() || repoDateMap[index].time.getDate() > date.getDate()) {
+            var exists = 0;
+            for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
+              if (repoDateMap[index].repo === _this.commitsPeriodTable()[i].repositoryName
+                && repoDateMap[index].branch === _this.commitsPeriodTable()[i].branchName
+                && repoDateMap[index].time.getFullYear() === _this.commitsPeriodTable()[i].date.getFullYear()
+                && repoDateMap[index].time.getMonth() === _this.commitsPeriodTable()[i].date.getMonth()
+                && repoDateMap[index].time.getDate() === _this.commitsPeriodTable()[i].date.getDate()) {
+                _this.commitsPeriodTable()[i].number++;
+                exists = 1;
+              }
             }
+            if (exists === 0) {
+              _this.commitsPeriodTable.push({ number: 1, date: repoDateMap[index].time, repositoryName: repoDateMap[index].repo, information: "", branchName: repoDateMap[index].branch });
+            }
+            --index;
           }
-          if (exists === 0) {
-            _this.commitsPeriodTable.push({ number: 1, date: repoDateMap[index].time, repositoryName: repoDateMap[index].repo, information: "", branchName: repoDateMap[index].branch });
-          }
-          --index;
         }
-      }
-      _this.commitsPeriodTable.sort(compareCommits);
-
-      createInfoString();
-      fillGroupArray();
-
+        if (option === 1) {
+        _this.commitsPeriodTable.sort(compareCommits);
+        createInfoString();
+        fillGroupArray();
+        } else {
+          _this.commitsPeriodTable.sort(compareCommitsBydate);
+          if (_this.commitsPeriodTable().length === 0) {
+            _this.noActivity(username + " has no activity during this period.");
+          } else {
+            for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
+              var shortDate = getShortDate(_this.commitsPeriodTable()[i].date);
+              if (_this.commitsPeriodTable()[i].number === 1) {
+                var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commit to " + _this.commitsPeriodTable()[i].repositoryName + "/" + +_this.commitsPeriodTable()[i].branchName + ", " + shortDate;
+              } else {
+                var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commits to " + _this.commitsPeriodTable()[i].repositoryName + "/" + _this.commitsPeriodTable()[i].branchName + ", " + shortDate;
+              }
+              _this.commitsPeriodTable()[i].information = string;
+              _this.commitsArraySortedBydate.push({ name: string });
+            }
+            _this.noActivity('');
+          }
+        }
     };
 
-    this.getCommitsOneDay = function (value) {
+    this.getCommitsOneDay = function () {
+      var value = _value;
+      alert(_value)
       _this.periodInfo("Period: " + getDate(value));
 
-      while (_this.commitsPeriodTable().length > 0) {
-        _this.commitsPeriodTable.pop();
-      }
+      _this.clearArrays();
+
       for (var i = 0; i < repoDateMap.length; i++) {
         if (repoDateMap[i].time.getFullYear() === value.getFullYear() && repoDateMap[i].time.getMonth() === value.getMonth() && repoDateMap[i].time.getDate() === value.getDate()) {
           var exists = 0;
@@ -175,11 +232,32 @@
           }
         }
       }
-      
-      createInfoString();
-      fillGroupArray();
+      if (option === 1) {
+        createInfoString();
+        fillGroupArray();
+      } else {
+        _this.commitsPeriodTable.sort(compareCommitsBydate);
+        if (_this.commitsPeriodTable().length === 0) {
+          _this.noActivity(username + " has no activity during this period.");
+        } else {
+          for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
+            var shortDate = getShortDate(_this.commitsPeriodTable()[i].date);
+            if (_this.commitsPeriodTable()[i].number === 1) {
+              var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commit to " + _this.commitsPeriodTable()[i].repositoryName + "/" + +_this.commitsPeriodTable()[i].branchName + ", " + shortDate;
+            } else {
+              var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commits to " + _this.commitsPeriodTable()[i].repositoryName + "/" + _this.commitsPeriodTable()[i].branchName + ", " + shortDate;
+            }
+            _this.commitsPeriodTable()[i].information = string;
+            _this.commitsArraySortedBydate.push({ name: string });
+          }
+          _this.noActivity('');
+        }
+      }
     };
 
+    this.getComm = function () {
+
+    }
   }
 
   return CommitsViewModel;
