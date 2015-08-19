@@ -23,7 +23,7 @@
         legend: [2, 4, 6, 8],
         onClick: function (date) {
           commitsViewModel.setDateValue(date);
-          commitsViewModel.getCommitsOneDay();
+          commitsViewModel.getComm();
         }
       });
     </script>
@@ -97,7 +97,7 @@
       </button>
       <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">Sort type</li>
-        <li><a id="s1" href="#">Sort by repostory names</a></li>
+        <li><a id="s1" href="#">Sort by repositories</a></li>
         <li><a id="s2" href="#">Sort by dates</a></li>
       </ul>
     </div>
@@ -167,42 +167,42 @@
     $('#1').click(function (e) {
       e.preventDefault();
       commitsViewModel.setPeriod(2);
-      commitsViewModel.getCommits();
+      commitsViewModel.getComm();
     });
     $('#2').click(function (e) {
       e.preventDefault();
       commitsViewModel.setPeriod(4);
-      commitsViewModel.getCommits();
+      commitsViewModel.getComm();
     });
     $('#3').click(function (e) {
       e.preventDefault();
       commitsViewModel.setPeriod(8);
-      commitsViewModel.getCommits();
+      commitsViewModel.getComm();
     });
     $('#4').click(function (e) {
       e.preventDefault();
       commitsViewModel.setPeriod(22);
-      commitsViewModel.getCommits();
+      commitsViewModel.getComm();
     });
     $('#5').click(function (e) {
       e.preventDefault();
       commitsViewModel.setPeriod(31);
-      commitsViewModel.getCommits();
+      commitsViewModel.getComm();
     });
     $('#6').click(function (e) {
       e.preventDefault();
       commitsViewModel.setPeriod(61);
-      commitsViewModel.getCommits();
+      commitsViewModel.getComm();
     });
     $('#s1').click(function (e) {
       e.preventDefault();
       commitsViewModel.setSortOption(1);
-      commitsViewModel.getCommits();
+      commitsViewModel.getComm();
     });
     $('#s2').click(function (e) {
       e.preventDefault();
       commitsViewModel.setSortOption(0);
-      commitsViewModel.getCommits();
+      commitsViewModel.getComm();
     });
   </script>
 

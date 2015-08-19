@@ -8,7 +8,7 @@
     var type = 1; //1 - getCommits, 0 - getCommitsOneDay
     this.noActivity = ko.observable('');
     this.periodInfo = ko.observable("Period: 1 week");
-    this.sortInfo = ko.observable("Sort: by repos");
+    this.sortInfo = ko.observable("Sort: by repositories");
     this.commitsPeriodTable = ko.observableArray([]);
     this.groupArray = ko.observableArray([]);
     this.reposArray = ko.observableArray([]);
@@ -52,7 +52,7 @@
     this.setSortOption = function (value) {
       option = value;
       if (option === 1) {
-        _this.sortInfo("Sort: by repos");
+        _this.sortInfo("Sort: by repositories");
       } else {
         _this.sortInfo("Sort: by dates");
       }
@@ -198,7 +198,7 @@
             for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
               var shortDate = getShortDate(_this.commitsPeriodTable()[i].date);
               if (_this.commitsPeriodTable()[i].number === 1) {
-                var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commit to " + _this.commitsPeriodTable()[i].repositoryName + "/" + +_this.commitsPeriodTable()[i].branchName + ", " + shortDate;
+                var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commit to " + _this.commitsPeriodTable()[i].repositoryName + "/" + _this.commitsPeriodTable()[i].branchName + ", " + shortDate;
               } else {
                 var string = "Pushed " + _this.commitsPeriodTable()[i].number + " commits to " + _this.commitsPeriodTable()[i].repositoryName + "/" + _this.commitsPeriodTable()[i].branchName + ", " + shortDate;
               }
@@ -212,7 +212,6 @@
 
     this.getCommitsOneDay = function () {
       var value = _value;
-      alert(_value)
       _this.periodInfo("Period: " + getDate(value));
 
       _this.clearArrays();
@@ -256,7 +255,11 @@
     };
 
     this.getComm = function () {
-
+      if (type === 1) {
+        _this.getCommits();
+      } else {
+        _this.getCommitsOneDay();
+      }
     }
   }
 
