@@ -73,6 +73,12 @@ p.info {
   font-weight: bold;
 }
 
+p.infoBig {
+  color: black;
+  font-size: 42px;
+  font-weight: bold;
+}
+
 .container .jumbotron {
   padding: 3px;
   padding-top: 10px;

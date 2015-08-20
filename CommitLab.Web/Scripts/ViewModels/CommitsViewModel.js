@@ -198,10 +198,20 @@
           } else {
             for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
               var shortDate = getShortDate(_this.commitsPeriodTable()[i].date);
+              if (i === 0) {
+                _this.commitsArraySortedBydate.push({ name: "<h4 class=\"title\"><span>Commits on " + shortDate + "</span></h4>" });
+              }
               if (_this.commitsPeriodTable()[i].number === 1) {
                 var string = "Pushed " + "<b>" + _this.commitsPeriodTable()[i].number + "</b>" + " commit to " + "<b>" + _this.commitsPeriodTable()[i].repositoryName + "/" + _this.commitsPeriodTable()[i].branchName + "</b>" + ", " + shortDate;
               } else {
                 var string = "Pushed " + "<b>" + _this.commitsPeriodTable()[i].number + "</b>" + " commits to " + "<b>" + _this.commitsPeriodTable()[i].repositoryName + "/" + _this.commitsPeriodTable()[i].branchName + "</b>" + ", " + shortDate;
+              }
+              if (i > 0) {
+                if (_this.commitsPeriodTable()[i - 1].date.getFullYear() !== _this.commitsPeriodTable()[i].date.getFullYear()
+                  || _this.commitsPeriodTable()[i - 1].date.getMonth() !== _this.commitsPeriodTable()[i].date.getMonth()
+                  || _this.commitsPeriodTable()[i - 1].date.getDate() !== _this.commitsPeriodTable()[i].date.getDate()) {
+                  _this.commitsArraySortedBydate.push({ name: "<h4 class=\"title\"><span>Commits on " + shortDate + "</span></h4>" });
+                }
               }
               _this.commitsPeriodTable()[i].information = string;
               _this.commitsArraySortedBydate.push({ name: string });
@@ -242,6 +252,9 @@
         } else {
           for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
             var shortDate = getShortDate(_this.commitsPeriodTable()[i].date);
+            if (i === 0) {
+              _this.commitsArraySortedBydate.push({ name: "<h4 class=\"title\"><span>Commits on " + shortDate + "</span></h4>" });
+            }
             if (_this.commitsPeriodTable()[i].number === 1) {
               var string = "Pushed " + "<b>" + _this.commitsPeriodTable()[i].number + "</b>" + " commit to " + "<b>" + _this.commitsPeriodTable()[i].repositoryName + "/" + _this.commitsPeriodTable()[i].branchName + "</b>" + ", " + shortDate;
             } else {
