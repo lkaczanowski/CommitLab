@@ -48,8 +48,8 @@
         <li class="divider"></li>
         <li><a id="t8" href="#">From last week</a></li>
         <li><a id="t9" href="#">From last 3 weeks</a></li>
-        <li><a id="t10" href="#">From last month</a></li>
-        <li><a id="t11" href="#">From last 2 months</a></li>
+        <li><a id="t10" href="#">From last 30 days</a></li>
+        <li><a id="t11" href="#">From last 60 days</a></li>
       </ul>
     </div>
   </center>
@@ -253,35 +253,84 @@
       e.preventDefault();
       createChart(6);
     });
+    $('#t8').click(function (e) {
+      e.preventDefault();
+      createChart(7);
+    });
+    $('#t9').click(function (e) {
+      e.preventDefault();
+      createChart(8);
+    });
+    $('#t10').click(function (e) {
+      e.preventDefault();
+      createChart(9);
+    });
+    $('#t11').click(function (e) {
+      e.preventDefault();
+      createChart(10);
+    });
   </script>
 
   <script type="text/javascript">
     var chart;
-    function compare(val1, val2) {
+    function compare(val1, val2) { //for labdat
       if (val1.dat > val2.dat) {
         return -1;
       }
-      if (val1.dat < val2.dat) {
+      if (val1.dat < val2.dat) {//forRepoMap
         return 1;
       }
       return 0; 
     }
 
+    function compareCommitsBydate(val1, val2) {
+      if (val1.date > val2.date) {
+        return -1;
+      } else if (val1.date < val2.date) {
+        return 1;
+      }
+      return 0;
+    }
+
     function createChart(filter) { //0 - all, 1 - top5, 2 - top10, 3 - top15, 4 - 10 com, 30 com, 60 com
+      var dataFilter = 0;
+      var data = new Date();
+      data.setHours(0);
+      data.setMinutes(0);
+      if (filter === 7) {
+        data.setDate(data.getDate() - 7);
+        dataFilter = 1;
+      } else if (filter === 8) {
+        data.setDate(data.getDate() - 21);
+        dataFilter = 1;
+      } else if (filter === 9) {
+        data.setDate(data.getDate() - 30);
+        dataFilter = 1;
+      } else if (filter === 10) {
+        data.setDate(data.getDate() - 60);
+        dataFilter = 1;
+      }
+
+
       var lab = [];
       var dat = [];
       var labdat = [];
-      for (var i = 0; i < _data.length; i++) {
+      for (var i = repoDateMap.length - 1; i >= 0; i--) {
+        if (dataFilter === 1) {
+          if (repoDateMap[i].time < data) {
+            break;
+          }
+        }
         var exists = 0;
         for (var j = 0; j < lab.length; j++) {
-          if (lab[j] === _data[i].repositoryName) {
+          if (lab[j] === repoDateMap[i].repo) {
             dat[j]++;
             exists = 1;
             break;
           }
         }
         if (exists === 0) {
-          lab.push(_data[i].repositoryName);
+          lab.push(repoDateMap[i].repo);
           dat.push(1);
         }
       }
@@ -295,7 +344,7 @@
       var labels = [];
       var data = [];
 
-      if (filter === 0 || filter === -1) {
+      if (filter === 0 || filter === -1 || (filter > 6)) {
         for (var i = 0; i < labdat.length; i++) {
           data.push(labdat[i].dat);
           labels.push(labdat[i].lab);
@@ -365,7 +414,7 @@
       if (filter === -1) {
         //create new instance
         context.canvas.width = window.innerWidth * 0.92;
-        context.canvas.height = max * 5;
+        context.canvas.height = max * 3;
         chart = new Chart(context).Bar(data);
       } else {
         chart.destroy();

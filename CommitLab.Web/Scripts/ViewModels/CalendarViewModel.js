@@ -4,7 +4,7 @@ var _data = {}; //all data, commits, dates, branches, repositories ... not need 
 var uniqueDates = []
 var unixtimestamp = [] //sorted dates unix time format
 
-var repoDateMap = []
+var repoDateMap = [] //repo, time, branch
 
 
 
