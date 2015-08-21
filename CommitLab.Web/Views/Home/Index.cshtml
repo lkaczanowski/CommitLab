@@ -8,26 +8,6 @@
     <div class="hero-unit">
       <h3><b><font color="black">Contributions for @System.Environment.UserName <span data-bind="text: currentUser"></span></font></b></h3>
     </div>
-    <div id="cal-heatmap"></div>
-    <script type="text/javascript">
-      var cal = new CalHeatMap();
-      var curr = new Date();
-      cal.init({
-        start: new Date(curr.getFullYear() - 1, curr.getMonth()),
-        range: 13,
-        domain: "month",
-        subDomain: "day",
-        cellSize: 13,
-        cellPadding: 4,
-        tooltip: true,
-        legend: [2, 4, 6, 8],
-        onClick: function (date) {
-          commitsViewModel.setDateValue(date);
-          commitsViewModel.getComm();
-        }
-      });
-    </script>
-    <br />
     <canvas id="repos"></canvas>
     <div class="btn-group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -52,6 +32,27 @@
         <li><a id="t11" href="#">From last 60 days</a></li>
       </ul>
     </div>
+    <br />
+    <br />
+    <div id="cal-heatmap"></div>
+    <script type="text/javascript">
+      var cal = new CalHeatMap();
+      var curr = new Date();
+      cal.init({
+        start: new Date(curr.getFullYear() - 1, curr.getMonth()),
+        range: 13,
+        domain: "month",
+        subDomain: "day",
+        cellSize: 13,
+        cellPadding: 4,
+        tooltip: true,
+        legend: [2, 4, 6, 8],
+        onClick: function (date) {
+          commitsViewModel.setDateValue(date);
+          commitsViewModel.getComm();
+        }
+      });
+    </script>
   </center>
   <br />
   <br />
