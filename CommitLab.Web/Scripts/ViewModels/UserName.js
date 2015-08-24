@@ -6,7 +6,6 @@
     this.setUser = function (value) {
       _this.username(value);
     }
-
   }
   return UserName;
 })();

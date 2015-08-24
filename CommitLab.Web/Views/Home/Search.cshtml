@@ -1,13 +1,13 @@
 ﻿@{
-  ViewBag.Title = "KRD SourceMiner Browser";
+  ViewBag.Title = "CommitLab - Search";
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
   <div class="span12">
     <div class="hero-unit2 row">
-        <h3 id="currectUser">Zalogowany jako: @System.Environment.UserName</h3>
-      <h1>KRD SourceMiner</h1>
+        <h3 id="currectUser">Zalogowany jako: @User.Identity.Name</h3>
+      <h1>CommitLab</h1>
       <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
     </div>
     <div id="forms" class="row">

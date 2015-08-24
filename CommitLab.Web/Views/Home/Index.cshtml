@@ -1,5 +1,6 @@
-﻿@{
-  ViewBag.Title = "KRD SourceMiner Browser";
+﻿@model string
+@{
+  ViewBag.Title = "CommitLab - Dashboard";
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -160,141 +161,119 @@
   <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.min.js")"> </script>
   <script type="text/javascript">
-    var url = window.location.href;
-    var ar = url.split("/");
-    if (ar[ar.length - 1] !== "Index") {
-      var user = ar[ar.length - 1];
-
-      var found = 0;
-      for (var i = 0; i < userNameViewModel.UserNameList().length; i++) {
-        if (user === userNameViewModel.UserNameList()[i]) {
-          found = 1;
-          break;
-        }
-      }
-      if (found === 1) {
-        userName.setUser(user);
-        userNameViewModel.UserNames.push(user);
-        commitsViewModel.setUsername(user);
-      } else {
-        alert("Error. Useranme " + user + " doesn't exist in database.");
-        var user = '@System.Environment.UserName';
-        userName.setUser(user);
-        userNameViewModel.UserNames.push(user);
-        commitsViewModel.setUsername(user);
-      }
-    } else {
-      var user = '@System.Environment.UserName';
+    //var user2= @Model;
+   //alert(user2);
+    //alert("Error. Useraname " + user + " doesn't exist in database.");
+    var user = "l.kaczanowski";
       userName.setUser(user);
       userNameViewModel.UserNames.push(user);
       commitsViewModel.setUsername(user);
-    }
 
-    var date = new Date();
-    var day = date.getDate();
-    var year = date.getFullYear();
-    var month = date.getMonth();
-    date.setHours(0);
-    date.setMinutes(0);
-    date.setSeconds(0);
-    date.setFullYear(date.getFullYear() - 1);
-    date.setDate(date.getDate() - 1);
-    datesViewModel.DateFrom(date);
-    calendarViewModel.getChangesets();
+  var date = new Date();
+  var day = date.getDate();
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setFullYear(date.getFullYear() - 1);
+  date.setDate(date.getDate() - 1);
+  datesViewModel.DateFrom(date);
+  calendarViewModel.getChangesets();
 
-    function show() {
-      var json = JSON.stringify(display);
-      var dataObj = JSON.parse(json);
-      cal.update(dataObj);
-      cal.options.data = dataObj;
-    }
-    function updateCommits() {
-      commitsViewModel.getCommits();
-    }
-    $('#1').click(function (e) {
-      e.preventDefault();
-      commitsViewModel.setPeriod(2);
-      commitsViewModel.getComm();
-    });
-    $('#2').click(function (e) {
-      e.preventDefault();
-      commitsViewModel.setPeriod(4);
-      commitsViewModel.getComm();
-    });
-    $('#3').click(function (e) {
-      e.preventDefault();
-      commitsViewModel.setPeriod(8);
-      commitsViewModel.getComm();
-    });
-    $('#4').click(function (e) {
-      e.preventDefault();
-      commitsViewModel.setPeriod(22);
-      commitsViewModel.getComm();
-    });
-    $('#5').click(function (e) {
-      e.preventDefault();
-      commitsViewModel.setPeriod(31);
-      commitsViewModel.getComm();
-    });
-    $('#6').click(function (e) {
-      e.preventDefault();
-      commitsViewModel.setPeriod(61);
-      commitsViewModel.getComm();
-    });
-    $('#s1').click(function (e) {
-      e.preventDefault();
-      commitsViewModel.setSortOption(1);
-      commitsViewModel.getComm();
-    });
-    $('#s2').click(function (e) {
-      e.preventDefault();
-      commitsViewModel.setSortOption(0);
-      commitsViewModel.getComm();
-    });
-    $('#t1').click(function (e) {
-      e.preventDefault();
-      createChart(0);
-    });
-    $('#t2').click(function (e) {
-      e.preventDefault();
-      createChart(1);
-    });
-    $('#t3').click(function (e) {
-      e.preventDefault();
-      createChart(2);
-    });
-    $('#t4').click(function (e) {
-      e.preventDefault();
-      createChart(3);
-    });
-    $('#t5').click(function (e) {
-      e.preventDefault();
-      createChart(4);
-    });
-    $('#t6').click(function (e) {
-      e.preventDefault();
-      createChart(5);
-    });
-    $('#t7').click(function (e) {
-      e.preventDefault();
-      createChart(6);
-    });
-    $('#t8').click(function (e) {
-      e.preventDefault();
-      createChart(7);
-    });
-    $('#t9').click(function (e) {
-      e.preventDefault();
-      createChart(8);
-    });
-    $('#t10').click(function (e) {
-      e.preventDefault();
-      createChart(9);
-    });
-    $('#t11').click(function (e) {
-      e.preventDefault();
-      createChart(10);
-    });
+  function show() {
+    var json = JSON.stringify(display);
+    var dataObj = JSON.parse(json);
+    cal.update(dataObj);
+    cal.options.data = dataObj;
+  }
+  function updateCommits() {
+    commitsViewModel.getCommits();
+  }
+  $('#1').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(2);
+    commitsViewModel.getComm();
+  });
+  $('#2').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(4);
+    commitsViewModel.getComm();
+  });
+  $('#3').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(8);
+    commitsViewModel.getComm();
+  });
+  $('#4').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(22);
+    commitsViewModel.getComm();
+  });
+  $('#5').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(31);
+    commitsViewModel.getComm();
+  });
+  $('#6').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(61);
+    commitsViewModel.getComm();
+  });
+  $('#s1').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setSortOption(1);
+    commitsViewModel.getComm();
+  });
+  $('#s2').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setSortOption(0);
+    commitsViewModel.getComm();
+  });
+  $('#t1').click(function (e) {
+    e.preventDefault();
+    createChart(0);
+  });
+  $('#t2').click(function (e) {
+    e.preventDefault();
+    createChart(1);
+  });
+  $('#t3').click(function (e) {
+    e.preventDefault();
+    createChart(2);
+  });
+  $('#t4').click(function (e) {
+    e.preventDefault();
+    createChart(3);
+  });
+  $('#t5').click(function (e) {
+    e.preventDefault();
+    createChart(4);
+  });
+  $('#t6').click(function (e) {
+    e.preventDefault();
+    createChart(5);
+  });
+  $('#t7').click(function (e) {
+    e.preventDefault();
+    createChart(6);
+  });
+  $('#t8').click(function (e) {
+    e.preventDefault();
+    createChart(7);
+  });
+  $('#t9').click(function (e) {
+    e.preventDefault();
+    createChart(8);
+  });
+  $('#t10').click(function (e) {
+    e.preventDefault();
+    createChart(9);
+  });
+  $('#t11').click(function (e) {
+    e.preventDefault();
+    createChart(10);
+  });
 </script>
 
   <script type="text/javascript">

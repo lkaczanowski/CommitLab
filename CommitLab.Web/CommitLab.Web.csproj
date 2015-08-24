@@ -190,7 +190,6 @@
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetRequest.cs" />
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetResponse.cs" />
     <Compile Include="App_Start\AppHost.cs" />
-    <Compile Include="App_Start\BreezeWebApiConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -214,7 +213,6 @@
     <Content Include="Content\js\ss-validation.js" />
     <Content Include="Content\KoGrid.css" />
     <Content Include="Content\main.css" />
-    <Content Include="default.htm" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="jqunback-1.51.min.js" />
@@ -282,7 +280,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
     <Content Include="Scripts\jquery-2.0.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
@@ -321,7 +319,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:18508/</IISUrl>
+          <IISUrl>http://localhost:18508</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
