@@ -6,8 +6,10 @@
 <div class="container">
   <center>
     <div class="hero-unit">
-      <h3><b><font color="black">Contributions for @System.Environment.UserName <span data-bind="text: currentUser"></span></font></b></h3>
-    </div>
+      <div id="userName">
+        <h3><b><font color="black">Contributions for <span data-bind="text: username"></span></font></b></h3>
+      </div>
+      </div>
     <canvas id="repos"></canvas>
     <div class="btn-group">
       <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -153,16 +155,40 @@
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/ChangesetFilter.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/CalendarViewModel.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/CommitsViewModel.js")"> </script>
-  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/initHome.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/UserName.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/initHome.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.min.js")"> </script>
   <script type="text/javascript">
-    //userNameViewModel.UserNames.push('@System.Environment.UserName');
-    //commitsViewModel.setUsername('@System.Environment.UserName');
-    user = "l.kaczanowski";
-    userNameViewModel.UserNames.push(user);
-    commitsViewModel.setUsername(user);
+    var url = window.location.href;
+    var ar = url.split("/");
+    if (ar[ar.length - 1] !== "Index") {
+      var user = ar[ar.length - 1];
+
+      var found = 0;
+      for (var i = 0; i < userNameViewModel.UserNameList().length; i++) {
+        if (user === userNameViewModel.UserNameList()[i]) {
+          found = 1;
+          break;
+        }
+      }
+      if (found === 1) {
+        userName.setUser(user);
+        userNameViewModel.UserNames.push(user);
+        commitsViewModel.setUsername(user);
+      } else {
+        alert("Error. Useranme " + user + " doesn't exist in database.");
+        var user = '@System.Environment.UserName';
+        userName.setUser(user);
+        userNameViewModel.UserNames.push(user);
+        commitsViewModel.setUsername(user);
+      }
+    } else {
+      var user = '@System.Environment.UserName';
+      userName.setUser(user);
+      userNameViewModel.UserNames.push(user);
+      commitsViewModel.setUsername(user);
+    }
 
     var date = new Date();
     var day = date.getDate();
@@ -269,7 +295,7 @@
       e.preventDefault();
       createChart(10);
     });
-  </script>
+</script>
 
   <script type="text/javascript">
     var chart;
@@ -406,8 +432,8 @@
       };
       var max = 0;
       for (var i = 0; i < dat.length; i++) {
-        if (dat[i] > max) {
-          max = dat[i];
+        if (dat[i] + lab[i].toString().length * 5 > max) {
+          max = dat[i] + lab[i].toString().length * 5;
         }
       }
       var context = document.getElementById('repos').getContext('2d');

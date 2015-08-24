@@ -69,15 +69,15 @@ var CalendarViewModel = (function () {
     this.getChangesets = function () {
       var isLoad = 0;
       if (typeof (Storage) != "undefined") {
-        if (localStorage.getItem("dat") !== null) {
-          var timeStorage = localStorage["StorageTime"];
+        if (localStorage.getItem("dat" + userName.username()) !== null) {
+          var timeStorage = localStorage["StorageTime" + userName.username()];
           if (timeStorage == new Date().getDate()) {
-            var stored = JSON.parse(localStorage["dat"]);
+            var stored = JSON.parse(localStorage["dat" + userName.username()]);
             _data = stored;
             isLoad = 1;
           } else {
-            localStorage.removeItem("dat");
-            localStorage.removeItem("StorageTime");
+            localStorage.removeItem("dat" + userName.username());
+            localStorage.removeItem("StorageTime" + +userName.username());
           }
         }
       } 
@@ -92,9 +92,9 @@ var CalendarViewModel = (function () {
         }).done(function (data) {
           _this.Changesets(data);
           _data = data;
-          localStorage["dat"] = JSON.stringify(data);
+          localStorage["dat" + userName.username()] = JSON.stringify(data);
           var d = new Date();
-          localStorage["StorageTime"] = d.getDate();
+          localStorage["StorageTime" + userName.username()] = d.getDate();
         });
       }
 
