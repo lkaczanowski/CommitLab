@@ -161,13 +161,10 @@
   <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.min.js")"> </script>
   <script type="text/javascript">
-    //var user2= @Model;
-   //alert(user2);
-    //alert("Error. Useraname " + user + " doesn't exist in database.");
-    var user = "l.kaczanowski";
-      userName.setUser(user);
-      userNameViewModel.UserNames.push(user);
-      commitsViewModel.setUsername(user);
+    var user = @Html.Raw(Json.Encode(Model));
+    userName.setUser(user);
+    userNameViewModel.UserNames.push(user);
+    commitsViewModel.setUsername(user);
 
   var date = new Date();
   var day = date.getDate();
