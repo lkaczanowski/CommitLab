@@ -20,7 +20,7 @@ namespace CommitLab.Web.Controllers
     private string ParseLoginName(string model)
     {
       var match = Regex.Match(model, @"([A-Za-z0-9.-]+\\)?([A-Za-z0-9.]+)");
-      return match.Groups[1].Value;
+      return match.Groups[2].Value;
     }
   }
 }
