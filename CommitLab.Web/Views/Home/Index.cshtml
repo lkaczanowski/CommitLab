@@ -1,93 +1,428 @@
-﻿@{
-  ViewBag.Title = "KRD SourceMiner Browser";
+﻿@model string
+@{
+  ViewBag.Title = "CommitLab - Dashboard";
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container">
-  <div class="span12">
-    <div class="hero-unit2 row">
-      <h1>KRD SourceMiner</h1>
-      <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
+  <center>
+    <div class="hero-unit">
+      <div id="userName">
+        <h3><b><font color="black">Contributions for <span data-bind="text: username"></span></font></b></h3>
+      </div>
+      </div>
+    <canvas id="repos"></canvas>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span>Filter</span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">Filter</li>
+        <li><a id="t1" href="#">All</a></li>
+        <li class="divider"></li>
+        <li><a id="t2" href="#">top 5</a></li>
+        <li><a id="t3" href="#">top 10</a></li>
+        <li><a id="t4" href="#">top 15</a></li>
+        <li class="divider"></li>
+        <li><a id="t5" href="#">Over 10 commits</a></li>
+        <li><a id="t6" href="#">Over 30 commits</a></li>
+        <li><a id="t7" href="#">Over 60 commits</a></li>
+        <li class="divider"></li>
+        <li><a id="t8" href="#">From last week</a></li>
+        <li><a id="t9" href="#">From last 3 weeks</a></li>
+        <li><a id="t10" href="#">From last 30 days</a></li>
+        <li><a id="t11" href="#">From last 60 days</a></li>
+      </ul>
     </div>
-    <div id="forms" class="row">
-      <div class="span3 span3-no-margin" id="datesViewModel">
-        <form >
-          <fieldset>
-            <legend>Daty</legend>
-            <label>Data od</label>
-            <div class="input-append">
-              <input class="span2" autocomplete="off" id="dateFrom" readonly="" type="text" data-bind="datepicker: DateFrom"/>
-              <button type="button" class="btn btn-danger" data-bind="click: clearDateFrom">x</button>
-            </div>
-            <label>Data do</label>
-            <div class="input-append">
-              <input class="span2" autocomplete="off" id="dateTo" readonly="" type="text" data-bind="datepicker: DateTo"/>
-              <button type="button" class="btn btn-danger" data-bind="click: clearDateTo">x</button>
-            </div>
-          </fieldset>
-        </form>
+    <br />
+    <br />
+    <div id="cal-heatmap"></div>
+    <script type="text/javascript">
+      var cal = new CalHeatMap();
+      var curr = new Date();
+      cal.init({
+        start: new Date(curr.getFullYear() - 1, curr.getMonth()),
+        range: 13,
+        domain: "month",
+        subDomain: "day",
+        cellSize: 13,
+        cellPadding: 4,
+        tooltip: true,
+        legend: [2, 4, 6, 8],
+        onClick: function (date) {
+          commitsViewModel.setDateValue(date);
+          commitsViewModel.getComm();
+        }
+      });
+    </script>
+  </center>
+  <br />
+  <br />
+
+  <div id="calendarViewModel">
+    <div class="row">
+      <div class="span4">
+        <div class="jumbotron">
+          <center>
+            <i class="fa fa-area-chart fa-5x"></i>
+            <p class="black">Contributions in the last year:</p>
+            <p class="info" data-bind="text: commitsLastYear"></p>
+            <p class="black" data-bind="text: periodLastYear"></p>
+          </center>
+        </div>
       </div>
-      <div class="span3 span3-no-margin" id="userNameViewModel">
-        <form>
-          <fieldset>
-            <legend>Użytkownicy</legend>
-            <div class="input-append">
-              <input type="text" class="span2" id="userNameToAdd" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
-              <button type="button" class="btn btn-success" data-bind="click: addUserName, enable: UserNameToAdd().length > 0">+</button>
-              <button type="button" class="btn btn-danger" data-bind="click: removeUserName, enable: UserNameSelected().length > 0">-</button>
-            </div>
-            <br />
-            <select multiple="multiple" class="span2" height="5" data-bind="options: UserNames, selectedOptions: UserNameSelected"> </select>
-          </fieldset>
-        </form>
+      <div class="span4">
+        <div class="jumbotron">
+          <center>
+            <i class="fa fa-bolt fa-5x"></i>
+            <p class="black">Longest streak:</p>
+            <p class="info" data-bind="text: longestStreak"></p>
+            <p class="black" data-bind="text: longestStreakPeriod"></p>
+          </center>
+        </div>
       </div>
-      <div class="span3 span3-no-margin" id="branchNameViewModel">
-        <form >
-          <fieldset>
-            <legend>Gałęzie</legend>
-            <div class="input-append">
-              <input type="text" class="span2" id="branchNameToAdd" data-bind='typeahead: BranchNameList, value: BranchNameToAdd, valueUpdate: "afterkeydown"' />
-              <button type="button" class="btn btn-success" data-bind="click: addBranchName, enable: BranchNameToAdd().length > 0">+</button>
-              <button type="button" class="btn btn-danger" data-bind="click: removeBranchName, enable: BranchNameSelected().length > 0">-</button>
-            </div>
-            <br />
-            <select multiple="multiple" class="span2" height="5" data-bind="options: BranchNames, selectedOptions: BranchNameSelected"> </select>
-          </fieldset>
-        </form>
-      </div>
-      <div class="span3 span3-no-margin" id="repositoryNameViewModel">
-        <form>
-          <fieldset>
-            <legend>Repozytoria</legend>
-            <div class="input-append">
-              <input type="text" class="span2" id="repositoryNameToAdd" data-bind='typeahead: RepositoryNameList, value: RepositoryNameToAdd, valueUpdate: "afterkeydown"' />
-              <button type="button" class="btn btn-success" data-bind="click: addRepositoryName, enable: RepositoryNameToAdd().length > 0">+</button>
-              <button type="button" class="btn btn-danger" data-bind="click: removeRepositoryName, enable: RepositoryNameSelected().length > 0">-</button>
-            </div>
-            <br />
-            <select class="span2" multiple="multiple" height="5" data-bind="options: RepositoryNames, selectedOptions: RepositoryNameSelected"> </select>
-          </fieldset>
-        </form>
+      <div class="span4">
+        <div class="jumbotron">
+          <center>
+            <i class="fa fa-refresh fa-5x"></i>
+            <p class="black">Current streak: </p>
+            <p class="info" data-bind="text: currentStreak"></p>
+            <p class="black" data-bind="text: currentStreakPeriod"></p>
+          </center>
+        </div>
       </div>
     </div>
-    <div id="changesetViewModel">
-      <div class="row">
-        <p><a class="btn btn-primary btn-large" id="submitData" data-bind="click: getChangesets">Szukaj &raquo;</a></p>
+  </div>
+  <div id="commitsViewModel">
+    <div class="row">
+      <center><p class="infoBig">Contribution activity</p></center>
+      <br />
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span data-bind="text: sortInfo"></span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">Sort type</li>
+        <li><a id="s1" href="#">Sort by repositories</a></li>
+        <li><a id="s2" href="#">Sort by dates</a></li>
+      </ul>
+    </div>
+    <div class="btn-group">
+      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+        <span data-bind="text: periodInfo"></span>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <li class="dropdown-header">Filter activity</li>
+        <li><a id="1" href="#">1 day</a></li>
+        <li><a id="2" href="#">3 days</a></li>
+        <li><a id="3" href="#">1 week</a></li>
+        <li><a id="4" href="#">3 weeks</a></li>
+        <li><a id="5" href="#">30 days</a></li>
+        <li><a id="6" href="#">60 days</a></li>
+      </ul>
+    </div>
+    <div class="row">
+      <div class="span12">
+        <div class="jumbotron">
+          <center>
+            <p class="black" data-bind="html: noActivity"></p>
+            <div data-bind="foreach: reposArray">
+              <p class="info" data-bind="html:$data.name"></p>
+              <h4 class="title"><span data-bind="html:numberOfCommits"></span></h4>
+              <div data-bind="foreach: $data.repos">
+                <p class="blackleft" data-bind="html: $data.rep"></p>
+              </div>
+              <hr />
+            </div>
+            <div data-bind="foreach: commitsArraySortedBydate">
+              <p class="blackleft" data-bind="html:$data.name"></p>
+            </div>
+          </center>
+        </div>
       </div>
-      <div class="row">
-        <div class="gridStyle" data-bind="koGrid: gridOptions"></div>
-      </div>      
     </div>
   </div>
 </div>
 @section scripts
 {
-  <script type="text/javascript" src="@Url.Content("~/Scripts/main.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/UserNameViewModel.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/BranchNameViewModel.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/RepositoryNameViewModel.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/DatesViewModel.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/ChangesetFilter.js")"> </script>
-  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/ChangesetViewModel.js")"> </script>
-  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/init.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/CalendarViewModel.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/CommitsViewModel.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/UserName.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/initHome.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.js")"> </script>
+  <script type="text/javascript" src="@Url.Content("~/Scripts/Chart.min.js")"> </script>
+  <script type="text/javascript">
+    var user = @Html.Raw(Json.Encode(Model));
+    userName.setUser(user);
+    userNameViewModel.UserNames.push(user);
+    commitsViewModel.setUsername(user);
+
+  var date = new Date();
+  var day = date.getDate();
+  var year = date.getFullYear();
+  var month = date.getMonth();
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setFullYear(date.getFullYear() - 1);
+  date.setDate(date.getDate() - 1);
+  datesViewModel.DateFrom(date);
+  calendarViewModel.getChangesets();
+
+  function show() {
+    var json = JSON.stringify(display);
+    var dataObj = JSON.parse(json);
+    cal.update(dataObj);
+    cal.options.data = dataObj;
+  }
+  function updateCommits() {
+    commitsViewModel.getCommits();
+  }
+  $('#1').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(2);
+    commitsViewModel.getComm();
+  });
+  $('#2').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(4);
+    commitsViewModel.getComm();
+  });
+  $('#3').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(8);
+    commitsViewModel.getComm();
+  });
+  $('#4').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(22);
+    commitsViewModel.getComm();
+  });
+  $('#5').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(31);
+    commitsViewModel.getComm();
+  });
+  $('#6').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setPeriod(61);
+    commitsViewModel.getComm();
+  });
+  $('#s1').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setSortOption(1);
+    commitsViewModel.getComm();
+  });
+  $('#s2').click(function (e) {
+    e.preventDefault();
+    commitsViewModel.setSortOption(0);
+    commitsViewModel.getComm();
+  });
+  $('#t1').click(function (e) {
+    e.preventDefault();
+    createChart(0);
+  });
+  $('#t2').click(function (e) {
+    e.preventDefault();
+    createChart(1);
+  });
+  $('#t3').click(function (e) {
+    e.preventDefault();
+    createChart(2);
+  });
+  $('#t4').click(function (e) {
+    e.preventDefault();
+    createChart(3);
+  });
+  $('#t5').click(function (e) {
+    e.preventDefault();
+    createChart(4);
+  });
+  $('#t6').click(function (e) {
+    e.preventDefault();
+    createChart(5);
+  });
+  $('#t7').click(function (e) {
+    e.preventDefault();
+    createChart(6);
+  });
+  $('#t8').click(function (e) {
+    e.preventDefault();
+    createChart(7);
+  });
+  $('#t9').click(function (e) {
+    e.preventDefault();
+    createChart(8);
+  });
+  $('#t10').click(function (e) {
+    e.preventDefault();
+    createChart(9);
+  });
+  $('#t11').click(function (e) {
+    e.preventDefault();
+    createChart(10);
+  });
+</script>
+
+  <script type="text/javascript">
+    var chart;
+    function compare(val1, val2) { //for labdat
+      if (val1.dat > val2.dat) {
+        return -1;
+      }
+      if (val1.dat < val2.dat) {//forRepoMap
+        return 1;
+      }
+      return 0;
+    }
+
+    function compareCommitsBydate(val1, val2) {
+      if (val1.date > val2.date) {
+        return -1;
+      } else if (val1.date < val2.date) {
+        return 1;
+      }
+      return 0;
+    }
+
+    function createChart(filter) { //0 - all, 1 - top5, 2 - top10, 3 - top15, 4 - 10 com, 30 com, 60 com
+      var dataFilter = 0;
+      var data = new Date();
+      data.setHours(0);
+      data.setMinutes(0);
+      if (filter === 7) {
+        data.setDate(data.getDate() - 7);
+        dataFilter = 1;
+      } else if (filter === 8) {
+        data.setDate(data.getDate() - 21);
+        dataFilter = 1;
+      } else if (filter === 9) {
+        data.setDate(data.getDate() - 30);
+        dataFilter = 1;
+      } else if (filter === 10) {
+        data.setDate(data.getDate() - 60);
+        dataFilter = 1;
+      }
+
+
+      var lab = [];
+      var dat = [];
+      var labdat = [];
+      for (var i = repoDateMap.length - 1; i >= 0; i--) {
+        if (dataFilter === 1) {
+          if (repoDateMap[i].time < data) {
+            break;
+          }
+        }
+        var exists = 0;
+        for (var j = 0; j < lab.length; j++) {
+          if (lab[j] === repoDateMap[i].repo) {
+            dat[j]++;
+            exists = 1;
+            break;
+          }
+        }
+        if (exists === 0) {
+          lab.push(repoDateMap[i].repo);
+          dat.push(1);
+        }
+      }
+
+
+      for (var i = 0; i < lab.length; i++) {
+        labdat.push({ dat: dat[i], lab: lab[i] });
+      }
+      labdat.sort(compare);
+      //filtring
+      var labels = [];
+      var data = [];
+
+      if (filter === 0 || filter === -1 || (filter > 6)) {
+        for (var i = 0; i < labdat.length; i++) {
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 1) {
+        for (var i = 0; i < 5; i++) {
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 2) {
+        for (var i = 0; i < 10; i++) {
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 3) {
+        for (var i = 0; i < 15; i++) {
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 4) {
+        for (var i = 0; i < labdat.length; i++) {
+          if (labdat[i].dat <= 10)
+            break;
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 5) {
+        for (var i = 0; i < labdat.length; i++) {
+          if (labdat[i].dat <= 30)
+            break;
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+      else if (filter === 6) {
+        for (var i = 0; i < labdat.length; i++) {
+          if (labdat[i].dat <= 60)
+            break;
+          data.push(labdat[i].dat);
+          labels.push(labdat[i].lab);
+        }
+      }
+
+
+      var data = {
+        labels: labels,
+        datasets: [
+            {
+              label: 'Commits #',
+              fillColor: '#7BC225',
+              data: data
+            }
+        ]
+      };
+      var max = 0;
+      for (var i = 0; i < dat.length; i++) {
+        if (dat[i] + lab[i].toString().length * 5 > max) {
+          max = dat[i] + lab[i].toString().length * 5;
+        }
+      }
+      var context = document.getElementById('repos').getContext('2d');
+      if (filter === -1) {
+        //create new instance
+        context.canvas.width = window.innerWidth * 0.92;
+        context.canvas.height = max * 3;
+        chart = new Chart(context).Bar(data);
+      } else {
+        chart.destroy();
+        chart = new Chart(context).Bar(data);
+      }
+    }
+    createChart(-1);
+  </script>
 }
