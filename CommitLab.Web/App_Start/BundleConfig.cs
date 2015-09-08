@@ -16,11 +16,14 @@ namespace CommitLab.Web
         new ScriptBundle("~/scripts/base").Include(
           "~/Scripts/jquery-{version}.js",
           "~/Scripts/bootstrap*",
+          "~/Scripts/metisMenu.js",
+          "~/Scripts/main.js",
           "~/Scripts/knockout-{version}.js",
           "~/Scripts/knockout-bootstrap.js",
           "~/Scripts/knockout-postbox.js",
           "~/Scripts/koGrid-{version}.js",
-          "~/Scripts/datepicker.js"));
+          "~/Scripts/datepicker.js"
+                    ));
       BundleTable.Bundles.Add(
         new ScriptBundle("~/scripts/modernizr-respond").Include(
           "~/Scripts/modernizr-{version}.js", "~/Scripts/respond.js"));
@@ -29,10 +32,18 @@ namespace CommitLab.Web
       BundleTable.Bundles.Add(
         new StyleBundle("~/content/base").Include(
           "~/Content/bootstrap.css",
+          "~/Content/bootstrap.min.css",
           "~/Content/bootstrap-responsive.css",
+          "~/Content/metisMenu.css",
+          "~/Content/metisMenu.min.css",
           "~/Content/KoGrid.css",
           "~/Content/datepicker.css",
-          "~/Content/main.css"));
+          "~/Content/timeline.css",
+          "~/Content/main.css",
+          "~/Content/font-awesome.css",
+          "~/Content/font-awesome.min.css"));
+
+    
     }
   }
 }

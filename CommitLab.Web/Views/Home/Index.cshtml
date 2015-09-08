@@ -6,56 +6,56 @@
 
 <div class="container">
   <center>
-    <div class="hero-unit">
-      <div id="userName">
-        <h3><b><font color="black">Contributions for <span data-bind="text: username"></span></font></b></h3>
-      </div>
-      </div>
-    <canvas id="repos"></canvas>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-        <span>Filter</span>
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li class="dropdown-header">Filter</li>
-        <li><a id="t1" href="#">All</a></li>
-        <li class="divider"></li>
-        <li><a id="t2" href="#">top 5</a></li>
-        <li><a id="t3" href="#">top 10</a></li>
-        <li><a id="t4" href="#">top 15</a></li>
-        <li class="divider"></li>
-        <li><a id="t5" href="#">Over 10 commits</a></li>
-        <li><a id="t6" href="#">Over 30 commits</a></li>
-        <li><a id="t7" href="#">Over 60 commits</a></li>
-        <li class="divider"></li>
-        <li><a id="t8" href="#">From last week</a></li>
-        <li><a id="t9" href="#">From last 3 weeks</a></li>
-        <li><a id="t10" href="#">From last 30 days</a></li>
-        <li><a id="t11" href="#">From last 60 days</a></li>
-      </ul>
-    </div>
-    <br />
-    <br />
-    <div id="cal-heatmap"></div>
-    <script type="text/javascript">
-      var cal = new CalHeatMap();
-      var curr = new Date();
-      cal.init({
-        start: new Date(curr.getFullYear() - 1, curr.getMonth()),
-        range: 13,
-        domain: "month",
-        subDomain: "day",
-        cellSize: 13,
-        cellPadding: 4,
-        tooltip: true,
-        legend: [2, 4, 6, 8],
-        onClick: function (date) {
-          commitsViewModel.setDateValue(date);
-          commitsViewModel.getComm();
-        }
-      });
-    </script>
+              <div class="hero-unit">
+                  <div id="userName">
+                      <h3><b><font color="black">Contributions for <span data-bind="text: username"></span></font></b></h3>
+                  </div>
+              </div>
+              <canvas id="repos"></canvas>
+              <div class="btn-group">
+                  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                      <span>Filter</span>
+                      <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu">
+                      <li class="dropdown-header">Filter</li>
+                      <li><a id="t1" href="#">All</a></li>
+                      <li class="divider"></li>
+                      <li><a id="t2" href="#">top 5</a></li>
+                      <li><a id="t3" href="#">top 10</a></li>
+                      <li><a id="t4" href="#">top 15</a></li>
+                      <li class="divider"></li>
+                      <li><a id="t5" href="#">Over 10 commits</a></li>
+                      <li><a id="t6" href="#">Over 30 commits</a></li>
+                      <li><a id="t7" href="#">Over 60 commits</a></li>
+                      <li class="divider"></li>
+                      <li><a id="t8" href="#">From last week</a></li>
+                      <li><a id="t9" href="#">From last 3 weeks</a></li>
+                      <li><a id="t10" href="#">From last 30 days</a></li>
+                      <li><a id="t11" href="#">From last 60 days</a></li>
+                  </ul>
+              </div>
+              <br />
+              <br />
+              <div id="cal-heatmap"></div>
+              <script type="text/javascript">
+                  var cal = new CalHeatMap();
+                  var curr = new Date();
+                  cal.init({
+                      start: new Date(curr.getFullYear() - 1, curr.getMonth()),
+                      range: 13,
+                      domain: "month",
+                      subDomain: "day",
+                      cellSize: 13,
+                      cellPadding: 4,
+                      tooltip: true,
+                      legend: [2, 4, 6, 8],
+                      onClick: function (date) {
+                          commitsViewModel.setDateValue(date);
+                          commitsViewModel.getComm();
+                      }
+                  });
+              </script>
   </center>
   <br />
   <br />
@@ -415,7 +415,7 @@
       var context = document.getElementById('repos').getContext('2d');
       if (filter === -1) {
         //create new instance
-        context.canvas.width = window.innerWidth * 0.92;
+          context.canvas.width = window.innerWidth * 0.92;
         context.canvas.height = max * 3;
         chart = new Chart(context).Bar(data);
       } else {
