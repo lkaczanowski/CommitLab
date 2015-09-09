@@ -6,11 +6,11 @@
 
 <div class="container">
   <center>
-             @* <div class="hero-unit">
+              <div class="hero-unit">
                   <div id="userName">
                       <h3><b><font color="black">Contributions for <span data-bind="text: username"></span></font></b></h3>
                   </div>
-              </div>*@
+              </div>
               <canvas id="repos"></canvas>
               <div class="btn-group">
                   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
@@ -435,5 +435,5 @@
 }
 @section userName
 {
-    <span data-bind="text: username"></span>
+    @User.Identity.Name
 }

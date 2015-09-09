@@ -18,6 +18,7 @@ namespace CommitLab.Web
           "~/Scripts/bootstrap*",
           "~/Scripts/metisMenu.js",
           "~/Scripts/main.js",
+          "~/Scripts/typehead.jquery.js",
           "~/Scripts/knockout-{version}.js",
           "~/Scripts/knockout-bootstrap.js",
           "~/Scripts/knockout-postbox.js",
