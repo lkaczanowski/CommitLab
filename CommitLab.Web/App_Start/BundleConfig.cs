@@ -41,7 +41,8 @@ namespace CommitLab.Web
           "~/Content/timeline.css",
           "~/Content/main.css",
           "~/Content/font-awesome.css",
-          "~/Content/font-awesome.min.css"));
+          "~/Content/font-awesome.min.css",
+        "~/Content/search.css"));
 
     
     }

@@ -45,64 +45,58 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-              
+
             </div>
             <!-- /.navbar-header -->
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="navbar-brand" href="~/home/index/">
+                        @RenderSection("userName", true)
+                    </a>
+                 </li>
+            </ul>
 
-            
-          
-            <!-- /.navbar-top-links -->
 
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                            <a href="~/home/index/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                            
-                        </li>
-                        
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-         <div id="page-wrapper">
-            
-            <!-- /.row -->
-            <div class="row">
-                    @RenderBody()
-                </div>
-         </div>
-     
-     <!-- /#page-wrapper -->
 
+    <!-- /.navbar-top-links -->
+
+    <div class="navbar-default sidebar" role="navigation">
+        <div class="sidebar-nav navbar-collapse">
+            <ul class="nav" id="side-menu">
+
+                <li>
+                    <a href="~/home/index/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                </li>
+                <li>
+                    <a href="~/home/search/"><i class="fa fa-search fa-fw"></i> Search</a>
+                </li>
+
+            </ul>
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+    </nav>
+    <div id="page-wrapper">
+
+        <!-- /.row -->
+        <div class="row">
+              @RenderBody() 
+        </div>
+    </div>
+
+    <!-- /#page-wrapper -->
     </div>
     <!-- /#wrapper -->
-
-
-
-    
     @Scripts.Render("~/scripts/base")
     @RenderSection("scripts", false)
 
 </body>
-</html>
+    </html>
 
-<!-- STARA (ORG)-->
+    <!-- STARA (ORG)-->
 
-@*<!DOCTYPE html>
+    @*<!DOCTYPE html>
     <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
     <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
     <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->

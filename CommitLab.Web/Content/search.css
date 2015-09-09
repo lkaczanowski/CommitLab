@@ -1,0 +1,27 @@
+﻿
+.multiple-layout{
+    min-width:166.667px;
+    max-width:259px;
+    height:5px;
+    margin-left:15px;
+    width:88%;
+}
+
+.btn-frame{
+    margin:4px;
+    margin-left:0px;
+}
+
+@media (min-width: 992px) {
+    .row-centered {
+        text-align: center;
+    }
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
