@@ -8,7 +8,10 @@
   <center>
               <div class="hero-unit">
                   <div id="userName">
+                    @if (@User.Identity.Name.Substring(@User.Identity.Name.IndexOf("\\") + 1) != @Model)
+                    {
                       <h3><b><font color="black">Contributions for <span data-bind="text: username"></span></font></b></h3>
+                    }
                   </div>
               </div>
               <canvas id="repos"></canvas>
@@ -435,5 +438,5 @@
 }
 @section userName
 {
-    @User.Identity.Name
+   @User.Identity.Name.Substring(@User.Identity.Name.IndexOf("\\") + 1)
 }

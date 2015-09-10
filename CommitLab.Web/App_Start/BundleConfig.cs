@@ -18,7 +18,7 @@ namespace CommitLab.Web
           "~/Scripts/bootstrap*",
           "~/Scripts/metisMenu.js",
           "~/Scripts/main.js",
-          "~/Scripts/typehead.jquery.js",
+         "~/Scripts/typehead.jquery.js",
           "~/Scripts/knockout-{version}.js",
           "~/Scripts/knockout-bootstrap.js",
           "~/Scripts/knockout-postbox.js",
@@ -43,7 +43,8 @@ namespace CommitLab.Web
           "~/Content/main.css",
           "~/Content/font-awesome.css",
           "~/Content/font-awesome.min.css",
-        "~/Content/search.css"));
+        "~/Content/search.css",
+        "~/Content/bootstrap-typehead.css"));
 
     
     }
