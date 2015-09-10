@@ -4,12 +4,24 @@
     max-width:259px;
     height:5px;
     margin-left:15px;
+    margin-top:5px;
     width:88%;
 }
 
 .btn-frame{
     margin:4px;
     margin-left:0px;
+    height:34px;
+}
+
+.input-box{
+    height:34.667px;
+    margin-top:6px;
+    margin-bottom:5px;
+}
+
+.input-append-frame{
+    margin-top:15px;
 }
 
 @media (min-width: 992px) {

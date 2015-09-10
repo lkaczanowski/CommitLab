@@ -23,19 +23,19 @@
                         <div class="row">
                             <div class="input-append">
                                 <div class="col-xs-12">
-                                    <input autocomplete="off" id="dateFrom" readonly="" type="text" data-bind="datepicker: DateFrom" />
-                                    <button type="button" class="btn btn-danger" data-bind="click: clearDateFrom">x</button>
+                                    <input autocomplete="off" class="input-box" style="margin-top:0px" id="dateFrom" readonly="" type="text" data-bind="datepicker: DateFrom" />
+                                    <button type="button" class="btn btn-danger btn-frame" style="margin-top:0px" data-bind="click: clearDateFrom">x</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row" style="margin-top:15px">
                             <label>Data do</label>
                         </div>
                         <div class="row">
                             <div class="input-append">
                                 <div class="col-xs-12">
-                                    <input autocomplete="off" id="dateTo" readonly="" type="text" data-bind="datepicker: DateTo" />
-                                    <button type="button" class="btn btn-danger" data-bind="click: clearDateTo">x</button>
+                                    <input autocomplete="off" class="input-box" style="margin-top:0px" id="dateTo" readonly="" type="text" data-bind="datepicker: DateTo" />
+                                    <button type="button" class="btn btn-danger btn-frame" style="margin-top:0px" data-bind="click: clearDateTo">x</button>
                                 </div>
                             </div>
                         </div>
@@ -47,10 +47,10 @@
                 <fieldset>
                     <legend>Użytkownicy</legend>
                     <div class="row">
-                        <div class="input-append">
+                        <div class="input-append input-append-frame">
                             @*<div class="col-lg-8 col-md-6 col-sm-4 col-xs-12">*@
-                            <div class="col-lg-7 col-md-12 col-xs-12 col-centered">
-                                <input type="text" id="userNameToAdd" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
+                            <div class="col-lg-7 col-md-12 col-xs-12">
+                                <input type="text" id="userNameToAdd" class="input-box" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
                               </div>
                             @*<div class="col-lg-4 col-md-6 col-sm-4 col-xs-12">*@
                             <div class="col-lg-5 col-md-12 col-xs-12 col-centered">
@@ -70,10 +70,10 @@
                 <fieldset>
                     <legend>Gałęzie</legend>
                     <div class="row">
-                        <div class="input-append">
+                        <div class="input-append input-append-frame">
                             @*<div class="col-lg-8 col-md-12 col-xs-12">*@
-                            <div class="col-lg-7 col-md-12 col-xs-12  col-centered">
-                                <input type="text" id="branchNameToAdd" data-bind='typeahead: BranchNameList, value: BranchNameToAdd, valueUpdate: "afterkeydown"' />
+                            <div class="col-lg-7 col-md-12 col-xs-12">
+                                <input type="text" id="branchNameToAdd" class="input-box" data-bind='typeahead: BranchNameList, value: BranchNameToAdd, valueUpdate: "afterkeydown"' />
                             </div>
                             @*<div class="col-lg-4 col-md-12 col-xs-12">*@
                             <div class="col-lg-5 col-md-12 col-xs-12 col-centered">
@@ -94,9 +94,9 @@
                 <fieldset>
                     <legend>Repozytoria</legend>
                     <div class="row">
-                        <div class="input-append">
-                            <div class="col-lg-7 col-md-12 col-xs-12 col-centered">
-                                <input type="text" id="repositoryNameToAdd" data-bind='typeahead: RepositoryNameList, value: RepositoryNameToAdd, valueUpdate: "afterkeydown"' />
+                        <div class="input-append input-append-frame">
+                            <div class="col-lg-7 col-md-12 col-xs-12">
+                                <input type="text" id="repositoryNameToAdd" class="input-box" data-bind='typeahead: RepositoryNameList, value: RepositoryNameToAdd, valueUpdate: "afterkeydown"' />
                             </div>
                             <div class="col-lg-5 col-md-12 col-xs-12 col-centered">
                                 <button type="button" class="btn btn-success btn-frame" data-bind="click: addRepositoryName, enable: RepositoryNameToAdd().length > 0">+</button>

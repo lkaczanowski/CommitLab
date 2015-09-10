@@ -249,7 +249,6 @@
     <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\KRD.pubxml" />
     <None Include="Scripts\jquery-2.0.2.intellisense.js" />
-    <Content Include="Scripts\bootstrap3-typehead.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\datepicker.js" />

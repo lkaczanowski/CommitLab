@@ -105,7 +105,7 @@
   </div>
   <div id="commitsViewModel">
     <div class="row">
-      <center><p class="infoBig">Contribution activity</p></center>
+      <center><p style="font-size:54px">Contribution activity</p></center>
       <br />
     </div>
     <div class="btn-group">
@@ -138,7 +138,7 @@
       <div class="span12">
         <div class="jumbotron">
           <center>
-            <p class="black" data-bind="html: noActivity"></p>
+              <p class="black" data-bind="html: noActivity"></p>
             <div data-bind="foreach: reposArray">
               <p class="info" data-bind="html:$data.name"></p>
               <h4 class="title"><span data-bind="html:numberOfCommits"></span></h4>
@@ -174,7 +174,15 @@
     var user = @Html.Raw(Json.Encode(Model));
     userName.setUser(user);
     userNameViewModel.UserNames.push(user);
-    commitsViewModel.setUsername(user);
+    
+    if ("@User.Identity.Name.Substring(@User.Identity.Name.IndexOf("\\") + 1)" == user)
+    {
+        commitsViewModel.setUsername("You");
+    }
+    else
+    {
+        commitsViewModel.setUsername(user);
+    }
 
   var date = new Date();
   var day = date.getDate();
