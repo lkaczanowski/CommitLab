@@ -12,7 +12,7 @@ namespace CommitLab.Web
 {
   public class MvcApplication : System.Web.HttpApplication
   {
-      private static readonly ILog _log = LogManager.GetLogger(typeof(MvcApplication));//(MethodBase.GetCurrentMethod().DeclaringType);
+      //private static readonly ILog _log = LogManager.GetLogger(typeof(MvcApplication));//(MethodBase.GetCurrentMethod().DeclaringType);
 
      /*void initialize(){
       * GlobalContext.Properties["applicationName"] = "CommitLab";
@@ -34,29 +34,29 @@ namespace CommitLab.Web
     }
 
 
-    protected void Application_Error(object sender, EventArgs e)
-    {
-        if (Context == null)
-            return;
+    //protected void Application_Error(object sender, EventArgs e)
+    //{
+    //    if (Context == null)
+    //        return;
 
-        HttpException httpException = Context.Error as HttpException;
+    //    HttpException httpException = Context.Error as HttpException;
 
-        if (httpException != null)
-        {
-            if (httpException.GetHttpCode() == 404)
-            {
-                //  _log.WarnIfIsEnabled(string.Empty, Context.Error);
-                  if(_log.IsWarnEnabled)
-                _log.Warn(string.Empty, Context.Error);
+    //    if (httpException != null)
+    //    {
+    //        if (httpException.GetHttpCode() == 404)
+    //        {
+    //            //  _log.WarnIfIsEnabled(string.Empty, Context.Error);
+    //              if(_log.IsWarnEnabled)
+    //            _log.Warn(string.Empty, Context.Error);
 
-                return;
-            }
-        }
+    //            return;
+    //        }
+    //    }
 
-        //_log.ErrorIfIsEnabled(Context.Error.Message, Context.Error);
-             if(_log.IsErrorEnabled)
-        _log.Error(Context.Error.Message, Context.Error);
-    }
+    //    //_log.ErrorIfIsEnabled(Context.Error.Message, Context.Error);
+    //         if(_log.IsErrorEnabled)
+    //    _log.Error(Context.Error.Message, Context.Error);
+    //}
 
   }
 }
