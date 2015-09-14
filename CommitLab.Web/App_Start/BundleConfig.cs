@@ -15,6 +15,8 @@ namespace CommitLab.Web
       BundleTable.Bundles.Add(
         new ScriptBundle("~/scripts/base").Include(
           "~/Scripts/jquery-{version}.js",
+          "~/Scripts/URI.js",
+          "~/Scripts/UriReturnInfo.js",
           "~/Scripts/bootstrap*",
           "~/Scripts/metisMenu.js",
           "~/Scripts/main.js",
@@ -25,6 +27,9 @@ namespace CommitLab.Web
           "~/Scripts/koGrid-{version}.js",
           "~/Scripts/datepicker.js"
                     ));
+
+
+
       BundleTable.Bundles.Add(
         new ScriptBundle("~/scripts/modernizr-respond").Include(
           "~/Scripts/modernizr-{version}.js", "~/Scripts/respond.js"));

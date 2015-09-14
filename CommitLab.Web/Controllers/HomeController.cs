@@ -17,6 +17,11 @@ namespace CommitLab.Web.Controllers
       return View();
     }
 
+    public ActionResult Test()
+    {
+        return View();
+    }
+
     private string ParseLoginName(string model)
     {
       var match = Regex.Match(model, @"([A-Za-z0-9.-]+\\)?([A-Za-z0-9.]+)");
