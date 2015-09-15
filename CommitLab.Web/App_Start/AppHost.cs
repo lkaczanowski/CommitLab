@@ -20,6 +20,9 @@ namespace CommitLab.Web
   public class AppHost
     : AppHostBase
   {
+
+
+
     public AppHost()
       : base("CommitLab ASP.NET Host", typeof(ChangesetService).Assembly)
     {
@@ -28,6 +31,7 @@ namespace CommitLab.Web
     public static void Start()
     {
       new AppHost().Init();
+     
     }
 
     public override void Configure(Funq.Container container)

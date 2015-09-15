@@ -5,13 +5,14 @@ namespace CommitLab.Web.Controllers
 {
   public class HomeController : Controller
   {
+      [Authorize]
     public ActionResult Index(string id)
     {
       var model = string.IsNullOrWhiteSpace(id) ? ParseLoginName(User.Identity.Name) : id;
 
       return View((object)model);
     }
-
+      [Authorize]
     public ActionResult Search()
     {
       return View();

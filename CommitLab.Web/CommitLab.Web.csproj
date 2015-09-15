@@ -251,10 +251,6 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="log4net.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
     <None Include=".bin\git.cmd" />
     <None Include=".bin\node.cmd" />
     <None Include="Properties\PublishProfiles\KRD.pubxml" />
