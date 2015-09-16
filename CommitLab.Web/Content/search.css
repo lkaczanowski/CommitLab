@@ -9,7 +9,7 @@
 }
 
 .btn-frame{
-    margin:4px;
+    margin-top:25px;
     margin-left:0px;
     height:34px;
 }
@@ -20,8 +20,23 @@
     margin-bottom:5px;
 }
 
+
+.topic{
+  width:91%;
+    font-size:30px;
+     border-bottom:solid;
+     border-bottom-width:1px; 
+     border-bottom-color:lightgrey;
+}
+
+
 .input-append-frame{
     margin-top:15px;
+}
+
+.gridStyle-responsive
+{
+    width:100%;
 }
 
 @media (min-width: 992px) {
@@ -36,4 +51,126 @@
     text-align:left;
     /* inline-block space fix */
     margin-right:-4px;
+}
+
+
+.col-big
+{
+       position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+        float: left;
+        
+}
+
+.col-input-btn{
+     margin-left:32px;
+}
+
+@media (min-width: 1500px) {
+    .col-big {
+     
+        width: 25%;
+    }
+}
+
+@media (min-width: 1200px) and (max-width:1500px) {
+    .col-big {
+    margin:5px;  
+        width: 49%;
+    }
+    .topic{
+        width:79%;
+    }
+}
+
+@media (min-width: 1000px) and (max-width:1200px) {
+    .col-big {
+    margin:5px;  
+        width: 35%;
+    }
+
+}
+
+
+
+
+@media (min-width: 1400px) and (max-width: 1600px) {
+    .gridStyle-responsive { 
+        width: 90%;
+    }
+       .col-input-btn
+    {
+        margin-left:28px;
+    }
+}
+@media (min-width: 1300px) and (max-width: 1400px) {
+    .gridStyle-responsive { 
+        width: 80%;
+    }
+    .topic{
+        width:59%;
+    }
+}
+@media (min-width: 1200px) and (max-width: 1300px) {
+    .gridStyle-responsive { 
+        width: 65%;
+    }
+    .topic {
+    width:44%;
+    }
+ 
+}
+
+@media (min-width: 1000px) and (max-width: 1200px)
+{
+    .gridStyle-responsive { 
+        width: 65%;
+    }   
+     .col-input-btn
+    {
+        margin-left:16px;
+    }
+
+
+}
+
+@media (min-width: 800px) and (max-width: 1000px){
+        .gridStyle-responsive { 
+        width: 50%;
+    } 
+
+    .col-input-btn
+    {
+        margin-left:16px;
+    }
+    .topic {
+    width:36%;
+    }
+}
+
+@media (min-width: 750px) and (max-width: 800px) {
+    .gridStyle-responsive { 
+        width: 50%;
+    }   
+     .col-input-btn
+    {
+        margin-left:20px;
+    }
+ .topic {
+    width:34%;
+    }
+  
+}
+
+@media (max-width: 750px) {
+    .gridStyle-responsive { 
+        width: 100%;
+    }
+     .col-input-btn
+    {
+        margin-left:0px;
+    }
+ 
 }

@@ -4,65 +4,65 @@
   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
+
     <center>
 
-            <div class="row">
-              <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
                 <div id="userName">
                     @if (@User.Identity.Name.Substring(@User.Identity.Name.IndexOf("\\") + 1) != @Model)
                     {
                         <h3><b><font color="black">Contributions for <span data-bind="text: username"></span></font></b></h3>
                     }
                 </div>
-               </div>
             </div>
+        </div>
 
 
-            <div class="row">
-                <div class="col-md-12"> 
-                    <canvas id="repos"></canvas> 
-                </div>
-            </div>
+        <div class="row">
+           
+                <canvas id="repos" class="col-md-12 left" style="margin-left:18px"></canvas>
+            
+        </div>
 
 
 
         <div class="row">
-            <div class="col-md-12">   
-                 <div class="btn-group">
-                   <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                     <span>Filter</span>
-                       <span class="caret"></span>
-                   </button>
-                   <ul class="dropdown-menu" role="menu">
-                    <li class="dropdown-header">Filter</li>
-                    <li><a id="t1" href="#">All</a></li>
-                    <li class="divider"></li>
-                    <li><a id="t2" href="#">top 5</a></li>
-                    <li><a id="t3" href="#">top 10</a></li>
-                    <li><a id="t4" href="#">top 15</a></li>
-                    <li class="divider"></li>
-                    <li><a id="t5" href="#">Over 10 commits</a></li>
-                    <li><a id="t6" href="#">Over 30 commits</a></li>
-                    <li><a id="t7" href="#">Over 60 commits</a></li>
-                    <li class="divider"></li>
-                    <li><a id="t8" href="#">From last week</a></li>
-                    <li><a id="t9" href="#">From last 3 weeks</a></li>
-                    <li><a id="t10" href="#">From last 30 days</a></li>
-                    <li><a id="t11" href="#">From last 60 days</a></li>
-                  </ul>
-                 </div>
+            <div class="col-md-12">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                        <span>Filter</span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="dropdown-header">Filter</li>
+                        <li><a id="t1" href="#">All</a></li>
+                        <li class="divider"></li>
+                        <li><a id="t2" href="#">top 5</a></li>
+                        <li><a id="t3" href="#">top 10</a></li>
+                        <li><a id="t4" href="#">top 15</a></li>
+                        <li class="divider"></li>
+                        <li><a id="t5" href="#">Over 10 commits</a></li>
+                        <li><a id="t6" href="#">Over 30 commits</a></li>
+                        <li><a id="t7" href="#">Over 60 commits</a></li>
+                        <li class="divider"></li>
+                        <li><a id="t8" href="#">From last week</a></li>
+                        <li><a id="t9" href="#">From last 3 weeks</a></li>
+                        <li><a id="t10" href="#">From last 30 days</a></li>
+                        <li><a id="t11" href="#">From last 60 days</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-            <br />
-            <br />
+        <br />
+        <br />
 
 
-           <div class="row">
-                <div class="col-md-12">
-                        <div id="cal-heatmap"></div>      
-               </div>
-           </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="cal-heatmap"></div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="btn-group-lg">
@@ -71,133 +71,131 @@
                 </div>
             </div>
         </div>
-       
+
 
 
         <div class="row">
-            <div class="col-md-12">   
+            <div class="col-md-12">
                 <script type="text/javascript">
-    var cal = new CalHeatMap();
-    var curr = new Date();
-    cal.init({
-        start: new Date(curr.getFullYear() - 1, curr.getMonth()),
-        range: 13,
-        domain: "month",
-        subDomain: "day",
-        cellSize: 14,
-        cellPadding: 4,
-        tooltip: true,
-        legend: [2, 4, 6, 8],
-        onClick: function (date) {
-            commitsViewModel.setDateValue(date);
-            commitsViewModel.getComm();
-        }});
+                    var cal = new CalHeatMap();
+                    var curr = new Date();
+                    cal.init({
+                        start: new Date(curr.getFullYear() - 1, curr.getMonth()),
+                        range: 13,
+                        domain: "month",
+                        subDomain: "day",
+                        cellSize: 14,
+                        cellPadding: 4,
+                        tooltip: true,
+                        legend: [2, 4, 6, 8],
+                        onClick: function (date) {
+                            commitsViewModel.setDateValue(date);
+                            commitsViewModel.getComm();
+                        }});
 
-   
+
 
                 </script>
             </div>
         </div>
     </center>
-    
-  <br />
-  <br />
 
-  <div id="calendarViewModel">
-    <div class="row">
-      <div class="col-md-4">
-      <div class="span4">
-        <div class="jumbotron">
-          <center>
-            <i class="fa fa-area-chart fa-5x"></i>
-            <p class="black">Contributions in the last year:</p>
-            <p class="info" data-bind="text: commitsLastYear"></p>
-            <p class="black" data-bind="text: periodLastYear"></p>
-          </center>
-        </div>
-      </div>
-      </div>
-      <div class="col-md-4">
-      <div class="span4">
-        <div class="jumbotron">
-          <center>
-            <i class="fa fa-bolt fa-5x"></i>
-            <p class="black">Longest streak:</p>
-            <p class="info" data-bind="text: longestStreak"></p>
-            <p class="black" data-bind="text: longestStreakPeriod"></p>
-          </center>
-        </div>
-      </div>
-      </div>
-      <div class="col-md-4">
-      <div class="span4">
-        <div class="jumbotron">
-          <center>
-            <i class="fa fa-refresh fa-5x"></i>
-            <p class="black">Current streak: </p>
-            <p class="info" data-bind="text: currentStreak"></p>
-            <p class="black" data-bind="text: currentStreakPeriod"></p>
-          </center>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
+    <br />
+    <br />
 
-
-  <div id="commitsViewModel">
-    <div class="row">
-      <center><p style="font-size:54px">Contribution activity</p></center>
-      <br />
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-        <span data-bind="text: sortInfo"></span>
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li class="dropdown-header">Sort type</li>
-        <li><a id="s1" href="#">Sort by repositories</a></li>
-        <li><a id="s2" href="#">Sort by dates</a></li>
-      </ul>
-    </div>
-    <div class="btn-group">
-      <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-        <span data-bind="text: periodInfo"></span>
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li class="dropdown-header">Filter activity</li>
-        <li><a id="1" href="#">1 day</a></li>
-        <li><a id="2" href="#">3 days</a></li>
-        <li><a id="3" href="#">1 week</a></li>
-        <li><a id="4" href="#">3 weeks</a></li>
-        <li><a id="5" href="#">30 days</a></li>
-        <li><a id="6" href="#">60 days</a></li>
-      </ul>
-    </div>
-    <div class="row">
-      <div class="span12">
-        <div class="jumbotron">
-          <center>
-              <p class="black" data-bind="html: noActivity"></p>
-            <div data-bind="foreach: reposArray">
-              <p class="info" data-bind="html:$data.name"></p>
-              <h4 class="title"><span data-bind="html:numberOfCommits"></span></h4>
-              <div data-bind="foreach: $data.repos">
-                <p class="blackleft" data-bind="html: $data.rep"></p>
-              </div>
-              <hr />
+    <div id="calendarViewModel">
+        <div class="row">
+            <div class="col-lg-4 col-md-4">
+                <div class="jumbotron jumbotron-responsive">
+                    <center>
+                        <i class="fa fa-area-chart fa-5x"></i>
+                        <p class="black">Contributions in the last year:</p>
+                        <p class="info" data-bind="text: commitsLastYear"></p>
+                        <p class="black" data-bind="text: periodLastYear"></p>
+                    </center>
+                </div>
             </div>
-            <div data-bind="foreach: commitsArraySortedBydate">
-              <p class="blackleft" data-bind="html:$data.name"></p>
+            <div class="col-lg-4 col-md-4">
+                <div class="jumbotron jumbotron-responsive">
+                    <center>
+                        <i class="fa fa-bolt fa-5x"></i>
+                        <p class="black">Longest streak:</p>
+                        <p class="info" data-bind="text: longestStreak"></p>
+                        <p class="black" data-bind="text: longestStreakPeriod"></p>
+                    </center>
+                </div>
             </div>
-          </center>
+            <div class="col-lg-4 col-md-8">
+                <div class="jumbotron jumbotron-responsive">
+                    <center>
+                        <i class="fa fa-refresh fa-5x"></i>
+                        <p class="black">Current streak: </p>
+                        <p class="info" data-bind="text: currentStreak"></p>
+                        <p class="black" data-bind="text: currentStreakPeriod"></p>
+                    </center>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
+
+
+    <div id="commitsViewModel">
+        <div class="row">
+            <center>
+                <div class="col-md-12">
+                    <p style="font-size:54px">Contribution activity</p>
+                </div></center>
+            
+            <br />
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                <span data-bind="text: sortInfo"></span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-header">Sort type</li>
+                <li><a id="s1" href="#">Sort by repositories</a></li>
+                <li><a id="s2" href="#">Sort by dates</a></li>
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                <span data-bind="text: periodInfo"></span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li class="dropdown-header">Filter activity</li>
+                <li><a id="1" href="#">1 day</a></li>
+                <li><a id="2" href="#">3 days</a></li>
+                <li><a id="3" href="#">1 week</a></li>
+                <li><a id="4" href="#">3 weeks</a></li>
+                <li><a id="5" href="#">30 days</a></li>
+                <li><a id="6" href="#">60 days</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <center>
+                        <p class="black" data-bind="html: noActivity"></p>
+                        <div data-bind="foreach: reposArray">
+                            <p class="info" data-bind="html:$data.name"></p>
+                            <h4 class="title"><span data-bind="html:numberOfCommits"></span></h4>
+                            <div data-bind="foreach: $data.repos">
+                                <p class="blackleft" data-bind="html: $data.rep"></p>
+                            </div>
+                            <hr />
+                        </div>
+                        <div data-bind="foreach: commitsArraySortedBydate">
+                            <p class="blackleft" data-bind="html:$data.name"></p>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 @section scripts
 {
@@ -513,7 +511,7 @@
 
     <script type="text/javascript">
         var level = 999;
-        var levels = [9,11,13,15,18];
+        var levels = [9,11,14,16,19];
         var constMulti = 100;
         var options = [[4,10],[6,12],[8,14],[11,14],[13,14]];
 

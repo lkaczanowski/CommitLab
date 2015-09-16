@@ -49,7 +49,8 @@ namespace CommitLab.Web
           "~/Content/font-awesome.css",
           "~/Content/font-awesome.min.css",
         "~/Content/search.css",
-        "~/Content/bootstrap-typehead.css"));
+        "~/Content/bootstrap-typehead.css",
+        "~/Content/index.css"));
 
     
     }
