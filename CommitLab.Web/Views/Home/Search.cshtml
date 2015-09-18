@@ -139,7 +139,3 @@
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/ChangesetViewModel.js")"> </script>
   <script type="text/javascript" src="@Url.Content("~/Scripts/ViewModels/init.js")"> </script>
 }
-@section userName
-{
-    @User.Identity.Name.Substring(@User.Identity.Name.IndexOf("\\") + 1)
-}

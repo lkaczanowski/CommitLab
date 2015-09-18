@@ -1,0 +1,93 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+
+    <div class="col-xs-6 col-centered" style="margin-top:50px">
+        <div id="NuGetGridData">
+            <div class="input-group">
+                <input id="nuGetSearchPlaceholder" type="text" class="form-control" data-bind="textInput: searchPackageName" placeholder="Search for...">
+                <span class="input-group-btn">
+                    <button id="submitData" class="btn btn-default" type="button" data-bind="click: getChangesets">Szukaj</button>
+                </span>
+            </div><!-- /input-group -->
+
+
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="gridStyle gridStyle-responsive" style="margin-top:60px; min-height:300px; min-width:700px" data-bind="koGrid: gridNuGet"></div>
+                </div>
+            </div>
+            </div>
+        </div>
+
+</div>
+@*<div>
+@{
+    ((CommitLab.Web.Controllers.HomeController)this.ViewContext.Controller).GetNuGetData();
+}
+@ViewBag.packagesCount
+
+@{
+ 
+    foreach(var i in ViewBag.packages)
+    {
+        @Html.Raw(i +"\n");
+    };
+}
+</div>*@
+
+
+@section scripts
+{
+
+
+<script type="text/javascript">
+
+
+    var viewModel = function(){
+        var that = this;
+        searchPackageName = ko.observable("");        // Initially blank
+
+        var _this = this;
+        Changesets = ko.observableArray([]);
+
+        gridNuGet = {
+            data: Changesets,
+            showGroupPanel: true,
+            columnDefs: [{ field: 'Id', displayName: 'ID'},
+                {field: 'name', displayName: 'Package Name'
+            }, ]
+        };
+
+        getChangesets = function()
+        {
+            alert("Wyslano request");
+
+            var path = GetChangedUriInfo();
+
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: path + 'Home/Create',
+                data: JSON.stringify({ name: ko.toJS(searchPackageName) }),
+            }).done(function (data) {
+                if (data.name == "")
+                    alert("nie ma takiej paczki");
+                else {
+                    Changesets.push(data);
+                    alert("Juz");
+                }
+            });
+        }
+    };
+    ko.applyBindings(viewModel);
+
+
+
+</script>
+
+
+    }

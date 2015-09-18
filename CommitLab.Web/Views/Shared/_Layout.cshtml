@@ -59,7 +59,7 @@
                         <li>
                             <a href="~/home/index/" name="indexBar">
                                 <button class="btn btn-primary btn-lg" role="button" style="width:236px;text-align:left">
-                                    <i class="fa fa-dashboard fa-fw">
+                                    <i class="fa fa-area-chart fa-fw">
                                     </i> Dashboard
                                 </button>
                             </a>
@@ -69,6 +69,14 @@
                                 <button class="btn btn-primary btn-lg" role="button" style="width:236px; text-align:left">
                                     <i class=" fa fa-search fa-fw">
                                     </i> Search
+                                </button>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="~/home/NuGet/" name="nuGetBar">
+                                <button class="btn btn-primary btn-lg" role="button" style="width:236px; text-align:left">
+                                    <i class=" fa fa-th-large fa-fw">
+                                    </i> NuGet
                                 </button>
                             </a>
                         </li>
@@ -89,7 +97,7 @@
                         </a>*@
                                                 
                         <a class="navbar-brand" href="~/home/index/">
-                            @RenderSection("userName", true)
+                            @User.Identity.Name.Substring(@User.Identity.Name.IndexOf("\\") + 1)
                         </a>
                     </li>
                 </ul>

@@ -73,9 +73,16 @@
     <Reference Include="Microsoft.Data.OData, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.OData.5.6.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.XmlTransform">
+      <HintPath>..\packages\Microsoft.Web.Xdt.2.1.1\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Core, Version=2.8.60717.93, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NuGet.Core.2.8.6\lib\net40-Client\NuGet.Core.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack">
       <HintPath>..\packages\ServiceStack.3.9.48\lib\net35\ServiceStack.dll</HintPath>
@@ -195,6 +202,7 @@
   <ItemGroup>
     <Compile Include="Api\Helpers\TranslateExtensions.cs" />
     <Compile Include="Api\Helpers\ValidationExtensions.cs" />
+    <Compile Include="Models\NuGetData.cs" />
     <Compile Include="Api\Services\Changeset\ChangeSetService.cs" />
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetColumnRequest.cs" />
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetRequest.cs" />
@@ -285,6 +293,7 @@
     <Content Include="Scripts\ViewModels\DatesViewModel.js" />
     <Content Include="Scripts\ViewModels\init.js" />
     <Content Include="Scripts\ViewModels\initHome.js" />
+    <Content Include="Scripts\ViewModels\NuGetPackageViewModel.js" />
     <Content Include="Scripts\ViewModels\RepositoryNameViewModel.js" />
     <Content Include="Scripts\ViewModels\UserName.js" />
     <Content Include="Scripts\ViewModels\UserNameViewModel.js" />
@@ -300,6 +309,7 @@
     <Content Include="Scripts\metisMenu.js.map" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\NuGet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -311,7 +321,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
