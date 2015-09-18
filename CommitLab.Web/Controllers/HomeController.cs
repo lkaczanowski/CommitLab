@@ -40,7 +40,7 @@ namespace CommitLab.Web.Controllers
         return Json(GetNuGetData(name));
     }
 
-    public NuGetData GetNuGetData(string name)
+    public IPackage[] GetNuGetData(string name)
     {
         {
             var packageSource = "http://teamcity/krd.nugetgallery/nuget/";
@@ -51,25 +51,25 @@ namespace CommitLab.Web.Controllers
             //var packages = repository.GetPackages().Where(p => p.IsLatestVersion);
             var packages = from x in repository.GetPackages() where x.Id == searchPackage select x;
 
-            var ret = new NuGetData();
-            
+ 
             var pCount = packages.Count();
+            var tableOfData = new IPackage[pCount];
             if (pCount > 0)
             {
                 string[] table = new string[pCount];
                 var i = 0;
+
                 foreach (var b in packages)
                 {
-                    table[i] = b.Id;
-                    i++;
+                    tableOfData[i] = b;
+                   
+                        i++;
                 }
 
-                ret.name = table[0];
+ 
             }
-            else
-                ret.name = "";
 
-            return ret;
+            return tableOfData;
 
             //Dictionary<IPackage, IVersionSpec> dependentPackages = new Dictionary<IPackage, IVersionSpec>();
 

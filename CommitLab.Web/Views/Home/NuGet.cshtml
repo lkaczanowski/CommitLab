@@ -57,9 +57,11 @@
         gridNuGet = {
             data: Changesets,
             showGroupPanel: true,
-            columnDefs: [{ field: 'Id', displayName: 'ID'},
-                {field: 'name', displayName: 'Package Name'
-            }, ]
+            columnDefs: [{ field: 'Id', displayName: 'Package Name'},
+                { field: 'Version', displayName: 'Version' },
+                { field: 'DownloadCount', displayName: 'Downloads' },
+                { field: 'Published', displayName: 'Published' },
+            ]
         };
 
         getChangesets = function()
@@ -74,12 +76,20 @@
                 url: path + 'Home/Create',
                 data: JSON.stringify({ name: ko.toJS(searchPackageName) }),
             }).done(function (data) {
-                if (data.name == "")
-                    alert("nie ma takiej paczki");
-                else {
-                    Changesets.push(data);
-                    alert("Juz");
+                
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].name == "") {
+                        alert("nie ma takiej paczki");
+                        break;
+                    }
+                    Changesets.push(data[i]);
                 }
+              
+
+
+ 
+                    alert("Juz");
+                
             });
         }
     };

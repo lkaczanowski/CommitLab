@@ -202,7 +202,6 @@
   <ItemGroup>
     <Compile Include="Api\Helpers\TranslateExtensions.cs" />
     <Compile Include="Api\Helpers\ValidationExtensions.cs" />
-    <Compile Include="Models\NuGetData.cs" />
     <Compile Include="Api\Services\Changeset\ChangeSetService.cs" />
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetColumnRequest.cs" />
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetRequest.cs" />
@@ -293,7 +292,6 @@
     <Content Include="Scripts\ViewModels\DatesViewModel.js" />
     <Content Include="Scripts\ViewModels\init.js" />
     <Content Include="Scripts\ViewModels\initHome.js" />
-    <Content Include="Scripts\ViewModels\NuGetPackageViewModel.js" />
     <Content Include="Scripts\ViewModels\RepositoryNameViewModel.js" />
     <Content Include="Scripts\ViewModels\UserName.js" />
     <Content Include="Scripts\ViewModels\UserNameViewModel.js" />
@@ -321,6 +319,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
