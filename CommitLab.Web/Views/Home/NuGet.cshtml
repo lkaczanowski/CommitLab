@@ -4,45 +4,88 @@
 
 <div class="row">
 
-    <div class="col-xs-6 col-centered" style="margin-top:50px">
-        <div id="NuGetGridData">
-            <div class="input-group">
-                <input id="nuGetSearchPlaceholder" type="text" class="form-control" data-bind="textInput: searchPackageName" placeholder="Search for...">
-                <span class="input-group-btn">
-                    <button id="submitData" class="btn btn-default" type="button" data-bind="click: getChangesets">Szukaj</button>
-                </span>
-            </div><!-- /input-group -->
-
-
-            <div class="row">
-                <div class="col-xs-12">
-
-                    <div class="gridStyle gridStyle-responsive" style="margin-top:60px; min-height:300px; min-width:700px" data-bind="koGrid: gridNuGet"></div>
-                </div>
-            </div>
+    <div class="col-xs-8 col-centered" style="margin-top:50px">
+        <div class="input-group" style="margin-left:15px">
+            <input id="nuGetSearchPlaceholder" type="text" class="form-control" data-bind="textInput: searchPackageName" placeholder="Search for...">
+            <span class="input-group-btn">
+                <button id="submitData" class="btn btn-default" type="button" data-bind="click: function(){getChangesets()}">Szukaj</button>
+            </span>        
+        </div><!-- /input-group -->
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-1">
+    <span class="form-group" id="wrongNameInfo" style="color:red; font-size:16px; border-left:15px;"></span>
             </div>
         </div>
 
-</div>
-@*<div>
-@{
-    ((CommitLab.Web.Controllers.HomeController)this.ViewContext.Controller).GetNuGetData();
-}
-@ViewBag.packagesCount
+    <div class="row" style="margin-top:50px">
+        <div class="col-xs-4 col-xs-offset-1">
+              <h1><span id="labelPackageName">Paczka i wersja</span></h1>
+        </div>
+        <div class="col-xs-6 col-xs-offset-1">
+            <div class="row">
+                <h4>Published</h4>
+                <h5><span id="labelPackagePublished"></span></h5>
+            </div>
+            <div class="row">
+                <h4>Downloads</h4>
+                <h5><span id="labelPackageDownloads"></span></h5>
+            </div>
+        </div>
+    </div>
 
-@{
+    <div id="NuGetGridData">
+        <div class="col-xs-12 col-centered">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="topGrid" class="gridStyle gridStyle-responsive-nuget" style="position:relative;margin-top:60px; min-height:300px" data-bind="koGrid: gridNuGet">
+                        <span id="loading" class="fa fa-spin fa-spinner fa-lg hidden" style="position:absolute;z-index:999;top:50%;right:50%">
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div id="bottomGrid" class="gridStyle gridStyle-responsive-nuget" style="position:relative;margin-top:60px; min-height:500px" data-bind="koGrid: gridNuGetAll">
+                        <span id="loadingBottom" class="fa fa-spin fa-spinner fa-lg hidden" style="position:absolute;z-index:999;top:50%;right:50%">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+</div>
+
+
+
+
+<script type="text/javascript"> 
  
-    foreach(var i in ViewBag.packages)
-    {
-        @Html.Raw(i +"\n");
-    };
-}
-</div>*@
+    function StartLoading(name1, name2){
+        document.getElementById(name1).className = "fa fa-spin fa-spinner fa-lg";
+        document.getElementById(name2).style.color = "darkgrey";
+    }
+    function StopLoading(name1, name2) {
+        document.getElementById(name1).className = "fa fa-spin fa-spinner fa-lg hidden";
+        document.getElementById(name2).style.color = "";
+    }
+</script>
+
+
+
+
+
+
+
+
+
 
 
 @section scripts
 {
-
+   
 
 <script type="text/javascript">
 
@@ -53,6 +96,7 @@
 
         var _this = this;
         Changesets = ko.observableArray([]);
+        ChangesetsAll = ko.observableArray([]);
 
         gridNuGet = {
             data: Changesets,
@@ -60,37 +104,74 @@
             columnDefs: [{ field: 'Id', displayName: 'Package Name'},
                 { field: 'Version', displayName: 'Version' },
                 { field: 'DownloadCount', displayName: 'Downloads' },
-                { field: 'Published', displayName: 'Published' },
+                { field: 'Published', displayName: 'Published', 
+                },
+            ]
+        };
+
+        gridNuGetAll = {
+            data: ChangesetsAll,
+            showGroupPanel: true,
+            columnDefs: [{ field: 'Id', displayName: 'Package Name' },
+                { field: 'Version', displayName: 'Version' },
+                { field: 'vSpec', displayName: 'Use searched package version' },
             ]
         };
 
         getChangesets = function()
         {
-            alert("Wyslano request");
-
+            document.getElementById("wrongNameInfo").textContent = "";
             var path = GetChangedUriInfo();
-
+            StartLoading("loading", "topGrid");
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json',
-                url: path + 'Home/Create',
+                url: path + 'Home/SinglePackage',
                 data: JSON.stringify({ name: ko.toJS(searchPackageName) }),
             }).done(function (data) {
-                
-                for (var i = 0; i < data.length; i++) {
-                    if (data[i].name == "") {
-                        alert("nie ma takiej paczki");
-                        break;
+                Changesets.removeAll();
+                if (data[0] == null)
+                    document.getElementById("wrongNameInfo").textContent = "Taka paczka nie istnieje.";//("//alert("Przykro mi, taka paczka nie istnieje");
+                else {
+                    getChangesetsAll();
+                    document.getElementById("labelPackageName").textContent = data[0].Id + " " + data[0].Version;
+                    document.getElementById("labelPackagePublished").textContent = data[0].Published;
+                    document.getElementById("labelPackageDownloads").textContent = data[0].DownloadCount;
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i] == null) {
+                            break;
+                        }
+                        Changesets.push(data[i]);
                     }
-                    Changesets.push(data[i]);
                 }
-              
-
-
- 
-                    alert("Juz");
-                
+                StopLoading("loading", "topGrid");
             });
+        }
+
+        getChangesetsAll = function () {
+
+            var path = GetChangedUriInfo();
+            StartLoading("loadingBottom", "bottomGrid");
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json',
+                url: path + 'Home/AllPackages',
+                data: JSON.stringify({ name: ko.toJS(searchPackageName) }),
+            }).done(function (data) {
+                ChangesetsAll.removeAll();
+                if (data[0] != null)
+                {
+                    for (var i = 0; i < data.length; i++) {
+                        if (data[i] == null) {
+                            break;
+                        }
+                        ChangesetsAll.push(data[i]);
+                    }
+                }
+                StopLoading("loadingBottom", "bottomGrid");
+            });
+
+            
         }
     };
     ko.applyBindings(viewModel);

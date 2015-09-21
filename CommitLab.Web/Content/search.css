@@ -39,6 +39,11 @@
     width:100%;
 }
 
+.gridStyle-responsive-nuget{
+    margin-left:15px;
+    margin-right:15px;
+}
+
 @media (min-width: 992px) {
     .row-centered {
         text-align: center;
@@ -93,6 +98,14 @@
 
 }
 
+@media (max-width: 1200px)
+{    .gridStyle-responsive-nuget {
+        margin-left: 0px;
+        border-left:0px;
+    }
+
+}
+
 
 
 
@@ -120,7 +133,8 @@
     .topic {
     width:44%;
     }
- 
+
+    
 }
 
 @media (min-width: 1000px) and (max-width: 1200px)
@@ -132,14 +146,14 @@
     {
         margin-left:16px;
     }
-
-
+ 
 }
 
 @media (min-width: 800px) and (max-width: 1000px){
         .gridStyle-responsive { 
         width: 50%;
     } 
+
 
     .col-input-btn
     {

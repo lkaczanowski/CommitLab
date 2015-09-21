@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Linq;
 using CommitLab.Data.Models;
+using CommitLab.Web.Models;
 
 namespace CommitLab.Web.Controllers
 {
@@ -35,64 +36,83 @@ namespace CommitLab.Web.Controllers
     }
 
     [HttpPost]
-    public JsonResult Create(string name)
+    public JsonResult SinglePackage(string name)
     {
-        return Json(GetNuGetData(name));
+        return Json(GetSinglePackage(name));
     }
 
-    public IPackage[] GetNuGetData(string name)
+    [HttpPost]
+    public JsonResult AllPackages(string name)
+    {
+        return Json(GetAllPackages(name));
+    }
+
+
+    public NuGetPackageInfo[] GetSinglePackage(string name)
     {
         {
             var packageSource = "http://teamcity/krd.nugetgallery/nuget/";
-            var searchPackage = name;// "KRD.Nhibernate";
+            var searchPackage = name;
 
             var repository = PackageRepositoryFactory.Default.CreateRepository(packageSource);
             
             //var packages = repository.GetPackages().Where(p => p.IsLatestVersion);
-            var packages = from x in repository.GetPackages() where x.Id == searchPackage select x;
+            var packages = from x in repository.GetPackages() orderby x.Version descending where x.Id == searchPackage select x;
+     
 
  
             var pCount = packages.Count();
-            var tableOfData = new IPackage[pCount];
+            var tableOfData = new NuGetPackageInfo[pCount];
             if (pCount > 0)
             {
                 string[] table = new string[pCount];
                 var i = 0;
 
-                foreach (var b in packages)
+                foreach (var package in packages)
                 {
-                    tableOfData[i] = b;
-                   
+                    tableOfData[i] = new NuGetPackageInfo(package);
                         i++;
                 }
 
  
             }
-
             return tableOfData;
-
-            //Dictionary<IPackage, IVersionSpec> dependentPackages = new Dictionary<IPackage, IVersionSpec>();
-
-            //foreach (IPackage package in packages)
-            //{
-            //    foreach (var packageDependencySet in package.DependencySets)
-            //    {
-            //        foreach (var dependency in packageDependencySet.Dependencies)
-            //        {
-            //            if (dependency.Id == searchPackage)
-            //            {
-            //                dependentPackages.Add(package, dependency.VersionSpec);
-            //            }
-            //        }
-            //    }
-            //}
-
-            //foreach (var dependentPackage in dependentPackages)
-            //{
-            //    Console.WriteLine("{0} use {1} {2}", dependentPackage.Key.GetFullName(), searchPackage, dependentPackage.Value);
-            //}
         }
     }
+
+    public NuGetPackageInfo[] GetAllPackages(string name)
+    {
+        var packageSource = "http://teamcity/krd.nugetgallery/nuget/";
+        var searchPackage = name;
+
+        var repository = PackageRepositoryFactory.Default.CreateRepository(packageSource);
+
+        //var packages = repository.GetPackages().Where(p => p.IsLatestVersion);
+        var packages = from x in repository.GetPackages() orderby x.Id, x.Version descending where x.IsLatestVersion == true select x;
+
+        var pCount = packages.Count();
+        var tableOfData = new NuGetPackageInfo[pCount];
+        var i = 0;
+      foreach (IPackage package in packages)
+      {
+        foreach (var packageDependencySet in package.DependencySets)
+        {
+          foreach (var dependency in packageDependencySet.Dependencies)
+          {
+            if (dependency.Id == searchPackage)
+            {
+                tableOfData[i] = new NuGetPackageInfo(package, dependency.VersionSpec);
+                i++;
+            }
+          }
+        }
+      }
+ 
+        return tableOfData;
+    }
+
+ 
+
 
     private string ParseLoginName(string model)
     {
