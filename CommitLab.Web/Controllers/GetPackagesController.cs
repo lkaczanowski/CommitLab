@@ -40,7 +40,7 @@ namespace CommitLab.Web.Controllers
                 var repository = PackageRepositoryFactory.Default.CreateRepository(packageSource);
 
                 //var packages = repository.GetPackages().Where(p => p.IsLatestVersion);
-                var packages = from x in repository.GetPackages() orderby x.Version descending where x.Id == searchPackage select x;
+                var packages = from x in repository.GetPackages() orderby x.Version descending where x.Id.ToLower() == searchPackage.ToLower() select x;
 
                // var pCount = packages.Count();
                 var dataList = new List<NuGetPackageInfo>();
@@ -63,7 +63,7 @@ namespace CommitLab.Web.Controllers
             var repository = PackageRepositoryFactory.Default.CreateRepository(packageSource);
 
             //var packages = repository.GetPackages().Where(p => p.IsLatestVersion);
-            var packages = from x in repository.GetPackages() orderby x.Version descending where x.Id == searchPackage select x;
+            var packages = from x in repository.GetPackages() orderby x.Version descending where x.Id.ToLower() == searchPackage.ToLower() select x;
 
          //   var pCount = packages.Count();
             var dataList = new List<String>();
@@ -104,7 +104,7 @@ namespace CommitLab.Web.Controllers
                 {
                     foreach (var dependency in packageDependencySet.Dependencies)
                     {
-                        if (dependency.Id == searchPackage)
+                        if (dependency.Id.ToLower() == searchPackage.ToLower())
                         {
                             dataList.Add( new NuGetPackageInfo(package, dependency.VersionSpec));
                         }

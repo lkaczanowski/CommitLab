@@ -45,11 +45,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <h2 style="margin-bottom:10px">Dependencies</h2>
-
                         <span id="loadingDependencies" class="fa fa-spin fa-spinner fa-lg hidden" style="margin-top:20px"></span>
-
-
-
                         <h4 id="labelDependencies"></h4>
                     </div>
                 </div>
@@ -73,161 +69,13 @@
 
 
 
-
-<script type="text/javascript"> 
- 
-    function StartLoading(name1, name2){
-        document.getElementById(name1).className = "fa fa-spin fa-spinner fa-lg";
-
-        if (name2 != null) {
-            document.getElementById(name2).style.color = "darkgrey";
-        }
-    }
-    function StopLoading(name1, name2) {
-        document.getElementById(name1).className = "fa fa-spin fa-spinner fa-lg hidden";
-
-        if (name2 != null) {
-            document.getElementById(name2).style.color = "";
-        }
-    }
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-   @section scripts
+@section scripts
 {
-
-
-<script type="text/javascript">
-
-
-    var viewModel = function(){
-        var that = this;
-        searchPackageName = ko.observable("");        // Initially blank
-
-        var _this = this;
-        Changesets = ko.observableArray([]);
-        ChangesetsAll = ko.observableArray([]);
-
-        gridNuGet = {
-            data: Changesets,
-            showGroupPanel: true,
-            columnDefs: [{ field: 'Id', displayName: 'Package Name'},
-                { field: 'Version', displayName: 'Version' },
-                { field: 'Published', displayName: 'Last Published',
-                },
-            ]
-        };
-
-        gridNuGetAll = {
-            data: ChangesetsAll,
-            showGroupPanel: true,
-            columnDefs: [{ field: 'Id', displayName: 'Package Name' },
-                { field: 'Version', displayName: 'Version' },
-                { field: 'vSpec', displayName: 'Use searched package version' },
-            ]
-        };
-
-        getDependencies = function () {
-            if (searchPackageName != "") {
-
-                var path = GetChangedUriInfo();
-                StartLoading("loadingDependencies", null);
-                $('#labelDependencies').empty();
-                $.ajax({
-                    type: 'POST',
-                    async: true,
-                    contentType: 'application/json',
-                    url: path + 'GetPackages/SinglePackageDependencies',
-                    data: JSON.stringify({ name: ko.toJS(searchPackageName) }),
-                }).done(function (data) {
-                    var content = "<table>"
-                    if (data[0] == null) {
-                        content += '<tr><td>' + "No packages" + '</td></tr>';
-                    } else {
-                        for (var i = 0; data[i] != null; i++) {
-                            content += '<tr><td>' + data[i] + '</td></tr>';
-                        }
-                    }
-                    content += "</table>"
-                    StopLoading("loadingDependencies", null);
-                    $('#labelDependencies').append(content);
-                });
-                
-            }
-        }
-
-        getChangesetsAll = function () {
-            if (searchPackageName != "") {
-
-                var path = GetChangedUriInfo();
-                StartLoading("loadingBottom", "bottomGrid");
-                $.ajax({
-                    type: 'POST',
-                    async: true,
-                    contentType: 'application/json',
-                    url: path + 'GetPackages/AllPackages',
-                    data: JSON.stringify({ name: ko.toJS(searchPackageName) }),
-                }).done(function (data) {
-                    //ChangesetsAll.removeAll();
-                    ChangesetsAll(data);
-
-                    StopLoading("loadingBottom", "bottomGrid");
-                });
-
-            }
-        }
-
-        getChangesets = function()
-        {
-            document.getElementById("wrongNameInfo").textContent = "";
-            var path = GetChangedUriInfo();
-            StartLoading("loading", "topGrid");
-            $.ajax({
-                type: 'POST',
-                async: true,
-                contentType: 'application/json',
-                url: path + 'GetPackages/SinglePackage',
-                data: JSON.stringify({ name: ko.toJS(searchPackageName) }),
-            }).done(function (data) {
-                Changesets.removeAll();
-                if (data[0] == null){
-                    document.getElementById("wrongNameInfo").textContent = "Sorry, package doesn't exist.";//("//alert("Przykro mi, taka paczka nie istnieje");
-                    document.getElementById("labelPackageName").textContent = "Package Name";
-                    document.getElementById("labelPackagePublished").textContent = "";
-                    ChangesetsAll.removeAll();
-                }
-                else {                     
-                    document.getElementById("labelPackageName").textContent = data[0].Id + " " + data[0].Version;
-                    document.getElementById("labelPackagePublished").textContent = data[0].Published;
-
-                    Changesets(data);
-                    getDependencies();
-                    getChangesetsAll();
-                }
-                StopLoading("loading", "topGrid");
-            });
-
-        }
-
-
-    };
-    ko.applyBindings(viewModel);
-
-
-
-</script>
-
-
+<script src="@Url.Content("~/Scripts/nugetPackagesAnimateLoading.js")"></script>
+<script src="@Url.Content("~/Scripts/ViewModels/nugetPackagesViewModel.js")"></script>
+<script>
+   ko.applyBindings(new nugetPackagesViewModel());
+ </script>
 
 }
    
