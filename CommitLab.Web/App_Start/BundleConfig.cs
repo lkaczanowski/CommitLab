@@ -50,7 +50,8 @@ namespace CommitLab.Web
           "~/Content/font-awesome.min.css",
         "~/Content/search.css",
         "~/Content/bootstrap-typehead.css",
-        "~/Content/index.css"));
+        "~/Content/index.css",
+        "~/Content/NuGet.css"));
 
     
     }

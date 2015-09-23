@@ -1,0 +1,10 @@
+﻿
+.gridPadding{
+    padding-left:0px;
+}
+
+@media (max-width: 1200px) {
+    .gridPadding{
+    padding-left:15px;
+}
+}

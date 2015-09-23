@@ -1,5 +1,4 @@
-﻿using NuGet;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Linq;
@@ -26,7 +25,6 @@ namespace CommitLab.Web.Controllers
     [Authorize]
       public ActionResult NuGet()
       {
-          ViewBag.nuGetData = "NugET";
           return View();
       }
 
@@ -35,81 +33,8 @@ namespace CommitLab.Web.Controllers
         return View();
     }
 
-    [HttpPost]
-    public JsonResult SinglePackage(string name)
-    {
-        return Json(GetSinglePackage(name));
-    }
 
-    [HttpPost]
-    public JsonResult AllPackages(string name)
-    {
-        return Json(GetAllPackages(name));
-    }
-
-
-    public NuGetPackageInfo[] GetSinglePackage(string name)
-    {
-        {
-            var packageSource = "http://teamcity/krd.nugetgallery/nuget/";
-            var searchPackage = name;
-
-            var repository = PackageRepositoryFactory.Default.CreateRepository(packageSource);
-            
-            //var packages = repository.GetPackages().Where(p => p.IsLatestVersion);
-            var packages = from x in repository.GetPackages() orderby x.Version descending where x.Id == searchPackage select x;
-     
-
- 
-            var pCount = packages.Count();
-            var tableOfData = new NuGetPackageInfo[pCount];
-            if (pCount > 0)
-            {
-                string[] table = new string[pCount];
-                var i = 0;
-
-                foreach (var package in packages)
-                {
-                    tableOfData[i] = new NuGetPackageInfo(package);
-                        i++;
-                }
-
- 
-            }
-            return tableOfData;
-        }
-    }
-
-    public NuGetPackageInfo[] GetAllPackages(string name)
-    {
-        var packageSource = "http://teamcity/krd.nugetgallery/nuget/";
-        var searchPackage = name;
-
-        var repository = PackageRepositoryFactory.Default.CreateRepository(packageSource);
-
-        //var packages = repository.GetPackages().Where(p => p.IsLatestVersion);
-        var packages = from x in repository.GetPackages() orderby x.Id, x.Version descending where x.IsLatestVersion == true select x;
-
-        var pCount = packages.Count();
-        var tableOfData = new NuGetPackageInfo[pCount];
-        var i = 0;
-      foreach (IPackage package in packages)
-      {
-        foreach (var packageDependencySet in package.DependencySets)
-        {
-          foreach (var dependency in packageDependencySet.Dependencies)
-          {
-            if (dependency.Id == searchPackage)
-            {
-                tableOfData[i] = new NuGetPackageInfo(package, dependency.VersionSpec);
-                i++;
-            }
-          }
-        }
-      }
- 
-        return tableOfData;
-    }
+  
 
  
 

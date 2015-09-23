@@ -208,6 +208,7 @@
     <Compile Include="Api\Services\Changeset\Dto\ChangeSetResponse.cs" />
     <Compile Include="App_Start\AppHost.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Controllers\GetPackagesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
@@ -237,6 +238,7 @@
     <Content Include="Content\main.css" />
     <Content Include="Content\metisMenu.css" />
     <Content Include="Content\metisMenu.min.css" />
+    <Content Include="Content\NuGet.css" />
     <Content Include="Content\search.css" />
     <Content Include="Content\timeline.css" />
     <Content Include="css\font-awesome.css" />
@@ -320,6 +322,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\GetPackages\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
