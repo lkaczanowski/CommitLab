@@ -6,19 +6,15 @@
 <div class="container">
   
 
-      <div class="row">
-
+    <div class="row">
       <h1>CommitLab</h1>
       <div class="col-xs-9" style="padding-right:50px"><p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p></div>
     </div>
     <div id="forms" class="row">
-
         <div class="col-big col-lg-6 col-md-12 col-xs-12" id="datesViewModel">
             <form>
                 <fieldset>
-
                     <div class="topic">Daty</div>
-
                     <div class="row">
                         <label style="margin-top:18px; margin-left:15px">Data od</label>
                     </div>
@@ -32,8 +28,6 @@
                     </div>
                     <div class="row">
                         <label style="margin-left:15px">Data do</label>
-
-
                         <div class="input-append">
                             <div class="col-xs-12">
                                 <input autocomplete="off" class="input-box" style="margin-top:0px" id="dateTo" readonly="" type="text" data-bind="datepicker: DateTo" />
@@ -50,15 +44,13 @@
                     <div class="topic"> Użytkownicy</div>
                     <div class="row">
                         <div class="input-append input-append-frame">
-                            @*<div class="col-lg-8 col-md-6 col-sm-4 col-xs-12">*@
                             <div class="col-xs-12 col-input-btn">
                                 <div class="row">
-                                <input type="text" id="userNameToAdd" class="input-box" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
-
-                                <button type="button" class="btn btn-success btn-frame" data-bind="click: addUserName, enable: UserNameToAdd().length > 0">+</button>
-                                <button type="button" class="btn btn-danger btn-frame" data-bind="click: removeUserName, enable: UserNameSelected().length > 0">-</button>
-                            </div>
+                                  <input type="text" id="userNameToAdd" class="input-box" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
+                                  <button type="button" class="btn btn-success btn-frame" data-bind="click: addUserName, enable: UserNameToAdd().length > 0">+</button>
+                                  <button type="button" class="btn btn-danger btn-frame" data-bind="click: removeUserName, enable: UserNameSelected().length > 0">-</button>
                                 </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -73,10 +65,8 @@
                     <div class="topic">Gałęzie</div>
                     <div class="row">
                         <div class="input-append input-append-frame">
-                            @*<div class="col-lg-8 col-md-12 col-xs-12">*@
                             <div class="col-xs-12">
                                 <input type="text" id="branchNameToAdd" class="input-box" data-bind='typeahead: BranchNameList, value: BranchNameToAdd, valueUpdate: "afterkeydown"' />
-
                                 <button type="button" class="btn btn-success btn-frame" data-bind="click: addBranchName, enable: BranchNameToAdd().length > 0">+</button>
                                 <button type="button" class="btn btn-danger btn-frame" data-bind="click: removeBranchName, enable: BranchNameSelected().length > 0">-</button>
                             </div>
@@ -97,7 +87,6 @@
                         <div class="input-append input-append-frame">
                             <div class="col-xs-12">
                                 <input type="text" id="repositoryNameToAdd" class="input-box" data-bind='typeahead: RepositoryNameList, value: RepositoryNameToAdd, valueUpdate: "afterkeydown"' />
-
                                 <button type="button" class="btn btn-success btn-frame" data-bind="click: addRepositoryName, enable: RepositoryNameToAdd().length > 0">+</button>
                                 <button type="button" class="btn btn-danger btn-frame" data-bind="click: removeRepositoryName, enable: RepositoryNameSelected().length > 0">-</button>
                             </div>
@@ -115,13 +104,10 @@
               <div class="col-xs-1">
                 <a class="btn btn-primary btn-lg" style="margin-top:60px; padding:60px; padding-top:15px; padding-bottom:15px" id="submitData" data-bind="click: getChangesets">Szukaj &raquo;</a>
               </div>
-              @*<div class="col-xs-11" style="padding-left:40px">
-                  <div style="width:90%;border-bottom:3px dotted; border-bottom-color:#286090 ;padding-top:85px"></div>
-              </div>*@
           </div>
           <div class="row">
               <div class="col-xs-12">
-              <div class="gridStyle gridStyle-responsive" style="margin-top:60px; min-height:300px"  data-bind="koGrid: gridOptions"></div>
+                 <div class="gridStyle gridStyle-responsive" style="margin-top:60px; min-height:300px"  data-bind="koGrid: gridOptions"></div>
               </div>
           </div>
       </div>

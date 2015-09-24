@@ -12,6 +12,8 @@ using ServiceStack.Mvc;
 using ServiceStack.OrmLite;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
+using CommitLab.Web.Services;
+using NuGet;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(AppHost), "Start")]
 
@@ -20,9 +22,6 @@ namespace CommitLab.Web
   public class AppHost
     : AppHostBase
   {
-
-
-
     public AppHost()
       : base("CommitLab ASP.NET Host", typeof(ChangesetService).Assembly)
     {
@@ -31,7 +30,6 @@ namespace CommitLab.Web
     public static void Start()
     {
       new AppHost().Init();
-     
     }
 
     public override void Configure(Funq.Container container)
@@ -52,6 +50,10 @@ namespace CommitLab.Web
 
       container.RegisterAs<OrmLiteChangesetQuery, IChangesetQuery>();
 
+      var nuGetPackageFeed = ConfigurationManager.AppSettings["NugetPackageFeedUrl"];
+
+      container.Register<INugetFeedClient>(c => new NugetFeedClient(PackageRepositoryFactory.Default.CreateRepository(nuGetPackageFeed)));
+      
       container.Register<ICacheClient>(new MemoryCacheClient());
     }
   }

@@ -216,6 +216,9 @@
     </Compile>
     <Compile Include="Models\NuGetPackageInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Entites\NuGetPackageInfo.cs" />
+    <Compile Include="Service\INugetFeedClient.cs" />
+    <Compile Include="Service\NugetFeedClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
