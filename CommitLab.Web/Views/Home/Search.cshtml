@@ -4,83 +4,116 @@
 }
 
 <div class="container">
-  <div class="span12">
-    <div class="hero-unit2 row">
-        <h3 id="currectUser">Zalogowany jako: @User.Identity.Name</h3>
+  
+
+    <div class="row">
       <h1>CommitLab</h1>
-      <p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p>
+      <div class="col-xs-9" style="padding-right:50px"><p>Przeglądarka repozytorium SourceMiner, gdzie przechowywana jest historia zmian ze wszystkich repozytoriów (SVN + Mercurial)</p></div>
     </div>
     <div id="forms" class="row">
-      <div class="span3 span3-no-margin" id="datesViewModel">
-        <form >
-          <fieldset>
-            <legend>Daty</legend>
-            <label>Data od</label>
-            <div class="input-append">
-              <input class="span2" autocomplete="off" id="dateFrom" readonly="" type="text" data-bind="datepicker: DateFrom"/>
-              <button type="button" class="btn btn-danger" data-bind="click: clearDateFrom">x</button>
-            </div>
-            <label>Data do</label>
-            <div class="input-append">
-              <input class="span2" autocomplete="off" id="dateTo" readonly="" type="text" data-bind="datepicker: DateTo"/>
-              <button type="button" class="btn btn-danger" data-bind="click: clearDateTo">x</button>
-            </div>
-          </fieldset>
-        </form>
-      </div>
-      <div class="span3 span3-no-margin" id="userNameViewModel">
-        <form>
-          <fieldset>
-            <legend>Użytkownicy</legend>
-            <div class="input-append">
-              <input type="text" class="span2" id="userNameToAdd" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
-              <button type="button" class="btn btn-success" data-bind="click: addUserName, enable: UserNameToAdd().length > 0">+</button>
-              <button type="button" class="btn btn-danger" data-bind="click: removeUserName, enable: UserNameSelected().length > 0">-</button>
-            </div>
-            <br />
-            <select multiple="multiple" class="span2" height="5" data-bind="options: UserNames, selectedOptions: UserNameSelected"> </select>
-          </fieldset>
-        </form>
-      </div>
-      <div class="span3 span3-no-margin" id="branchNameViewModel">
-        <form >
-          <fieldset>
-            <legend>Gałęzie</legend>
-            <div class="input-append">
-              <input type="text" class="span2" id="branchNameToAdd" data-bind='typeahead: BranchNameList, value: BranchNameToAdd, valueUpdate: "afterkeydown"' />
-              <button type="button" class="btn btn-success" data-bind="click: addBranchName, enable: BranchNameToAdd().length > 0">+</button>
-              <button type="button" class="btn btn-danger" data-bind="click: removeBranchName, enable: BranchNameSelected().length > 0">-</button>
-            </div>
-            <br />
-            <select multiple="multiple" class="span2" height="5" data-bind="options: BranchNames, selectedOptions: BranchNameSelected"> </select>
-          </fieldset>
-        </form>
-      </div>
-      <div class="span3 span3-no-margin" id="repositoryNameViewModel">
-        <form>
-          <fieldset>
-            <legend>Repozytoria</legend>
-            <div class="input-append">
-              <input type="text" class="span2" id="repositoryNameToAdd" data-bind='typeahead: RepositoryNameList, value: RepositoryNameToAdd, valueUpdate: "afterkeydown"' />
-              <button type="button" class="btn btn-success" data-bind="click: addRepositoryName, enable: RepositoryNameToAdd().length > 0">+</button>
-              <button type="button" class="btn btn-danger" data-bind="click: removeRepositoryName, enable: RepositoryNameSelected().length > 0">-</button>
-            </div>
-            <br />
-            <select class="span2" multiple="multiple" height="5" data-bind="options: RepositoryNames, selectedOptions: RepositoryNameSelected"> </select>
-          </fieldset>
-        </form>
-      </div>
+        <div class="col-big col-lg-6 col-md-12 col-xs-12" id="datesViewModel">
+            <form>
+                <fieldset>
+                    <div class="topic">Daty</div>
+                    <div class="row">
+                        <label style="margin-top:18px; margin-left:15px">Data od</label>
+                    </div>
+                    <div class="row">
+                        <div class="input-append">
+                            <div class="col-xs-12">
+                                <input autocomplete="off" class="input-box" style="margin-top:0px" id="dateFrom" readonly="" type="text" data-bind="datepicker: DateFrom" />
+                                <button type="button" class="btn btn-danger btn-frame" style="margin-top:0px" data-bind="click: clearDateFrom">x</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label style="margin-left:15px">Data do</label>
+                        <div class="input-append">
+                            <div class="col-xs-12">
+                                <input autocomplete="off" class="input-box" style="margin-top:0px" id="dateTo" readonly="" type="text" data-bind="datepicker: DateTo" />
+                                <button type="button" class="btn btn-danger btn-frame" style="margin-top:0px" data-bind="click: clearDateTo">x</button>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-big col-lg-6 col-md-12 col-xs-12" id="userNameViewModel">
+            <form>
+                <fieldset>
+                    <div class="topic"> Użytkownicy</div>
+                    <div class="row">
+                        <div class="input-append input-append-frame">
+                            <div class="col-xs-12 col-input-btn">
+                                <div class="row">
+                                  <input type="text" id="userNameToAdd" class="input-box" data-bind='typeahead: UserNameList, value: UserNameToAdd, valueUpdate: "afterkeydown"' />
+                                  <button type="button" class="btn btn-success btn-frame" data-bind="click: addUserName, enable: UserNameToAdd().length > 0">+</button>
+                                  <button type="button" class="btn btn-danger btn-frame" data-bind="click: removeUserName, enable: UserNameSelected().length > 0">-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <select multiple="multiple" class="col-md-12 multiple-layout" data-bind="options: UserNames, selectedOptions: UserNameSelected"> </select>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-big col-lg-6 col-md-12 col-xs-12" id="branchNameViewModel">
+            <form>
+                <fieldset>
+                    <div class="topic">Gałęzie</div>
+                    <div class="row">
+                        <div class="input-append input-append-frame">
+                            <div class="col-xs-12">
+                                <input type="text" id="branchNameToAdd" class="input-box" data-bind='typeahead: BranchNameList, value: BranchNameToAdd, valueUpdate: "afterkeydown"' />
+                                <button type="button" class="btn btn-success btn-frame" data-bind="click: addBranchName, enable: BranchNameToAdd().length > 0">+</button>
+                                <button type="button" class="btn btn-danger btn-frame" data-bind="click: removeBranchName, enable: BranchNameSelected().length > 0">-</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <select multiple="multiple" class="col-md-12 multiple-layout" data-bind="options: BranchNames, selectedOptions: BranchNameSelected"> </select>
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-big col-lg-6 col-md-12 col-xs-12" id="repositoryNameViewModel">
+            <form>
+                <fieldset>
+                    <div class="topic">Repozytoria</div>
+                    <div class="row">
+                        <div class="input-append input-append-frame">
+                            <div class="col-xs-12">
+                                <input type="text" id="repositoryNameToAdd" class="input-box" data-bind='typeahead: RepositoryNameList, value: RepositoryNameToAdd, valueUpdate: "afterkeydown"' />
+                                <button type="button" class="btn btn-success btn-frame" data-bind="click: addRepositoryName, enable: RepositoryNameToAdd().length > 0">+</button>
+                                <button type="button" class="btn btn-danger btn-frame" data-bind="click: removeRepositoryName, enable: RepositoryNameSelected().length > 0">-</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <select multiple="multiple" class="col-md-12 multiple-layout" data-bind="options: RepositoryNames, selectedOptions: RepositoryNameSelected"> </select>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
-    <div id="changesetViewModel">
-      <div class="row">
-        <p><a class="btn btn-primary btn-large" id="submitData" data-bind="click: getChangesets">Szukaj &raquo;</a></p>
+      <div id="changesetViewModel">
+          <div class="row">
+              <div class="col-xs-1">
+                <a class="btn btn-primary btn-lg" style="margin-top:60px; padding:60px; padding-top:15px; padding-bottom:15px" id="submitData" data-bind="click: getChangesets">Szukaj &raquo;</a>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-xs-12">
+                 <div class="gridStyle gridStyle-responsive" style="margin-top:60px; min-height:300px"  data-bind="koGrid: gridOptions"></div>
+              </div>
+          </div>
       </div>
-      <div class="row">
-        <div class="gridStyle" data-bind="koGrid: gridOptions"></div>
-      </div>      
-    </div>
-  </div>
+  
 </div>
+
 @section scripts
 {
   <script type="text/javascript" src="@Url.Content("~/Scripts/main.js")"> </script>

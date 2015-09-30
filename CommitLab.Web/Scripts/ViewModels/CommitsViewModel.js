@@ -5,6 +5,7 @@
     var _value;
     var option = 1; //1 - by repos, 0 - by dates
     var username;
+    var infoSubString;
     var type = 1; //1 - getCommits, 0 - getCommitsOneDay
     this.noActivity = ko.observable('');
     this.periodInfo = ko.observable("Period: 1 week");
@@ -13,7 +14,7 @@
     this.groupArray = ko.observableArray([]);
     this.reposArray = ko.observableArray([]);
     this.commitsArraySortedBydate = ko.observableArray([]);
-
+      
 
     this.setPeriod = function (value) {
       period = value;
@@ -33,7 +34,11 @@
       }
     }
     this.setUsername = function (value) {
-      username = value;
+        username = value;
+        if (username == "You")
+            infoSubString = " have"
+        else
+            infoSubString = " has"
     }
     this.clearArrays = function () {
       while (_this.commitsPeriodTable().length > 0) {
@@ -95,7 +100,7 @@
 
     function createInfoString() {
       if (_this.commitsPeriodTable().length === 0) {
-        _this.noActivity(username + " has no activity during this period.");
+          _this.noActivity(username + infoSubString + " no activity during this period.");
       } else {
         for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
           var shortDate = getShortDate(_this.commitsPeriodTable()[i].date);
@@ -194,7 +199,7 @@
         } else {
           _this.commitsPeriodTable.sort(compareCommitsBydate);
           if (_this.commitsPeriodTable().length === 0) {
-            _this.noActivity(username + " has no activity during this period.");
+              _this.noActivity(username + infoSubString + " no activity during this period.");
           } else {
             for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
               var shortDate = getShortDate(_this.commitsPeriodTable()[i].date);
@@ -248,7 +253,7 @@
       } else {
         _this.commitsPeriodTable.sort(compareCommitsBydate);
         if (_this.commitsPeriodTable().length === 0) {
-          _this.noActivity(username + " has no activity during this period.");
+            _this.noActivity(username + infoSubString + " no activity during this period.");
         } else {
           for (var i = 0; i < _this.commitsPeriodTable().length; i++) {
             var shortDate = getShortDate(_this.commitsPeriodTable()[i].date);

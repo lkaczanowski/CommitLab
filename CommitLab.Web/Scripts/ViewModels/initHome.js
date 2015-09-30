@@ -5,9 +5,10 @@ var repositoryNameViewModel = new RepositoryNameViewModel();
 var calendarViewModel = new CalendarViewModel(new ChangesetFilter());
 var commitsViewModel = new CommitsViewModel();
 var userName = new UserName();
+var path = GetChangedUriInfo();
 
 $.ajax({
-  url: '/api/changeset/usernames',
+  url:  path + 'api/changeset/usernames',
   dataType: 'json',
   async: false,
   success: function (data, status) {
@@ -16,11 +17,11 @@ $.ajax({
 });
 
 
-$.getJSON('/api/changeset/branchnames', function (data, status) {
+$.getJSON(path + 'api/changeset/branchnames', function (data, status) {
     branchNameViewModel.loadBranchNameList(data);
 });
 
-$.getJSON('/api/changeset/repositorynames', function (data, status) {
+$.getJSON(path + 'api/changeset/repositorynames', function (data, status) {
     repositoryNameViewModel.loadRepositoryNameList(data);
 });
 

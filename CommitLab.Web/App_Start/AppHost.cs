@@ -12,6 +12,8 @@ using ServiceStack.Mvc;
 using ServiceStack.OrmLite;
 using ServiceStack.Text;
 using ServiceStack.WebHost.Endpoints;
+using CommitLab.Web.Services;
+using NuGet;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(AppHost), "Start")]
 
@@ -48,6 +50,10 @@ namespace CommitLab.Web
 
       container.RegisterAs<OrmLiteChangesetQuery, IChangesetQuery>();
 
+      var nuGetPackageFeed = ConfigurationManager.AppSettings["NugetPackageFeedUrl"];
+
+      container.Register<INugetFeedClient>(c => new NugetFeedClient(PackageRepositoryFactory.Default.CreateRepository(nuGetPackageFeed)));
+      
       container.Register<ICacheClient>(new MemoryCacheClient());
     }
   }

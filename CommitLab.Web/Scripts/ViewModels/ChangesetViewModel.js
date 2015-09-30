@@ -16,10 +16,11 @@
 
         this.getChangesets = function () {
             var model = ko.toJSON(_this.Filter);
+            var path = GetChangedUriInfo();
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json',
-                url: '/api/changeset',
+                url: path +'api/changeset',
                 data: model
             }).done(function (data) {
                 _this.Changesets(data);

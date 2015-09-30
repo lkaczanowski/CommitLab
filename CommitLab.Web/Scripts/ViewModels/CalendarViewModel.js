@@ -83,10 +83,11 @@ var CalendarViewModel = (function () {
       } 
       if (!isLoad) {
         var model = ko.toJSON(_this.Filter);
+        var path = GetChangedUriInfo();
         $.ajax({
           type: 'POST',
           contentType: 'application/json',
-          url: '/api/changeset',
+          url: path + 'api/changeset',
           async: false,
           data: model
         }).done(function (data) {

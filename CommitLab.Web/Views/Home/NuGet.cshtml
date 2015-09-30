@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="col-sm-8 col-xs-10" style="margin-top:50px">
+                <div class="input-group" style="padding-left:15px">
+                    <input id="nuGetSearchPlaceholder" type="text" class="form-control" data-bind="textInput: searchPackageName" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button id="submitData" class="btn btn-default" type="button" data-bind="click: function(){getChangesets()}">Search</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-xs-6">
+                    <span class="form-group" id="wrongNameInfo" style="color:red; font-size:16px;"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="row" style="margin-top:50px">
+                <div class="col-sm-12 col-md-5">
+                    <h1><span id="labelPackageName">Package name</span></h1>
+                </div>
+                <div class="col-sm-12 col-md-6 col-md-offset-1">
+                        <h3>Last Published</h3>
+                        <h4><span id="labelPackagePublished"></span></h4>
+                </div>
+            </div>
+        </div>
+        <div id="NuGetGridData">
+            <div class="col-xs-12">
+                <div class="row">
+                    <div class="col-xs-12 gridPadding">
+                        <div id="topGrid" class="gridStyle gridStyle-responsive-nuget" style="position:relative;margin-top:60px; min-height:300px" data-bind="koGrid: gridNuGet">
+                            <span id="loading" class="fa fa-spin fa-spinner fa-lg hidden" style="position:absolute;z-index:999;top:50%;right:50%">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2 style="margin-bottom:10px">Dependencies</h2>
+                        <span id="loadingDependencies" class="fa fa-spin fa-spinner fa-lg hidden" style="margin-top:20px"></span>
+                        <h4 id="labelDependencies"></h4>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:40px">
+                    <div class="col-xs-12">
+                        <h2>Used by</h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 gridPadding">
+                        <div id="bottomGrid" class="gridStyle gridStyle-responsive-nuget" style="position:relative;margin-top:10px; min-height:500px" data-bind="koGrid: gridNuGetAll">
+                           <span id="loadingBottom" class="fa fa-spin fa-spinner fa-lg hidden" style="position:absolute;z-index:999;top:50%;right:50%">
+                          </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+<script src="@Url.Content("~/Scripts/nugetPackagesAnimateLoading.js")"></script>
+<script src="@Url.Content("~/Scripts/ViewModels/nugetPackagesViewModel.js")"></script>
+<script>
+   ko.applyBindings(new nugetPackagesViewModel());
+ </script>
+
+}
+   

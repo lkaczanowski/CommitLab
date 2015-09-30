@@ -1,0 +1,6 @@
+﻿@media (max-width:800px){
+    .jumbotron-responsive
+    {
+        max-width:95%;
+    }
+}
